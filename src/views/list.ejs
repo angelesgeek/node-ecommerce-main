@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+</head>
+
+<body>
+    <%- include('./partials/headeradmin') %>
+
+    <main class="mt-5 pt-4">
+        <div class="container wow fadeIn animated">
+            <h2 class="mt-5 mb-3 h2 text-center">
+                Usuarios
+            </h2>
+            <div class="card mb-5">
+                    <div class="card-header">
+                        Ejemplo
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-md mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;">
+                                        <strong>#</strong>
+                                    </th>
+                                    <th class="th-lg">
+                                        <strong>Admin</strong>
+                                    </th>
+                                    <th class="th-lg">
+                                        <strong>Nombre</strong>
+                                    </th>
+                                    <th class="th-lg">
+                                        <strong>Mail</strong>
+                                    </th>
+                                    <th class="th-lg">
+                                        <strong>Pedidos</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach( user=> { %>
+                                    <%- include('./partials/user' ,{user}) %>
+                                        <% } ) %>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </main>
+   
+    <%- include('./partials/footer') %>
+    <%- include('./partials/scripts') %>
+</body>
