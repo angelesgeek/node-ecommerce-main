@@ -11,6 +11,10 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.STRING(100),
       allowNull: false,
     },
+    marca: {
+      type: dataTypes.STRING(100),
+      allowNull: false,
+    },
     img: {
       type: dataTypes.STRING(100),
       allowNull: true,
