@@ -28,7 +28,7 @@ router.get("/register", redirectIfAutenticated, controller.showRegister);
 router.post("/register", userValidationsLogin, controller.register);
 
 router.post("/logout", controller.logout);
-
+router.post("/sendMessage", controller.sendMessage);
 router.get("/profile", authMiddleware, controller.profile);
 
 module.exports = router;

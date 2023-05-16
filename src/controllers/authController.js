@@ -97,6 +97,23 @@ const controller = {
     // return res.send(orders);
     return res.render("auth/profile", { orders });
   },
+
+  sendMessage: async function(req, res) {
+    await db.Mensaje.create({
+      remitente: req.body.remitente,
+      mensaje: req.body.mensaje,
+    });
+    return res.render("auth/profile", { mensaje: req.body.mensaje });
+  },
+  messages: async function(req, res) {
+    let messages = await db.Mensaje.findAll();
+    return res.render("profile", { messages })
+}
+
+    //redireccion a perfil 
+   
 };
+  
+
 
 module.exports = controller;
