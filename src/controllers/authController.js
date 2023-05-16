@@ -94,24 +94,15 @@ const controller = {
     let orders = await db.Order.findAll({
       where: { userId: req.session.userLogged.id },
     });
-    // return res.send(orders);
-    return res.render("auth/profile", { orders });
-  },
 
-  sendMessage: async function(req, res) {
-    await db.Mensaje.create({
-      remitente: req.body.remitente,
-      mensaje: req.body.mensaje,
-    });
-    return res.render("auth/profile", { mensaje: req.body.mensaje });
-  },
-  messages: async function(req, res) {
+    console.log("mensaje controller")
     let messages = await db.Mensaje.findAll();
-    return res.render("profile", { messages })
-}
+       
 
-    //redireccion a perfil 
-   
+    // return res.send(orders);
+    return res.render("auth/profile", { "orders":orders, "messages":messages });
+  },
+
 };
   
 

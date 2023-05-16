@@ -17,6 +17,8 @@ const sessionTimeMiddleware = require("./middlewares/sessionTimeMiddleware");
 const menuMiddleware = require("./middlewares/menuMiddleware");
 const ordersRouter = require("./routes/orders");
 const reportsRouter = require("./routes/reports");
+const messageRouter = require("./routes/message");
+
 const app = express();
 
 // .ENV
@@ -49,6 +51,7 @@ app.use("/products/", productsRouter);
 app.use("/api/", apiRouter);
 app.use("/orders/", adminMiddleware, ordersRouter);
 app.use("/reports/", adminMiddleware, reportsRouter);
+app.use("/message/", messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

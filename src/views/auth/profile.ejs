@@ -79,7 +79,7 @@
                                                     class="fas fa-eye"></i></a>
                                         </td>
                                     </tr>
-                                    <% }); %>
+                                <% }); %>
                             </tbody>
                         </table>
                     </div>
@@ -103,9 +103,9 @@
                                             <strong>Mensaje</strong>
                                         </th>   
                                     </tr>
-                                    
-                                        <%- include('../partials/mensajesRecibidos') %>
-                                    
+                                    <% messages.forEach( mensaje=> { %>
+                                        <%- include('../partials/mensajesRecibidos', {mensaje}) %>
+                                    <% } ) %>
                                 </thead>
                         
                             
