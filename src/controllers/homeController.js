@@ -6,17 +6,18 @@ module.exports = {
         marked: 1,
       },
     });
-
-    return res.render("index", { title: "E-Commerce", products });
+    console.log("index userLogged "+ req.session.userLogged)
+    return res.render("index", { title: "E-Commerce", products, "user":req.session.userLogged });
   },
   cart: function (req, res) {
-    return res.render("cart");
+    return res.render("cart", {"user":req.session.userLogged});
   },
   order: async function (req, res) {
     let order = await db.Order.findByPk(req.params.id, {
       include: db.Order.OrderItems,
     });
     // res.send(order);
-    return res.render("order", { order });
+    console.log("userlogged "+ req.session.userLogged)
+    return res.render("order",  { "orders": orders, "user": req.session.userLogged });
   },
 };

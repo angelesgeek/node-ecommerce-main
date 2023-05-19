@@ -16,6 +16,10 @@ module.exports = (sequelize, dataTypes) => {
         type: dataTypes.STRING(200),
         allowNull: false 
       },
+      respuesta: {
+        type: dataTypes.STRING(255),
+        allowNull: true 
+      },
       mensaje: {
         type: dataTypes.STRING(200),
         allowNull: false 

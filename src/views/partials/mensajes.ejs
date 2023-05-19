@@ -1,18 +1,15 @@
-
-
-      <form action="message/sendMessage" method="POST">
-        <div class="card-header">Enviar Mensaje</div>
-        <div class="card-body">
-        <div class="md-form">
-          <input type="text" name="remitente" id="remitente" value="" class="form-control">
-          <label>Remitente</label>
-        </div>
-        <div class="md-form">
-          <textarea name="mensaje" id="mensaje" class="form-control"></textarea>
-          <label>Mensaje</label>
-        </div>
-        <hr class="mb-4">
-        <button class="btn btn-info ml-0" type="submit" value="enviar mensaje">Enviar Mensaje</button>
-      </div>
-      </form>
-   
+<form action="message/sendMessage" method="POST">
+  <div class="card-header">Enviar Mensaje</div>
+  <div class="card-body">
+    <div class="md-form">
+      <input type="text" name="remitente" id="remitente" value="Administrador" class="form-control">
+      <label for="remitente" class="active">Remitente</label>
+    </div>
+    <div class="md-form">
+      <textarea cols="50" rows="4" name="mensaje" id="mensaje" class="form-control" maxlength="200"></textarea>
+      <label for="mensaje">Mensaje</label>
+    </div>
+    <hr class="mb-4">
+    <button class="btn btn-info ml-0" type="submit" value="enviar mensaje">Enviar Mensaje</button>
+  </div>
+</form>

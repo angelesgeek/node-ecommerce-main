@@ -33,36 +33,41 @@
                         <span class="sr-only">(current)</span>
                         <% } %>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect" href="/users">Usuarios</a>
-                        <span class="sr-only"></span>  
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect" href="/orders">Pedidos</a>
-                        <span class="sr-only"></span>  
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect" href="/reports">Reportes</a>
-                        <span class="sr-only"></span>  
-                </li>
-                <% if (locals.userFound) { %>
-                    <li class="nav-item  <%= locals.active == 'profile' ? 'active':'' %>">
-                        <a class="nav-link waves-effect" href="/profile">Mi Cuenta </a>
+
+
+                <% if (user!=null&&user.admin) { %>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="/orders">Pedidos</a>
+                        <span class="sr-only"></span>
                     </li>
                     <li class="nav-item">
-                        <form action="/logout" method="POST">
-                            <button class="btn-link btn py-2 px-3 m-0 nav-link waves-effect"><i
-                                    class="fas fa-sign-out-alt"></i></button>
-                        </form>
+                        <a class="nav-link waves-effect" href="/users">Usuarios</a>
+                        <span class="sr-only"></span>
                     </li>
-                    <% } else { %>
-                        <li class="nav-item">
-                            <a class="nav-link waves-effect" href="/login">Ingreso</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link waves-effect" href="/register">Registro</a>
-                        </li>
-                        <% } %>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="/reports">Reportes</a>
+                        <span class="sr-only"></span>
+                    </li>
+                    <% } %>
+
+                        <% if (locals.userFound) { %>
+                            <li class="nav-item  <%= locals.active == 'profile' ? 'active':'' %>">
+                                <a class="nav-link waves-effect" href="/profile">Mi Cuenta </a>
+                            </li>
+                            <li class="nav-item">
+                                <form action="/logout" method="POST">
+                                    <button class="btn-link btn py-2 px-3 m-0 nav-link waves-effect"><i
+                                            class="fas fa-sign-out-alt"></i></button>
+                                </form>
+                            </li>
+                            <% } else { %>
+                                <li class="nav-item">
+                                    <a class="nav-link waves-effect" href="/login">Ingreso</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link waves-effect" href="/register">Registro</a>
+                                </li>
+                                <% } %>
             </ul>
 
             <!-- Right -->
@@ -76,8 +81,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://newmotors.com.ar/"
-                        class="nav-link border border-light rounded waves-effect" target="_blank">
+                    <a href="https://newmotors.com.ar/" class="nav-link border border-light rounded waves-effect"
+                        target="_blank">
                         <i class="fa-regular fa-browser"></i>Visitar Web
                     </a>
                 </li>

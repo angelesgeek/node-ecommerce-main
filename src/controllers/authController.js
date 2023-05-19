@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator");
 
 const controller = {
   showLogin: function (req, res) {
-    return res.render("auth/login");
+    return res.render("auth/login", { "user": req.session.userLogged });
   },
   login: async function (req, res) {
     //validar los datos
@@ -14,7 +14,7 @@ const controller = {
     if (!errores.isEmpty()) {
       let errors = errores.mapped();
       console.log(errors);
-      return res.render("auth/login", { errors: errors, olds: req.body });
+      return res.render("auth/login", { errors: errors, olds: req.body, "user": req.session.userLogged });
     }
 
     //leo el json
@@ -24,7 +24,6 @@ const controller = {
       },
     });
 
-    console.log(req.body);
     //buscar al usuario
     if (user) {
       let passOk = bcryptjs.compareSync(req.body.password, user.password);
@@ -38,7 +37,7 @@ const controller = {
           res.cookie("userId", user.id, { maxAge: 1000 * 60 * 5 });
         }
         //redirigimos al menu de usuario
-        
+
         return user.admin ? res.redirect("/orders") : res.redirect("/profile");
       } else {
         //si la password no es correcta devolvemos el error
@@ -49,16 +48,17 @@ const controller = {
             },
           },
           olds: req.body,
+          "user": req.session.userLogged
         });
       }
     } else {
       return res.render("auth/login", {
-        errors: { email: { msg: "No se encontró el usuario", olds: req.body } },
+        errors: { email: { msg: "No se encontró el usuario", olds: req.body, "user": req.session.userLogged } },
       });
     }
   },
   showRegister: function (req, res) {
-    return res.render("auth/register");
+    return res.render("auth/register", { "user": req.session.userLogged });
   },
   register: async function (req, res) {
     //validar los datos
@@ -68,7 +68,7 @@ const controller = {
     if (!errores.isEmpty()) {
       let errors = errores.mapped();
       console.log(errors);
-      return res.render("register", { errors: errors, olds: req.body });
+      return res.render("register", { errors: errors, olds: req.body, "user": req.session.userLogged });
     }
 
     let data = {
@@ -95,16 +95,14 @@ const controller = {
       where: { userId: req.session.userLogged.id },
     });
 
-    console.log("mensaje controller")
     let messages = await db.Mensaje.findAll();
-       
 
     // return res.send(orders);
-    return res.render("auth/profile", { "orders":orders, "messages":messages });
+    return res.render("auth/profile", { "orders": orders, "messages": messages, "user": req.session.userLogged });
   },
 
 };
-  
+
 
 
 module.exports = controller;

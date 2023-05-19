@@ -5,7 +5,7 @@ const controller = require("../controllers/userController");
 
 /* GET users listing. */
 router.get("/", controller.index);
-  
+
 
 
 module.exports = router;

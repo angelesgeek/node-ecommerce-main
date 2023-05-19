@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <%- include('../partials/header') %>
+    <%- include('../partials/headeradmin') %>
 
         <!--Main layout-->
         <main class="mt-5 pt-4">
@@ -79,39 +79,32 @@
                                                     class="fas fa-eye"></i></a>
                                         </td>
                                     </tr>
-                                <% }); %>
+                                    <% }); %>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="card mb-5">
-                    
-                <%- include('../partials/mensajes') %>
+                    <%- include('../partials/mensajes') %>
                 </div>
                 <div class="card mb-5">
-                        <div class="card-header">
+                    <div class="card-header">
                         Mensajes Recibidos
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-responsive-md mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="th-lg">
-                                            <strong>Nombre</strong>
-                                        </th>
-                                        <th class="th-lg">
-                                            <strong>Mensaje</strong>
-                                        </th>   
-                                    </tr>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-md mb-0">
+                            <thead>
+                                <tr>
                                     <% messages.forEach( mensaje=> { %>
                                         <%- include('../partials/mensajesRecibidos', {mensaje}) %>
-                                    <% } ) %>
-                                </thead>
-                        
-                            
-                            </table>
-                        </div>
-                </div>    
+                                            <% } ) %>
+                                </tr>
+                            </thead>
+
+
+                        </table>
+                    </div>
+                </div>
             </div>
             </div>
         </main>

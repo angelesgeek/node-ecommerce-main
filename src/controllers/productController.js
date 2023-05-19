@@ -2,15 +2,42 @@ const db = require("../database/models");
 
 const controller = {
   index: async function (req, res) {
+    // Obtener todos los productos desde la base de datos
     let products = await db.Product.findAll();
-    return res.render("products/list", { products });
+
+    // Ordenar alfabéticamente
+    products.sort((a, b) => a.name.localeCompare(b.name));
+
+    // Número de productos por página
+    const productosPorPagina = 9;
+
+    // Página deseada
+    const paginaDeseada = req.query.page ? parseInt(req.query.page) : 1;
+
+    // Cálculo de los índices de los productos en la página deseada
+    const inicio = (paginaDeseada - 1) * productosPorPagina;
+    const fin = inicio + productosPorPagina;
+
+    // Obtener los productos de la página deseada
+    const productosPagina = products.slice(inicio, fin);
+
+    // Calcular el número total de páginas
+    const totalPages = Math.ceil(products.length / productosPorPagina);
+
+    return res.render("products/list", {
+      products: productosPagina,
+      user: req.session.userLogged,
+      currentPage: paginaDeseada,
+      totalPages: totalPages
+    });
   },
+
   detail: async function (req, res) {
     let product = db.Product.findByPk(req.params.id);
-    return res.render("products/detail", { product });
+    return res.render("products/detail", { product, "user": req.session.userLogged });
   },
   create: function (req, res) {
-    return res.render("products/create");
+    return res.render("products/create", { "user": req.session.userLogged });
   },
   store: async function (req, res) {
     let image = "";
@@ -32,7 +59,7 @@ const controller = {
   edit: async function (req, res) {
     let product = await db.Product.findByPk(req.params.id);
     if (product) {
-      return res.render("products/edit", { product });
+      return res.render("products/edit", { product, "user": req.session.userLogged });
     }
     return res.redirect("/products");
   },
