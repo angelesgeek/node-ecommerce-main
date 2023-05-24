@@ -15,7 +15,8 @@
             <div class="row wow fadeIn">
                 <!--Grid column-->
                 <div class="col-md-6 mb-4">
-                    <img src="/img/products/14.jpg" class="img-fluid" alt="">
+                    imagen?
+                    <section><%= product.img %></section>       
                 </div>
                     <!--Grid column-->
                     <div class="col-md-6 mb-4">
@@ -48,6 +49,7 @@
                             <p class="lead font-weight-medium">Marca: <%= product.marca %></p>
                             <p class="lead">Precio: <%= product.price %></p>
                             
+                            
                             <form class="d-flex justify-content-left">
                                 <!-- Default input -->
                                 <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
@@ -58,10 +60,10 @@
                         <!--Content-->
 
                     </div>
-                    <!--Grid column-->
+                    
 
             </div>
-                <!--Grid row-->
+               
 
                 <hr>
 
@@ -83,39 +85,22 @@
                     <!--Grid column-->
 
                 </div>
-                <!--Grid row-->
-
-                <!--Grid row-->
-                <div class="row wow fadeIn">
-
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-                        <img src="/img/products/15.jpg" class="img-fluid" alt="">
-
+                <div style="background-color: rgb(232, 229, 229);">
+                    <h4 class="my-4 h4">Productos relacionados</h4>
+                    <!--Grid row-->
+                    <div class="row wow fadeIn">
+                      <% relatedProducts.forEach(function(relatedProduct) { %>
+                      <!--Grid column-->
+                      <div class="col-lg-4 col-md-6 mb-4">
+                        <img src="/img/products/<%= relatedProduct.img %>" class="img-fluid" alt="">
+                        <p class="lead font-weight-medium" style="font-size: smaller;">Nombre: <%= relatedProduct.name %></p>
+                        <p class="lead font-weight-medium" style="font-size: smaller;">Marca: <%= relatedProduct.marca %></p>
+                        <a href="/products/detail/<%= relatedProduct.id %>" class="dark-grey-text" style="font-size: smaller;">Ver detalles</a>
+                      </div>
+                      <% }); %>
                     </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-6 mb-4">
-
-                        <img src="/img/products/12.jpg" class="img-fluid" alt="">
-
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-lg-4 col-md-6 mb-4">
-
-                        <img src="/img/products/13.jpg" class="img-fluid" alt="">
-
-                    </div>
-                    <!--Grid column-->
-
-                </div>
-                <!--Grid row-->
-
-        </div>
+                  </div>
+                  
     </main>
         <!--Main layout-->
         <%- include('../partials/footer') %>

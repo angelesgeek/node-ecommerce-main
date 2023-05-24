@@ -11,6 +11,16 @@
         <main class="mt-5 pt-4">
             <div class="container wow fadeIn animated">
                 <h2 class="mt-5 mb-3 h2 text-center">Nuestros Productos</h2>
+                <form action="/products/search" method="GET" class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" name="name" placeholder="Buscar por nombre">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="marca" placeholder="Buscar por marca">
+                    </div>
+                        <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+                </form>
+                
                 <% if (user!=null&&user.admin) { %>
                     <a class="btn btn-primary btn-rounded" href="/products/create">Agregar Producto</a>
                     <% } %>

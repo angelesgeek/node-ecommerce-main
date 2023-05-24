@@ -26,15 +26,18 @@ router.get("/", controller.index);
 /* GET Product */
 router.get("/detail/:id", controller.detail);
 
-//rutas para crear
+// Rutas para crear
 router.get("/create", controller.create);
 router.post("/", upload.single("img"), controller.store);
 
-//rutas para editar
+// Rutas para editar
 router.get("/edit/:id", controller.edit);
 router.put("/:id", upload.single("img"), controller.update);
 
-//ruta para eliminar
+// Ruta para eliminar
 router.delete("/:id", controller.delete);
+
+// Ruta para búsqueda
+router.get("/search", controller.search);
 
 module.exports = router;
