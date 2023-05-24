@@ -7,7 +7,7 @@ module.exports = {
       },
     });
     console.log("index userLogged "+ req.session.userLogged)
-    return res.render("index", { title: "E-Commerce", products, "user":req.session.userLogged });
+    return res.render("index", { title: "E-Commerce", products, "user":req.session.userLogged, currentPage:1, totalPages:products.length });
   },
   cart: function (req, res) {
     return res.render("cart", {"user":req.session.userLogged});
@@ -16,8 +16,8 @@ module.exports = {
     let order = await db.Order.findByPk(req.params.id, {
       include: db.Order.OrderItems,
     });
+   
     // res.send(order);
-    console.log("userlogged "+ req.session.userLogged)
-    return res.render("order",  { "orders": orders, "user": req.session.userLogged });
+    return res.render("order", {order, "user": req.session.userLogged });
   },
 };

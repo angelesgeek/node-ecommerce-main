@@ -12,7 +12,7 @@ const controller = {
 
     let order = await db.Order.findByPk(req.params.id);
 
-    return res.render("order", { order });
+    return res.render("order", { order }, { "user": req.session.userLogged });
   },
 
 };

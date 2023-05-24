@@ -1,80 +1,63 @@
-<!-- Agregar los enlaces de página anterior y siguiente -->
-<% if (currentPage> 1) { %>
-    <a href="/products?page=<%= currentPage - 1 %>">Página anterior</a>
-    <% } %>
 
-        <% if (currentPage < totalPages) { %>
-            <a href="/products?page=<%= currentPage + 1 %>">Página siguiente</a>
+<div class="col-lg-3 col-md-6 mb-4">
+    <div class="card">
+        <div class="view overlay">
+            <img src="/img/products/<%= prod.img != ''? prod.img: 'default.jpg' %>" class="card-img-top">
+                <a href="/products/detail/<%= prod.id %>">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="font-weight-bold black-text">
+                <%= prod.name %>
+                <% if (prod.marked) { %>
+                <span class="badge badge-pill primary-color">Novedad</span>
+                <% } %>
+            </h5>
+            <h5>Marca <%= prod.marca %></h5>
+            <h5>$<%= prod.price %></h5>
+            
+            <% if (prod.stock>20){ %>
+                <h6 class="font-weight-medium white-text"
+                    style="background-color: green; border-radius: 5px; padding: 5px; width: 50%;">
+                    Stock <%= prod.stock %>
+                </h6>
             <% } %>
 
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="view overlay">
-                            <img src="/img/products/<%= prod.img != ''? prod.img: 'default.jpg' %>" class="card-img-top"
-                                alt="">
-                            <a href="/products/detail/<%= prod.id %>">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body text-center">
-                            <h5>
-                                <strong>
-                                    <a href="/products/detail/<%= prod.id %>" class="dark-grey-text">
+            <% if (prod.stock <10){ %>
+                <h6 class="font-weight-medium white-text"
+                    style="background-color: red; border-radius: 5px; padding: 5px; width: 50%;">
+                    Stock <%= prod.stock %>
+                </h6>
+            <% } %>
 
-                                        <%= prod.name %>
-                                            <% if (prod.marked) { %>
-                                                <span class="badge badge-pill primary-color">Novedad</span>
-                                                <% } %>
-                                    </a>
-                                </strong>
-                            </h5>
-                            <h6 class="font-weight-bold blue-text"><strong>Marca <%= prod.marca %></strong></h6>
-                            <h5 class="font-weight-bold blue-text"><strong>$<%= prod.price %></strong></h5>
-                            <% if (prod.stock>20){ %>
-                                <h6 class="font-weight-bold white-text"
-                                    style="background-color: green; border-radius: 5px; padding: 5px; width: 50%;">
-                                    <strong>Stock <%= prod.stock %></strong></h4>
-                                    <% } %>
+            <% if (prod.stock <20&& prod.stock>=10){ %>
+                <h6 class="font-weight-bold black-text"
+                    style="background-color: yellow; border-radius: 5px; padding: 5px; width: 50%;">
+                    Stock <%= prod.stock %>
+                </h6>
+            <% } %>
 
-                                        <% if (prod.stock <10){ %>
-                                            <h6 class="font-weight-bold white-text"
-                                                style="background-color: red; border-radius: 5px; padding: 5px; width: 50%;">
-                                                <strong>Stock <%= prod.stock %></strong></h4>
-                                                <% } %>
-
-                                                    <% if (prod.stock <20&& prod.stock>=10){ %>
-                                                        <h6 class="font-weight-bold black-text"
-                                                            style="background-color: yellow; border-radius: 5px; padding: 5px; width: 50%;">
-                                                            <strong>Stock <%= prod.stock %></strong></h4>
-                                                            <% } %>
-
-                                                                <div class="d-flex">
-                                                                    <button
-                                                                        class="btn btn-primary btn-block agregar_carrito"
-                                                                        data-id="<%= prod.id %>">Agregar al
-                                                                        Pedido</button>
-                                                                </div>
-                                                                <% if (locals.userFound && locals.userAdmin) { %>
-                                                                    <div class="d-flex justify-content-around mt-3">
-                                                                        <a type="button"
-                                                                            href="/products/edit/<%= prod.id %>"
-                                                                            class="btn btn-warning btn-sm btn-floating">
-                                                                            <i class="fas fa-edit"></i>
-                                                                        </a>
-                                                                        <form
-                                                                            action="/products/<%= prod.id %>?_method=delete"
-                                                                            method="POST">
-                                                                            <button
-                                                                                class="btn btn-danger btn-floating btn-sm"
-                                                                                type="submit">
-                                                                                <i class="fas fa-trash-alt"></i>
-                                                                            </button>
-                                                                        </form>
-                                                                    </div>
-                                                                    <% } %>
-                        </div>
-
-
-                    </div>
-
+            <a href="/products/detail/<%= prod.id %>" class="dark-grey-text">Ver detalles</a>                        
+            <div class="d-flex">
+                <button class="btn btn-primary btn-block agregar_carrito" data-id="<%= prod.id %>">Agregar al Pedido</button>
+            </div>
+            <% if (locals.userFound && locals.userAdmin) { %>
+                <div class="d-flex justify-content-around mt-3">
+                    <a type="button" href="/products/edit/<%= prod.id %>" 
+                        class="btn btn-warning btn-sm btn-floating">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form action="/products/<%= prod.id %>?_method=delete" method="POST">
+                        <button class="btn btn-danger btn-floating btn-sm" type="submit">
+                        <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
                 </div>
+            <% } %>
+        </div>
+
+
+    </div>
+
+</div>

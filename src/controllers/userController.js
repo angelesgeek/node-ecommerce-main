@@ -4,7 +4,7 @@ const controller = {
   index: async function (req, res) {
 
     let users = await db.User.findAll();
-    return res.render("list", { users });
+    return res.render("list", { users }, { "user": req.session.userLogged });
 
   },
 

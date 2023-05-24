@@ -9,7 +9,7 @@ const controller = {
     products.sort((a, b) => a.name.localeCompare(b.name));
 
     // Número de productos por página
-    const productosPorPagina = 9;
+    const productosPorPagina = 12;
 
     // Página deseada
     const paginaDeseada = req.query.page ? parseInt(req.query.page) : 1;
@@ -22,7 +22,7 @@ const controller = {
     const productosPagina = products.slice(inicio, fin);
 
     // Calcular el número total de páginas
-    const totalPages = Math.ceil(products.length / productosPorPagina);
+    const totalPages = Math.ceil(products.length / productosPorPagina)+1;
 
     return res.render("products/list", {
       products: productosPagina,
@@ -32,10 +32,12 @@ const controller = {
     });
   },
 
-  detail: async function (req, res) {
-    let product = db.Product.findByPk(req.params.id);
-    return res.render("products/detail", { product, "user": req.session.userLogged });
+    detail: async function (req, res) {
+    let product = await db.Product.findByPk(req.params.id);
+    console.log(product);
+    return res.render("products/detail", { product, user: req.session.userLogged });
   },
+  
   create: function (req, res) {
     return res.render("products/create", { "user": req.session.userLogged });
   },

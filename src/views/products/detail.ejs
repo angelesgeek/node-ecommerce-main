@@ -3,57 +3,64 @@
 
 <head>
     <%- include('../partials/head') %>
-
 </head>
 
 <body>
     <%- include('../partials/headeradmin') %>
 
-        <!--Main layout-->
-        <main class="mt-5 pt-4">
-            <div class="container dark-grey-text mt-5">
-
-                <!--Grid row-->
-                <div class="row wow fadeIn">
-
+    <!--Main layout-->
+    <main class="mt-5 pt-4">
+        <div class="container dark-grey-text mt-5">
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+                    <img src="/img/products/14.jpg" class="img-fluid" alt="">
+                </div>
                     <!--Grid column-->
                     <div class="col-md-6 mb-4">
-
-                        <img src="/img/products/14.jpg" class="img-fluid" alt="">
-
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-md-6 mb-4">
-
                         <!--Content-->
                         <div class="p-4">
-
                             <div class="mb-3">
-                                <a href="">
-                                    <span class="badge red mr-1">Stock</span>
-                                </a>
+                                <% if (product.stock>20){ %>
+                                    <h6 class="font-weight-medium white-text"
+                                        style="background-color: green; border-radius: 5px; padding: 5px; width: 50%;">
+                                        Stock <%= product.stock %>
+                                    </h6>
+                                <% } %>
+                    
+                                <% if (product.stock <10){ %>
+                                    <h6 class="font-weight-medium white-text"
+                                        style="background-color: red; border-radius: 5px; padding: 5px; width: 50%;">
+                                        Stock <%= product.stock %>
+                                    </h6>
+                                <% } %>
+                    
+                                <% if (product.stock <20&& product.stock>=10){ %>
+                                    <h6 class="font-weight-bold black-text"
+                                        style="background-color: yellow; border-radius: 5px; padding: 5px; width: 50%;">
+                                        Stock <%= product.stock %>
+                                    </h6>
+                                <% } %>   
                             </div>
-                            <p class="lead font-weight-bold">Marca</p>
-                            <p class="lead"><span>Precio</span></p>
+                           
+                            <p class="lead font-weight-medium">Nombre: <%= product.name %></p>
+                            <p class="lead font-weight-medium">Marca: <%= product.marca %></p>
+                            <p class="lead">Precio: <%= product.price %></p>
+                            
                             <form class="d-flex justify-content-left">
                                 <!-- Default input -->
-                                <input type="number" value="1" aria-label="Search" class="form-control"
-                                    style="width: 100px">
-                                <button class="btn btn-primary btn-md my-0 p" type="submit">Agregar al pedido
-                                    <i class="fas fa-shopping-cart ml-1"></i>
+                                <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+                                <button class="btn btn-primary btn-md my-0 agregar_carrito" data-id="<%= product.id %>" >Agregar al pedido<i class="fas fa-shopping-cart ml-1"></i>
                                 </button>
-
                             </form>
-
                         </div>
                         <!--Content-->
 
                     </div>
                     <!--Grid column-->
 
-                </div>
+            </div>
                 <!--Grid row-->
 
                 <hr>
@@ -108,8 +115,8 @@
                 </div>
                 <!--Grid row-->
 
-            </div>
-        </main>
+        </div>
+    </main>
         <!--Main layout-->
         <%- include('../partials/footer') %>
             <%- include('../partials/scripts') %>
