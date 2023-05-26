@@ -12,7 +12,7 @@ function removeItem(index) {
 
   let cartNumber = document.querySelector(".cart-number");
   cartNumber.innerText = productosEnElCarrito();
-
+  let cartRows = document.querySelector(".cartRows");
   document.querySelector(".totalAmount").innerText = `$ ${calcularTotal(
     products
   )}`;
@@ -38,7 +38,7 @@ function calcularTotal(products) {
   );
 }
 
-let cartRows = document.querySelector(".cartRows");
+
 let products = [];
 
 if (localStorage.carrito && localStorage.carrito != "[]") {
@@ -47,7 +47,7 @@ if (localStorage.carrito && localStorage.carrito != "[]") {
     fetch(`/api/product/${item.id}`)
       .then((res) => res.json())
       .then((product) => {
-        if (product) {
+        if (product&&cartRows) {
           cartRows.innerHTML += `
             <tr id="row${index}">
                 <th scope="row">${index + 1}</th>
@@ -73,9 +73,11 @@ if (localStorage.carrito && localStorage.carrito != "[]") {
         }
       })
       .then(() => {
+        if(document.querySelector(".totalAmount")){
         document.querySelector(".totalAmount").innerText = `$ ${calcularTotal(
           products
         )}`;
+      }
       });
   });
 } else {
@@ -83,6 +85,8 @@ if (localStorage.carrito && localStorage.carrito != "[]") {
 }
 
 let checkoutCart = document.querySelector('#checkoutCart');
+if(checkoutCart){
+
 
 checkoutCart.onsubmit = (e) => {
   e.preventDefault();
@@ -112,4 +116,4 @@ checkoutCart.onsubmit = (e) => {
     .catch((error) => console.log(error));
   // console.log(formCheckout.elements, formData, products);
 };
-
+}

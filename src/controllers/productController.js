@@ -120,10 +120,6 @@ const controller = {
     // Realizar la búsqueda en la base de datos
     let products = await getProducts();
   
-    console.log("Name:", name);
-    console.log("Marca:", marca);
-    console.log("All Products:", products);
-  
     // Filtrar los productos por nombre y marca
     if (name) {
       products = products.filter(product =>
@@ -135,11 +131,9 @@ const controller = {
         product.marca.toLowerCase().includes(marca.toLowerCase())
       );
     }
-  
-    console.log("Filtered Products:", products);
-    console.log("Products:", products); // Agregar este console.log
+    console.log("test")
     // Renderizar la vista de resultados de búsqueda
-    return res.render("products/search", {
+    return res.render("products/test", {
       products,
       user: req.session.userLogged,
     });
