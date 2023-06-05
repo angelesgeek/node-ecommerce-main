@@ -22,15 +22,23 @@ const controller = {
     const productosPagina = products.slice(inicio, fin);
 
     // Calcular el número total de páginas
-    const totalPages = Math.ceil(products.length / productosPorPagina) + 1;
+    const totalPages = Math.ceil(products.length / productosPorPagina);
+
+    // Cálculo del rango de páginas a mostrar en la paginación
+    const range = 3; // Número de páginas antes y después de la página actual a mostrar
+    const startPage = Math.max(1, paginaDeseada - range);
+    const endPage = Math.min(totalPages, paginaDeseada + range);
+    const pageRange = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
 
     return res.render("products/list", {
       products: productosPagina,
       user: req.session.userLogged,
       currentPage: paginaDeseada,
       totalPages: totalPages,
+      pageRange: pageRange,
     });
   },
+
 
   detail: async function (req, res) {
     let products = await getProducts();
@@ -131,7 +139,7 @@ const controller = {
         product.marca.toLowerCase().includes(marca.toLowerCase())
       );
     }
-    console.log("test")
+    
     // Renderizar la vista de resultados de búsqueda
     return res.render("products/test", {
       products,

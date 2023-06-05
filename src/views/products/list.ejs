@@ -26,6 +26,7 @@
                     <% } %>
                         <!-- Mostrar la información de la página actual y el número total de páginas -->
                         <p>Página <%= currentPage %> de <%= totalPages %></p>
+
                         <section class="text-center mt-2 mb-4">
                             <div class="row wow fadeIn">
                                 <% products.forEach( prod=> { %>
@@ -33,20 +34,44 @@
                                 <% } ) %>
                             </div>
                         </section>
-                        <!-- Agregar los enlaces de página anterior y siguiente -->
-                        <div style="text-align: center;">
-                            <% if (currentPage> 1) { %>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                      <li class="page-item"><a class="page-link" href="/products?page=<%= currentPage - 1 %>">Página anterior</a></li>
-                                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                      <li class="page-item"><a class="page-link" href="/products?page=<%= currentPage + 1 %>">Página siguiente</a></li>
-                                    </ul>
-                                  </nav>
-                            <% } %>
                         </div>
+
+                        <div class="pagination justify-content-center mt-3">
+                            <% if (currentPage > 1) { %>
+                              <a href="/products?page=<%= currentPage - 1 %>" class="page-link">Anterior</a>
+                            <% } %>
+                          
+                            <% if (pageRange.includes(1)) { %>
+                              <a href="/products?page=1" class="page-link">1</a>
+                              <% if (pageRange.includes(2)) { %>
+                                <% if (pageRange[0] > 2) { %>
+                                  <span class="page-link">...</span>
+                                <% } %>
+                                <% for (let i = 1; i < pageRange.length; i++) { %>
+                                  <% if (pageRange[i] !== pageRange[i - 1] + 1) { %>
+                                    <span class="page-link">...</span>
+                                  <% } %>
+                                  <a href="/products?page=<%= pageRange[i] %>" class="page-link"><%= pageRange[i] %></a>
+                                <% } %>
+                              <% } %>
+                            <% } else { %>
+                              <% if (pageRange.length > 0) { %>
+                                <span class="page-link">...</span>
+                              <% } %>
+                              <% for (let i = 0; i < pageRange.length; i++) { %>
+                                <% if (i > 0 && pageRange[i] !== pageRange[i - 1] + 1) { %>
+                                  <span class="page-link">...</span>
+                                <% } %>
+                                <a href="/products?page=<%= pageRange[i] %>" class="page-link"><%= pageRange[i] %></a>
+                              <% } %>
+                            <% } %>
+                          
+                            <% if (currentPage < totalPages) { %>
+                              <a href="/products?page=<%= currentPage + 1 %>" class="page-link">Siguiente</a>
+                            <% } %>
+                          </div>
+                          
+                          
             </div>
 
         </main>
