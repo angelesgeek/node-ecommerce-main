@@ -36,18 +36,17 @@
                         <!-- Agregar los enlaces de página anterior y siguiente -->
                         <div style="text-align: center;">
                             <% if (currentPage> 1) { %>
-                                <div style="display: inline;">
-                                    <a href="/products?page=<%= currentPage - 1 %>">Página anterior</a>
-                                </div>
-                                <% } %>
-
-                                    <% if (currentPage < totalPages) { %>
-                                        <div style="display: inline;">
-                                            <a href="/products?page=<%= currentPage + 1 %>">Página siguiente</a>
-                                        </div>
-                                        <% } %>
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                      <li class="page-item"><a class="page-link" href="/products?page=<%= currentPage - 1 %>">Página anterior</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                      <li class="page-item"><a class="page-link" href="/products?page=<%= currentPage + 1 %>">Página siguiente</a></li>
+                                    </ul>
+                                  </nav>
+                            <% } %>
                         </div>
-
             </div>
 
         </main>

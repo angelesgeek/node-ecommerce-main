@@ -13,12 +13,20 @@ module.exports = {
         type: Sequelize.STRING(100),
         allowNull: false,
       },
+      marca: {
+        type: dataTypes.STRING(100),
+        allowNull: false,
+      },
       img: {
         type: Sequelize.STRING(100),
         allowNull: true,
       },
       price: {
         type: Sequelize.DECIMAL(10, 2),
+        allowNull: false,
+      },
+      stock: {
+        type: dataTypes.DECIMAL(11, 2),
         allowNull: false,
       },
       marked: {

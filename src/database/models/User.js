@@ -29,6 +29,10 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.STRING(100),
       allowNull: true,
     },
+    stock: {
+      type: dataTypes.DECIMAL(11, 2),
+      allowNull: false,
+    },
   };
   let configurations = {};
 
