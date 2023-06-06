@@ -4,8 +4,12 @@
 
         <!-- Brand -->
         <a class="navbar-brand waves-effect" href="/">
-            <strong class="blue-text">New Motors</strong>
+            <div class="d-flex align-items-center">
+                <img src="/img/logo.jpg" alt="Logo New Motors" class="img-fluid mr-2" style="max-width: 70px;">
+                
+            </div>
         </a>
+
 
         <!-- Collapse -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -21,7 +25,6 @@
                 <li class="nav-item <%= locals.active == '' ? 'active':'' %> ">
                     <a class="nav-link waves-effect" href="/">Inicio
                         <% if (locals.active=='/' ) { %>
-
                             <span class="sr-only">(current)</span>
                             <% } %>
                     </a>
@@ -34,8 +37,9 @@
                         <% } %>
                 </li>
 
+                <% if (typeof user !== 'undefined' && user && user.admin) { %>
 
-                <% if (user!=null&&user.admin) { %>
+                
                     <li class="nav-item">
                         <a class="nav-link waves-effect" href="/orders">Pedidos</a>
                         <span class="sr-only"></span>
@@ -64,12 +68,13 @@
                                 <li class="nav-item">
                                     <a class="nav-link waves-effect" href="/login">Ingreso</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link waves-effect" href="/register">Registro</a>
-                                </li>
-                                <% } %>
+                            <% } %>
             </ul>
-
+            <% if (user) { %>
+                <li class="nav-item" style="list-style: none;">
+                    <span >¡Hola, <%= user.name %>!</span>
+                </li>
+            <% } %>
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
                 <li class="nav-item">

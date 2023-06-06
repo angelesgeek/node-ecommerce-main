@@ -19,6 +19,7 @@
         <%= mensaje.respuesta %>
     </td>
 </tr>
+<% if (user!=null&&user.admin) { %>
 <tr>
     <td>
         <form action="message/sendResponse" method="POST">
@@ -31,3 +32,4 @@
         </form>
     </td>
 </tr>
+<% } %>

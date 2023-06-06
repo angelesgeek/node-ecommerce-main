@@ -58,7 +58,7 @@ const controller = {
     }
   },
   showRegister: function (req, res) {
-    return res.render("auth/register", { "user": req.session.userLogged });
+    return res.render("auth/register", {"user": req.session.userLogged});
   },
   register: async function (req, res) {
     //validar los datos
@@ -68,7 +68,7 @@ const controller = {
     if (!errores.isEmpty()) {
       let errors = errores.mapped();
       console.log(errors);
-      return res.render("register", { errors: errors, olds: req.body, "user": req.session.userLogged });
+      return res.render("register", {errors: errors, olds: req.body, "user": req.session.userLogged});
     }
 
     let data = {
@@ -85,6 +85,7 @@ const controller = {
     //redirigimos a menu de usuario
     return res.redirect(`/profile/`);
   },
+  
   logout: function (req, res) {
     req.session.destroy();
     res.clearCookie("userId");

@@ -40,6 +40,7 @@ function calcularTotal(products) {
 
 
 let products = [];
+let cartRows = document.querySelector(".cartRows"); // Mover la declaración de la variable aquí
 
 if (localStorage.carrito && localStorage.carrito != "[]") {
   carrito = JSON.parse(localStorage.carrito);
@@ -47,7 +48,7 @@ if (localStorage.carrito && localStorage.carrito != "[]") {
     fetch(`/api/product/${item.id}`)
       .then((res) => res.json())
       .then((product) => {
-        if (product&&cartRows) {
+        if (product && cartRows) {
           cartRows.innerHTML += `
             <tr id="row${index}">
                 <th scope="row">${index + 1}</th>
@@ -73,11 +74,11 @@ if (localStorage.carrito && localStorage.carrito != "[]") {
         }
       })
       .then(() => {
-        if(document.querySelector(".totalAmount")){
-        document.querySelector(".totalAmount").innerText = `$ ${calcularTotal(
-          products
-        )}`;
-      }
+        if (document.querySelector(".totalAmount")) {
+          document.querySelector(".totalAmount").innerText = `$ ${calcularTotal(
+            products
+          )}`;
+        }
       });
   });
 } else {
@@ -114,6 +115,6 @@ checkoutCart.onsubmit = (e) => {
       }
     })
     .catch((error) => console.log(error));
-  // console.log(formCheckout.elements, formData, products);
+
 };
 }
