@@ -50,7 +50,7 @@ app.use("/users/", adminMiddleware, usersRouter);
 app.use("/products/", productsRouter);
 app.use("/api/", apiRouter);
 app.use("/orders/", adminMiddleware, ordersRouter);
-app.use("/reports/", adminMiddleware, reportsRouter);
+app.use("/reports", adminMiddleware, reportsRouter);
 app.use("/message/", messageRouter);
 
 // catch 404 and forward to error handler

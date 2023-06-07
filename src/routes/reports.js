@@ -1,10 +1,11 @@
-const express = require('express');
+const express = require("express");
+const path = require("path");
 const router = express.Router();
+const multer = require("multer");
 
-/* GET reports. */
-router.get('/reports', function (req, res, next) {
-  res.render("reports");
-});
+const controller = require("../controllers/reportsController");
 
+
+router.get("/", controller.renderReports);
 
 module.exports = router;

@@ -39,19 +39,19 @@
 
                 <% if (typeof user !== 'undefined' && user && user.admin) { %>
 
-                
                     <li class="nav-item">
                         <a class="nav-link waves-effect" href="/orders">Pedidos</a>
-                        <span class="sr-only"></span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect" href="/users">Usuarios</a>
                         <span class="sr-only"></span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link waves-effect" href="/reports">Reportes</a>
                         <span class="sr-only"></span>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="/users">Usuarios</a>
+                        <span class="sr-only"></span>
+                    </li>
+                    
                     <% } %>
 
                         <% if (locals.userFound) { %>
