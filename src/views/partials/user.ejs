@@ -1,9 +1,9 @@
 <tr>
     <td>
-        <%= user.id %>
+        <%= user.id_app %>
     </td>
     <td>
-        <%= user.admin %>
+        <%= (user.admin ? "admin" : "cliente") %> 
     </td>
     <td>
         <%= user.name %>

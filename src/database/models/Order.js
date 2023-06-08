@@ -7,6 +7,10 @@ module.exports = (sequelize, dataTypes) => {
       autoIncrement: true,
       allowNull: false,
     },
+    id_app: {
+      type: dataTypes.INTEGER(11),
+      allowNull: false,
+    },
     total: {
       type: dataTypes.DECIMAL(10, 2),
       allowNull: false,
@@ -29,6 +33,7 @@ module.exports = (sequelize, dataTypes) => {
       as: "user",
       foreignKey: "userId",
     });
+    
     Order.OrderItems = Order.hasMany(models.OrderItem, {
       as: "orderItems",
     });
