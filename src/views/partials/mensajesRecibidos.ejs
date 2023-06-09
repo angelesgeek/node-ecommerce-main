@@ -1,26 +1,26 @@
 <tr>
-    <td>
+    <td class="white-text">
         <h6>Mensaje</h6>
         <%= mensaje.remitente %>
     </td>
 </tr>
-<tr>
+<tr class="white-text">
     <td>
         <%= mensaje.mensaje %>
     </td>
 </tr>
-<tr>
+<tr class="white-text">
     <td>
         <h6>Respuesta</h6>
     </td>
 </tr>
-<tr>
+<tr class="white-text">
     <td>
         <%= mensaje.respuesta %>
     </td>
 </tr>
 <% if (user!=null&&user.admin) { %>
-<tr>
+<tr class="white-text">
     <td>
         <form action="message/sendResponse" method="POST">
             <div class="md-form">

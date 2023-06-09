@@ -1,6 +1,6 @@
 
 <div class="col-lg-3 col-md-6 mb-4">
-    <div class="card">
+    <div class="card text-light bg-dark">
         <div class="view overlay">
             <img src="/img/products/<%= prod.img != ''? prod.img: 'default.jpg' %>" class="card-img-top">
                 <a href="/products/detail/<%= prod.id %>">
@@ -8,14 +8,14 @@
                 </a>
         </div>
         <div class="card-body text-center">
-            <h5 class="font-weight-bold black-text">
+            <h6 class="font-weight-normal text-light">
                 <%= prod.name %>
                 <% if (prod.marked) { %>
                 <span class="badge badge-pill primary-color">Nuevo</span>
                 <% } %>
-            </h5>
-            <h5>Marca <%= prod.marca %></h5>
-            <h5>$<%= prod.price %></h5>
+            </h6>
+            <p>Marca <%= prod.marca %></p>
+            <p>$<%= prod.price %></p>
             
             <% if (prod.stock>20){ %>
                 <h6 class="font-weight-medium white-text"
@@ -32,15 +32,15 @@
             <% } %>
 
             <% if (prod.stock <20&& prod.stock>=10){ %>
-                <h6 class="font-weight-bold black-text"
+                <h6 class="font-weight-normal black-text"
                     style="background-color: yellow; border-radius: 5px; padding: 5px; width: 50%;">
                     Stock <%= prod.stock %>
                 </h6>
             <% } %>
 
-            <a href="/products/detail/<%= prod.id %>" class="dark-grey-text">Ver detalles</a>                        
+            <a href="/products/detail/<%= prod.id %>" class="text-light">Ver detalles</a>                        
             <div class="d-flex">
-                <button class="btn btn-primary btn-block agregar_carrito" data-id="<%= prod.id %>">Agregar al Pedido</button>
+                <button class="btn btn-primary btn-sm agregar_carrito" data-id="<%= prod.id %>">Agregar al Pedido</button>
             </div>
             <% if (locals.userFound && locals.userAdmin) { %>
                 <div class="d-flex justify-content-around mt-3">

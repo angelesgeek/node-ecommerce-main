@@ -4,6 +4,7 @@ header,
 .carousel {
   height: 60vh;
   margin-top: 2rem;
+  background: #212121!important;
 }
 
 @media (max-width: 740px) {
@@ -12,6 +13,7 @@ header,
   header,
   .carousel {
     height: 100vh;
+    background: #212121!important;
   }
 }
 

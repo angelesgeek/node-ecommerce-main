@@ -12,22 +12,36 @@
     <%- include('../partials/headeradmin') %>
       <main class="my-5 pt-4 login">
         <div class="card shadow my-5" style="min-width: 300px;">
-          <form class="card-body" action="/register" method="POST">
+          <form class="card-body bg-dark white-text" action="/register" method="POST">
             <h2 class="mt-3 h2 text-center">Registrar</h2>
             <div class="md-form">
               <input type="text" name="name" id="name" value="<%= locals.olds && olds.name ? olds.name : '' %>"
-                class="form-control">
-              <label for="name">Nombre</label>
+                class="form-control" class="white-text">
+              <label for="name" class="white-text">Nombre</label>
               <% if (locals.errors && errors.name) { %>
                 <span>
                   <%= errors.name.msg %>
                 </span>
                 <% } %>
             </div>
+
+
+            <div class="md-form">
+              <input type="text" name="id_app" id="id_app" value="<%= locals.olds && olds.id_app ? olds.id_app : '' %>"
+                class="form-control" class="white-text">
+              <label for="id_app" class="white-text">Identificador de cliente</label>
+              <% if (locals.errors && errors.id_app) { %>
+                <span>
+                  <%= errors.id_app.msg %>
+                </span>
+                <% } %>
+            </div>
+
+
             <div class="md-form">
               <input type="text" name="email" id="email" value="<%= locals.olds && olds.email ? olds.email : '' %>"
                 class="form-control">
-              <label for="email">Email</label>
+              <label for="email" class="white-text">Email</label>
               <% if (locals.errors && errors.email) { %>
                 <span>
                   <%= errors.email.msg %>
@@ -36,7 +50,7 @@
             </div>
             <div class="md-form">
               <input type="password" name="password" id="password" class="form-control">
-              <label for="password">Password</label>
+              <label for="password" class="white-text">Password</label>
               <% if (locals.errors && errors.password) { %>
                 <span>
                   <%= errors.password.msg %>
@@ -45,7 +59,7 @@
             </div>
             <div class="md-form">
               <input type="password" name="confirm-password" id="confirm-password" class="form-control">
-              <label for="confirm-password">Confirm Pass</label>
+              <label for="confirm-password" class="white-text">Confirm Pass</label>
             </div>
 
             <hr class="mb-4">

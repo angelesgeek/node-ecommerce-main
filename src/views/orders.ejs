@@ -8,34 +8,37 @@
 <body>
     <%- include('./partials/headeradmin') %>
 
-    <main class="mt-5 pt-4">
-        <div class="container wow fadeIn animated">
+    <main class="mt-5 pt-4 bg-dark white-text">
+        <div class="container">
             <h2 class="mt-5 mb-3 h2 text-center">
                Todos los pedidos
             </h2>
-            <div class="card mb-5">
+            <div class="card mb-5 bg-dark white-text">
                     <div class="card-header">
-                        Ejemplo
+                        
                     </div>
                     <div class="card-body">
                         <table class="table table-responsive-md mb-0">
                             <thead>
                                 <tr>
-                                    <th style="th-lg">
+                                    <th class="white-text">
                                         <strong>ID de Pedido</strong>
                                     </th>
-                                    <th class="th-lg">
+                                    <th class="white-text">
                                         <strong>ID de Cliente</strong>
                                     </th>
-                                    <th class="th-lg">
+                                    <th class="white-text">
+                                        <strong>ID de Usuario</strong>
+                                    </th>
+                                    <th class="white-text">
                                         <strong>Total</strong>
                                     </th>
-                                    <th class="th-lg">
+                                    <th class="white-text">
                                         <strong>Ver</strong>
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="white-text">
                                 <% orders.forEach( orders=> { %>
                                     <%- include('./partials/orders' ,{orders}) %>
                                         <% } ) %>

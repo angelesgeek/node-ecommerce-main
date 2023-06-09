@@ -12,7 +12,7 @@ const userValidationsLogin = require("../middlewares/userValidationsLogin");
 router.get("/login", redirectIfAutenticated, controller.showLogin);
 router.post("/login", controller.login);
 
-router.get("/register", redirectIfAutenticated, controller.showRegister);
+router.get("/register", controller.showRegister);
 router.post("/register", userValidationsLogin, controller.register);
 
 router.post("/logout", controller.logout);

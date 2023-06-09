@@ -75,15 +75,13 @@ const controller = {
       name: req.body.name,
       email: req.body.email,
       password: bcryptjs.hashSync(req.body.password, 10),
+      id_app: req.body.id_app,
     };
     //guarda el usuario en base de datos
     let newUser = await db.User.create(data);
 
-    // SE LOGEA EN SESSION
-    req.session.userLogged = newUser;
-
     //redirigimos a menu de usuario
-    return res.redirect(`/profile/`);
+    return res.redirect(`/users/`);
   },
   
   logout: function (req, res) {
