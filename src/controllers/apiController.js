@@ -6,9 +6,12 @@ module.exports = {
     return res.json(product);
   },
   checkout: async function (req, res) {
-    // return res.send({ ...req.body, userId: req.session.userLogged.id });
+    
     let order = await db.Order.create(
-      { ...req.body, userId: req.session.userLogged.id },
+      { ...req.body, 
+        userId: req.session.userLogged.id,
+        id_app: req.session.userLogged.id_app
+      },
       {
         include: db.Order.OrderItems,
       }

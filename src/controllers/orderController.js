@@ -1,26 +1,61 @@
 const db = require("../database/models");
-const { param } = require("../routes/orders");
 const fs = require("fs");
 const PDFDocument = require("pdfkit");
 
 const controller = {
   index: async function (req, res) {
-
-    let orders = await db.Order.findAll();
-    return res.render("orders", { "orders": orders, "user": req.session.userLogged });
-
+    let orders = [];
+  
+    if (req.query.userId && req.query.userId.trim() !== "") {
+      console.log("userId: " + req.query.userId);
+      let userdb = await db.User.findOne({
+        where: {
+          id_app: req.query.userId,
+        },
+      });
+  
+      if (!userdb) {
+        // Usuario no encontrado, devuelve un mensaje de error o redirige a una página de error
+        return res.render("error", { error: "Usuario no encontrado" });
+      }
+  
+      console.log("------------------------------userdb: " + userdb.id_app);
+      console.log("------------------------------userdb: " + userdb.id);
+  
+      orders = await db.Order.findAll({
+        include: { model: db.User, as: "user" },
+        where: { userId: userdb.id },
+      });
+    } else {
+      console.log("else");
+      orders = await db.Order.findAll({
+        include: { model: db.User, as: "user" },
+      });
+    }
+  
+    return res.render("orders", {
+      orders: orders,
+      user: req.session.userLogged,
+      req: req, // Pasar req como variable local
+    });
   },
+
   detail: async function (req, res) {
-
-    let order = await db.Order.findByPk(req.params.id);
-
-    return res.render("order", { order }, { "user": req.session.userLogged });
+    try {
+      let order = await db.Order.findByPk(req.params.id);
+      if (!order) {
+        return res.status(404).send("Pedido no encontrado");
+      }
+      return res.render("order", { order: order, user: req.session.userLogged });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("Error al obtener los detalles del pedido");
+    }
   },
 
   generatePDF: async function (req, res) {
     try {
       const order = await db.Order.findByPk(req.params.id);
-
       if (!order) {
         return res.status(404).send("Pedido no encontrado");
       }

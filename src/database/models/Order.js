@@ -11,6 +11,10 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.INTEGER(11),
       allowNull: false,
     },
+    userId: {
+      type: dataTypes.INTEGER(11),
+      allowNull: false,
+    },
     total: {
       type: dataTypes.DECIMAL(10, 2),
       allowNull: false,

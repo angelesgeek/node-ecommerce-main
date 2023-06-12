@@ -12,7 +12,7 @@
     <main class="mt-5 pt-4">
         <div class="container dark-grey-text mt-5">
             <!--Grid row-->
-            <div class="row wow fadeIn">
+            <div class="row">
                 <!--Grid column-->
                 <div class="col-md-6 mb-4">
                     imagen?
@@ -21,7 +21,7 @@
                     <!--Grid column-->
                     <div class="col-md-6 mb-4">
                         <!--Content-->
-                        <div class="p-4">
+                        <div class="p-4 white-text">
                             <div class="mb-3">
                                 <% if (product.stock>20){ %>
                                     <h6 class="font-weight-medium white-text"
@@ -60,19 +60,15 @@
                         <!--Content-->
 
                     </div>
-                    
-
             </div>
                
 
                 <hr>
 
                 <!--Grid row-->
-                <div class="row d-flex justify-content-center wow fadeIn">
-
+                <div class="row d-flex justify-content-center white-text">
                     <!--Grid column-->
                     <div class="col-md-6 text-center">
-
                         <h4 class="my-4 h4">Información adicional</h4>
 
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente
@@ -85,17 +81,17 @@
                     <!--Grid column-->
 
                 </div>
-                <div style="background-color: rgb(232, 229, 229);">
+                <div class="white-text">
                     <h4 class="my-4 h4">Productos relacionados</h4>
                     <!--Grid row-->
-                    <div class="row wow fadeIn">
+                    <div class="row">
                       <% relatedProducts.forEach(function(relatedProduct) { %>
                       <!--Grid column-->
                       <div class="col-lg-4 col-md-6 mb-4">
                         <img src="/img/products/<%= relatedProduct.img %>" class="img-fluid" alt="">
                         <p class="lead font-weight-medium" style="font-size: smaller;">Nombre: <%= relatedProduct.name %></p>
                         <p class="lead font-weight-medium" style="font-size: smaller;">Marca: <%= relatedProduct.marca %></p>
-                        <a href="/products/detail/<%= relatedProduct.id %>" class="dark-grey-text" style="font-size: smaller;">Ver detalles</a>
+                        <a href="/products/detail/<%= relatedProduct.id %>" style="font-size: smaller;">Ver detalles</a>
                       </div>
                       <% }); %>
                     </div>

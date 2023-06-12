@@ -33,16 +33,12 @@
                                     <th class="th-lg">
                                         <strong>Mail</strong>
                                     </th>
-                                    <th class="th-lg">
-                                        <strong>Pedidos</strong>
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <% users.forEach( user=> { %>
                                     <%- include('./partials/user' ,{user}) %>
                                 <% } ) %>
-                                
                             </tbody>
                         </table>
                     </div>

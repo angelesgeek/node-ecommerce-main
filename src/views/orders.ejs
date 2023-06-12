@@ -14,9 +14,20 @@
                Todos los pedidos
             </h2>
             <div class="card mb-5 bg-dark white-text">
-                    <div class="card-header">
+                    <div class="">
+                        <div class="card-header bg-dark">
+                            <form action="/orders" method="GET" class="form-inline">
+                              <div class="form-group">
+                                <label for="userId" class="mr-2">ID de Cliente:</label>
+                                <input type="text" name="userId" id="userId" class="form-control" placeholder="Ingresa el ID de Cliente">
+                              </div>
+                              <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
+                              <% if (req.query.userId && req.query.userId.trim() !== "") { %>
+                                <a href="/orders" class="btn btn-primary btn-sm ml-2">Ver Todos</a>
+                              <% } %>
+                            </form>
+                          </div>
                         
-                    </div>
                     <div class="card-body">
                         <table class="table table-responsive-md mb-0">
                             <thead>
