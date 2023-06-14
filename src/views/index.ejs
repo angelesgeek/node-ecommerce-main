@@ -11,14 +11,14 @@
 
       <!--Main layout-->
       <main class="bg-dark">
-        <div class="container mt-5">
+        <div class="container">
           <%- include('./partials/carousel') %>
 
           <!--Section: Products v.3-->
           <section class="text-center mb-4">
 
             <!--Grid row-->
-            <div class="row wow fadeIn">
+            <div class="row">
 
               <% products.forEach( prod=> { %>
                 <%- include('./partials/product' ,{prod}) %>

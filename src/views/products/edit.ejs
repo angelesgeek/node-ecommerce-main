@@ -17,6 +17,7 @@
             <div class="card shadow my-4">
               <form class="card-body" action="/products/<%= product.id %>?_method=put" method="POST"
                 enctype="multipart/form-data">
+
                 <div class="md-form">
                   <input type="text" name="name" id="name" class="form-control" value="<%= product.name %>">
                   <label for="name">Nombre</label>
@@ -27,17 +28,20 @@
                     value="<%= product.price %>">
                   <label for="price">Precio</label>
                 </div>
+
                 <div class="custom-file mb-4">
                   <input type="file" class="custom-file-input" name="img" id="img" aria-describedby="inputImage"
                     lang="es">
                   <label class="custom-file-label" for="img">Elegir Foto</label>
                 </div>
+
                 <div class="custom-control custom-checkbox mb-4">
                   <input type="checkbox" class="custom-control-input" id="marked" name="marked" <%=product.marked
                     ? 'checked' :'' %>>
                   <label class="custom-control-label" for="marked">Marcar?</label>
                 </div>
-                <button class="btn btn-primary  waves-effect" type="submit">Guardar</button>
+                
+                <button class="btn btn-primary" type="submit">Guardar</button>
 
               </form>
             </div>

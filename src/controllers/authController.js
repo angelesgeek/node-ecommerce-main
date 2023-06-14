@@ -37,6 +37,8 @@ const controller = {
           res.cookie("userId", user.id, { maxAge: 1000 * 60 * 5 });
         }
         //redirigimos al menu de usuario
+        console.log("isAdmin: "+user.admin)
+        console.log("isAdmin: "+req.session.userLogged.admin)
 
         return user.admin ? res.redirect("/orders") : res.redirect("/profile");
       } else {
@@ -89,6 +91,70 @@ const controller = {
     res.clearCookie("userId");
     return res.redirect("/");
   },
+
+  //editar perfil
+
+  edit: async function (req, res) {
+    console.log("comienzo edit")
+    console.log("usuario: "+req.session.userLogged.admin)
+    if (!req.session.userLogged || !req.session.userLogged.admin) {
+      console.log("al profile")
+      return res.redirect("/profile");
+    }
+    
+    console.log("find by Pk")
+    let user = await db.User.findByPk(req.params.id);
+    console.log("user: "+user)
+    if (user) {
+      return res.render("auth/editUser", {
+        user: user,
+        userLogged: req.session.userLogged,
+      });
+    }
+    return res.redirect("/users");
+  },
+  
+  update: async function (req, res) {
+    console.log("update");
+
+    if (!req.session.userLogged.admin) {
+      return res.redirect("/users");
+    }
+  
+    console.log("id: " + req.body.id);
+    console.log("id: " + req.body.id_app);
+    console.log("query.id: " + req.query.id);
+    console.log("id: " + req.params.id);
+    console.log("id: " + req.body.name);
+    
+    let updatedUser = {
+      id: req.body.id,
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password
+    }
+    const [updaterows] = await db.User.update(updatedUser, {where: {id:req.body.id}});
+
+      console.log("updaterows"+ updaterows)
+          return res.redirect("/users");
+
+    },
+  delete: async function (req, res) {
+    
+    try{
+    await db.User.destroy({
+      where: { id: req.params.id },
+    });
+    return res.redirect("/users");
+    }
+    catch{
+        return res.redirect("/error");
+    }
+  },
+
+  //Mostrar mensajes del usuario logueado
+
+
   profile: async function (req, res) {
     let orders = await db.Order.findAll({
       where: { userId: req.session.userLogged.id },

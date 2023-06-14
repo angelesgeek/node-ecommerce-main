@@ -18,6 +18,12 @@ router.post("/register", userValidationsLogin, controller.register);
 router.post("/logout", controller.logout);
 router.get("/profile", authMiddleware, controller.profile);
 
+router.get("/edit/:id", authMiddleware, controller.edit); 
+router.put("/editUsers/:id", authMiddleware, controller.update); 
+
+router.get("/delete/:id", controller.delete);
+
+
 
 
 module.exports = router;

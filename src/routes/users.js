@@ -7,5 +7,4 @@ const controller = require("../controllers/userController");
 router.get("/", controller.index);
 
 
-
 module.exports = router;

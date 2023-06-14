@@ -1,0 +1,19 @@
+.h2, h2 {
+    font-size: 2rem;
+    color: white;
+}
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    background-color: #212529;
+}
+.card .card-body h1, .card .card-body h2, .card .card-body h3, .card .card-body h4, .card .card-body h5, .card .card-body h6 {
+    font-weight: 200;
+    color: white;
+}
+.card .card-body .card-text {
+    font-size: .9rem;
+    font-weight: 400;
+    color: white;
+}

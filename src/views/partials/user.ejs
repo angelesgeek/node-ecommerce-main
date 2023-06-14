@@ -11,4 +11,8 @@
     <td>
         <%= user.email %>
     </td>
+    <td>
+        <a class="btn btn-warning btn-sm" href="/edit/<%= user.id %>">Editar</a>
+        <a class="btn btn-warning btn-sm" href="/delete/<%= user.id %>">Eliminar</a>
+    </td>
 </tr>

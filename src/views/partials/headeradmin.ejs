@@ -3,9 +3,9 @@
     <div class="container">
 
         <!-- Brand -->
-        <a class="navbar-brand waves-effect" href="/">
+        <a class="navbar-brand" href="/">
             <div class="d-flex align-items-center">
-                <img src="/img/logo.png" alt="Logo New Motors" class="img-fluid mr-2" style="max-width: 70px;">
+                <img src="/img/logo.png" alt="Logo New Motors" class="img-fluid mr-2" style="max-width: 60%;">
                 
             </div>
         </a>
@@ -30,7 +30,7 @@
                     </a>
                 </li>
                 <li class="nav-item <%= locals.active == 'products' ? 'active':'' %>">
-                    <a class="nav-link waves-effect" href="/products">Productos</a>
+                    <a class="nav-link" href="/products">Productos</a>
                     <% if (locals.active=='products' ) { %>
 
                         <span class="sr-only">(current)</span>
@@ -40,15 +40,15 @@
                 <% if (typeof user !== 'undefined' && user && user.admin) { %>
 
                     <li class="nav-item">
-                        <a class="nav-link waves-effect" href="/orders">Pedidos</a>
+                        <a class="nav-link" href="/orders">Pedidos</a>
                         <span class="sr-only"></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link waves-effect" href="/reports">Reportes</a>
+                        <a class="nav-link" href="/reports">Reportes</a>
                         <span class="sr-only"></span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link waves-effect" href="/users">Usuarios</a>
+                        <a class="nav-link" href="/users">Usuarios</a>
                         <span class="sr-only"></span>
                     </li>
                     
@@ -56,29 +56,29 @@
 
                         <% if (locals.userFound) { %>
                             <li class="nav-item  <%= locals.active == 'profile' ? 'active':'' %>">
-                                <a class="nav-link waves-effect" href="/profile">Mi Cuenta </a>
+                                <a class="nav-link" href="/profile">Mi Cuenta </a>
                             </li>
                             <li class="nav-item">
                                 <form action="/logout" method="POST">
-                                    <button class="btn-link btn py-2 px-3 m-0 nav-link waves-effect"><i
+                                    <button class="btn-link btn py-2 px-3 m-0 nav-link"><i
                                             class="fas fa-sign-out-alt"></i></button>
                                 </form>
                             </li>
                             <% } else { %>
                                 <li class="nav-item">
-                                    <a class="nav-link waves-effect" href="/login">Ingreso</a>
+                                    <a class="nav-link" href="/login">Ingreso</a>
                                 </li>
                             <% } %>
             </ul>
             <% if (user) { %>
                 <li class="nav-item" style="list-style: none;">
-                    <span >¡Hola, <%= user.name %>!</span>
+                    <span class="text-white">¡Hola, <%= user.name %>!</span>
                 </li>
             <% } %>
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
                 <li class="nav-item">
-                    <a class="nav-link waves-effect mr-2 pr-4" href="/cart">
+                    <a class="nav-link mr-2 pr-4" href="/cart">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="clearfix d-none d-sm-inline-block"> Pedido </span>
                         <span class="badge red z-depth-1 mr-1 cart-number">0</span>
@@ -88,7 +88,8 @@
                 <li class="nav-item">
                     <a href="https://newmotors.com.ar/" class="nav-link border border-light rounded waves-effect"
                         target="_blank">
-                        <i class="fa-regular fa-browser"></i>Visitar Web
+                        <i class="fa-regular fa-browser"></i>
+                        Visitar Web
                     </a>
                 </li>
             </ul>

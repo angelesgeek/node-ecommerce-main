@@ -3,7 +3,7 @@ body,
 header,
 .carousel {
   height: 60vh;
-  margin-top: 2rem;
+  margin-top: 3.5rem;
   background: #212121!important;
 }
 
@@ -24,4 +24,13 @@ header,
   .carousel {
     height: 100vh;
   }
+}
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  margin-top: 10px;
 }
