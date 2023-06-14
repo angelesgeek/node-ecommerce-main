@@ -37,8 +37,7 @@ const controller = {
           res.cookie("userId", user.id, { maxAge: 1000 * 60 * 5 });
         }
         //redirigimos al menu de usuario
-        console.log("isAdmin: "+user.admin)
-        console.log("isAdmin: "+req.session.userLogged.admin)
+      
 
         return user.admin ? res.redirect("/orders") : res.redirect("/profile");
       } else {
@@ -95,16 +94,15 @@ const controller = {
   //editar perfil
 
   edit: async function (req, res) {
-    console.log("comienzo edit")
-    console.log("usuario: "+req.session.userLogged.admin)
+    
     if (!req.session.userLogged || !req.session.userLogged.admin) {
-      console.log("al profile")
+      
       return res.redirect("/profile");
     }
     
-    console.log("find by Pk")
+    
     let user = await db.User.findByPk(req.params.id);
-    console.log("user: "+user)
+    
     if (user) {
       return res.render("auth/editUser", {
         user: user,
@@ -120,13 +118,7 @@ const controller = {
     if (!req.session.userLogged.admin) {
       return res.redirect("/users");
     }
-  
-    console.log("id: " + req.body.id);
-    console.log("id: " + req.body.id_app);
-    console.log("query.id: " + req.query.id);
-    console.log("id: " + req.params.id);
-    console.log("id: " + req.body.name);
-    
+
     let updatedUser = {
       id: req.body.id,
       name: req.body.name,
@@ -139,8 +131,9 @@ const controller = {
           return res.redirect("/users");
 
     },
+
   delete: async function (req, res) {
-    
+
     try{
     await db.User.destroy({
       where: { id: req.params.id },
@@ -148,7 +141,7 @@ const controller = {
     return res.redirect("/users");
     }
     catch{
-        return res.redirect("/error");
+      return res.redirect("/error");
     }
   },
 
