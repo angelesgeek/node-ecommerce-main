@@ -11,16 +11,15 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.INTEGER(11),
       allowNull: true,
     },
-     admin: {
-      type: dataTypes.BOOLEAN,
-      defaultValue: false
+     rol: {
+      type: dataTypes.INTEGER(2),
+      defaultValue: 0,
     }, 
-  
+    
     name: {
       type: dataTypes.STRING(50),
       allowNull: false,
     },
-
     email: {
       type: dataTypes.STRING(100),
       allowNull: false,

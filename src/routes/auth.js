@@ -13,7 +13,7 @@ router.get("/login", redirectIfAutenticated, controller.showLogin);
 router.post("/login", controller.login);
 
 router.get("/register", controller.showRegister);
-router.post("/register", userValidationsLogin, controller.register);
+router.post("/register", controller.register);
 
 router.post("/logout", controller.logout);
 router.get("/profile", authMiddleware, controller.profile);

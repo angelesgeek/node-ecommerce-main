@@ -3,7 +3,7 @@
         <%= user.id_app %>
     </td>
     <td>
-        <%= (user.admin ? "admin" : "cliente") %> 
+        <%= (user.rol==1 ? "admin" : "cliente") %> 
     </td>
     <td>
         <%= user.name %>

@@ -19,7 +19,8 @@
         <%= mensaje.respuesta %>
     </td>
 </tr>
-<% if (user!=null&&user.admin) { %>
+
+<% if (user!=null&&user.rol==2) { %>
 <tr class="white-text">
     <td>
         <form action="message/sendResponse" method="POST">

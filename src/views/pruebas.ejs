@@ -1,0 +1,73 @@
+<% if (typeof user !== 'undefined' && user && user.role === 'admin') { %>
+
+
+    modelo
+
+    module.exports = (sequelize, dataTypes) => {
+        let alias = "User";
+        let columns = {
+          id: {
+            type: dataTypes.INTEGER(11),
+            primaryKey: true,
+            autoIncrement: true,
+            allowNull: false,
+          },
+          id_app: {
+            type: dataTypes.INTEGER(11),
+            allowNull: true,
+          },
+          role: {
+            type: dataTypes.ENUM("admin", "customer", "vendor"),
+            defaultValue: "customer",
+            allowNull: false,
+          },
+          name: {
+            type: dataTypes.STRING(50),
+            allowNull: false,
+          },
+          email: {
+            type: dataTypes.STRING(100),
+            allowNull: false,
+          },
+          password: {
+            type: dataTypes.STRING(100),
+            allowNull: false,
+          },
+          img: {
+            type: dataTypes.STRING(100),
+            allowNull: true,
+          },
+        };
+        let configurations = {};
+      
+        const User = sequelize.define(alias, columns, configurations);
+      
+        User.associate = (models) => {
+          User.hasMany(models.Order, {
+            as: "orders",
+            foreignKey: "userId",
+          });
+        };
+      
+        return User;
+      };
+      
+
+      auth controller
+      if (user.role === 'admin') {
+        res.redirect("/orders");
+      } else if (user.role === 'customer') {
+        res.redirect("/profile");
+      } else if (user.role === 'vendor') {
+        // Lógica de redirección para el rol de vendor, si es necesario
+        res.redirect("/vendor-route");
+      } else {
+        // Redirección predeterminada en caso de un rol desconocido
+        res.redirect("/default-route");
+      }
+
+      edit: async function (req, res) {
+        if (!req.session.userLogged || req.session.userLogged.role !== 'admin') {
+          return res.redirect("/profile");
+        }
+      

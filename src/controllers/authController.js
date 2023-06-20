@@ -38,8 +38,7 @@ const controller = {
         }
         //redirigimos al menu de usuario
       
-
-        return user.admin ? res.redirect("/orders") : res.redirect("/profile");
+        return user.rol == 1 ? res.redirect("/orders") : res.redirect("/profile");
       } else {
         //si la password no es correcta devolvemos el error
         return res.render("auth/login", {
@@ -72,11 +71,17 @@ const controller = {
       return res.render("register", {errors: errors, olds: req.body, "user": req.session.userLogged});
     }
 
+    var salt = bcryptjs.genSaltSync(10),
+        plainPassword = req.body.password,
+        password = bcryptjs.hashSync( req.body.password, salt );
+
     let data = {
       name: req.body.name,
-      email: req.body.email,
-      password: bcryptjs.hashSync(req.body.password, 10),
       id_app: req.body.id_app,
+      email: req.body.email,
+      rol: req.body.rol,
+      password: password,
+      
     };
     //guarda el usuario en base de datos
     let newUser = await db.User.create(data);
@@ -113,21 +118,24 @@ const controller = {
   },
   
   update: async function (req, res) {
-    console.log("update");
+    
 
-    if (!req.session.userLogged.admin) {
+    if (!req.session.userLogged.rol==1) {
       return res.redirect("/users");
     }
+
+    var salt = bcryptjs.genSaltSync(10),
+        plainPassword = req.body.password,
+        password = bcryptjs.hashSync( req.body.password, salt );
 
     let updatedUser = {
       id: req.body.id,
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password
+      password: password
     }
     const [updaterows] = await db.User.update(updatedUser, {where: {id:req.body.id}});
 
-      console.log("updaterows"+ updaterows)
           return res.redirect("/users");
 
     },
@@ -152,11 +160,17 @@ const controller = {
     let orders = await db.Order.findAll({
       where: { userId: req.session.userLogged.id },
     });
-
+    if(req.session.userLogged.rol==1){
     let messages = await db.Mensaje.findAll();
-
-    // return res.send(orders);
     return res.render("auth/profile", { "orders": orders, "messages": messages, "user": req.session.userLogged });
+    }else{
+    let messages = await db.Mensaje.findAll({
+      where:{userId:req.session.userLogged.id}
+    })
+    return res.render("auth/profile", { "orders": orders, "messages": messages, "user": req.session.userLogged });
+    }
+   
+    
   },
 
 };

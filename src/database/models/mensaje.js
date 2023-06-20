@@ -16,6 +16,10 @@ module.exports = (sequelize, dataTypes) => {
         type: dataTypes.STRING(200),
         allowNull: false 
       },
+      userId: {
+        type: dataTypes.INTEGER(11),
+        allowNull: false,
+      },
       respuesta: {
         type: dataTypes.STRING(255),
         allowNull: true 
@@ -40,7 +44,7 @@ module.exports = (sequelize, dataTypes) => {
     Mensaje.associate = (models) => {
       Mensaje.User = Mensaje.belongsTo(models.User, {
         as: "user",
-        foreignKey: "id",
+        foreignKey: "userId",
       });
     };
     return Mensaje;
