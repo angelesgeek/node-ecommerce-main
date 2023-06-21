@@ -1,18 +1,19 @@
 <tr>
     <td>
-        <%= user.id_app %>
+      <%= user.id_app || 0 %>
     </td>
     <td>
-        <%= (user.rol==1 ? "admin" : "cliente") %> 
+      <%= user.rol === 1 ? "admin" : user.rol === 2 ? "vendedor" : "cliente" %> 
     </td>
     <td>
-        <%= user.name %>
+      <%= user.name %>
     </td>
     <td>
-        <%= user.email %>
+      <%= user.email %>
     </td>
     <td>
-        <a class="btn btn-warning btn-sm" href="/edit/<%= user.id %>">Editar</a>
-        <a class="btn btn-warning btn-sm" href="/delete/<%= user.id %>">Eliminar</a>
+      <a class="btn btn-warning btn-sm" href="/edit/<%= user.id %>">Editar</a>
+      <a class="btn btn-warning btn-sm" href="/delete/<%= user.id %>">Eliminar</a>
     </td>
-</tr>
+  </tr>
+  

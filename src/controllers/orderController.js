@@ -35,7 +35,7 @@ const controller = {
   
     return res.render("orders", {
       orders: orders,
-      user: req.session.userLogged,
+      userLogged: req.session.userLogged,
       req: req, // Pasar req como variable local
     });
   },
@@ -46,7 +46,7 @@ const controller = {
       if (!order) {
         return res.status(404).send("Pedido no encontrado");
       }
-      return res.render("order", { order: order, user: req.session.userLogged });
+      return res.render("order", { order: order, userLogged: req.session.userLogged });
     } catch (error) {
       console.error(error);
       return res.status(500).send("Error al obtener los detalles del pedido");

@@ -21,7 +21,7 @@
                         <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
                 </form>
                 
-                <% if (user!=null&&user.admin) { %>
+                <% if (userLogged!=null&&userLogged.rol==1) { %>
                     <a class="btn btn-primary btn-rounded" href="/products/create">Agregar Producto</a>
                     <% } %>
                         <!-- Mostrar la información de la página actual y el número total de páginas -->

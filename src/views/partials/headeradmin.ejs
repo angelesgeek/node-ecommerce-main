@@ -37,7 +37,7 @@
                         <% } %>
                 </li>
 
-                <% if (typeof user !== 'undefined' && user && user.rol==1) { %>
+                <% if (typeof userLogged !== 'undefined' && userLogged && userLogged.rol==1) { %>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/orders">Pedidos</a>
@@ -70,9 +70,9 @@
                                 </li>
                             <% } %>
             </ul>
-            <% if (user) { %>
+            <% if (userLogged) { %>
                 <li class="nav-item" style="list-style: none;">
-                    <span class="text-white">¡Hola, <%= user.name %>!</span>
+                    <span class="text-white">¡Hola, <%= userLogged.name %>!</span>
                 </li>
             <% } %>
             <!-- Right -->

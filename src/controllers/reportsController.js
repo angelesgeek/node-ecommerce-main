@@ -4,7 +4,7 @@ const PDFDocument = require("pdfkit");
 
 const renderReports = async (req, res) => {
  
-    return res.render("reports", { user: req.session.userLogged });
+    return res.render("reports", { userLogged: req.session.userLogged });
   };
 
 module.exports = {

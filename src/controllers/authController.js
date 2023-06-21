@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator");
 
 const controller = {
   showLogin: function (req, res) {
-    return res.render("auth/login", { "user": req.session.userLogged });
+    return res.render("auth/login", { "userLogged": req.session.userLogged });
   },
   login: async function (req, res) {
     //validar los datos
@@ -14,7 +14,7 @@ const controller = {
     if (!errores.isEmpty()) {
       let errors = errores.mapped();
       console.log(errors);
-      return res.render("auth/login", { errors: errors, olds: req.body, "user": req.session.userLogged });
+      return res.render("auth/login", { errors: errors, olds: req.body, "userLogged": req.session.userLogged });
     }
 
     //leo el json
@@ -48,47 +48,54 @@ const controller = {
             },
           },
           olds: req.body,
-          "user": req.session.userLogged
+          "userLogged": req.session.userLogged
         });
       }
     } else {
       return res.render("auth/login", {
-        errors: { email: { msg: "No se encontró el usuario", olds: req.body, "user": req.session.userLogged } },
+        errors: { email: { msg: "No se encontró el usuario", olds: req.body, "userLogged": req.session.userLogged } },
       });
     }
   },
   showRegister: function (req, res) {
-    return res.render("auth/register", {"user": req.session.userLogged});
+    return res.render("auth/register", {"userLogged": req.session.userLogged});
   },
   register: async function (req, res) {
-    //validar los datos
+    // Validar los datos
     let errores = validationResult(req);
-
-    //si hay errores, retornarlos a la vista
+  
+    // Si hay errores, retornarlos a la vista
     if (!errores.isEmpty()) {
       let errors = errores.mapped();
       console.log(errors);
-      return res.render("register", {errors: errors, olds: req.body, "user": req.session.userLogged});
+      return res.render("register", { errors: errors, olds: req.body, userLogged: req.session.userLogged });
     }
-
-    var salt = bcryptjs.genSaltSync(10),
-        plainPassword = req.body.password,
-        password = bcryptjs.hashSync( req.body.password, salt );
-
+  
+    var salt = bcryptjs.genSaltSync(10);
+    var plainPassword = req.body.password;
+    var password = bcryptjs.hashSync(req.body.password, salt);
+  
     let data = {
       name: req.body.name,
-      id_app: req.body.id_app,
+      id_app: req.body.id_app ? req.body.id_app : null, // Verificamos si existe req.body.id_app
       email: req.body.email,
       rol: req.body.rol,
-      password: password,
-      
+      password: password
     };
-    //guarda el usuario en base de datos
-    let newUser = await db.User.create(data);
-
-    //redirigimos a menu de usuario
-    return res.redirect(`/users/`);
+  
+    // Guardar el usuario en la base de datos
+    try {
+      let newUser = await db.User.create(data);
+  
+      // Redirigimos al menú de usuario
+      return res.redirect(`/users/`);
+    } catch (error) {
+      // Manejo de errores
+      console.log(error);
+      return res.status(500).send('Error al crear el usuario');
+    }
   },
+  
   
   logout: function (req, res) {
     req.session.destroy();
@@ -99,15 +106,15 @@ const controller = {
   //editar perfil
 
   edit: async function (req, res) {
-    
-    if (!req.session.userLogged || !req.session.userLogged.admin) {
+    console.log("userLogged 1"+ req.session.userLogged)
+    if (!req.session.userLogged || !req.session.userLogged.rol==1) {
       
       return res.redirect("/profile");
     }
     
     
     let user = await db.User.findByPk(req.params.id);
-    
+
     if (user) {
       return res.render("auth/editUser", {
         user: user,
@@ -162,12 +169,12 @@ const controller = {
     });
     if(req.session.userLogged.rol==1){
     let messages = await db.Mensaje.findAll();
-    return res.render("auth/profile", { "orders": orders, "messages": messages, "user": req.session.userLogged });
+    return res.render("auth/profile", { "orders": orders, "messages": messages, "userLogged": req.session.userLogged });
     }else{
     let messages = await db.Mensaje.findAll({
       where:{userId:req.session.userLogged.id}
     })
-    return res.render("auth/profile", { "orders": orders, "messages": messages, "user": req.session.userLogged });
+    return res.render("auth/profile", { "orders": orders, "messages": messages, "userLogged": req.session.userLogged });
     }
    
     

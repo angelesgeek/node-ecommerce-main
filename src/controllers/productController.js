@@ -32,7 +32,7 @@ const controller = {
 
     return res.render("products/list", {
       products: productosPagina,
-      user: req.session.userLogged,
+      userLogged: req.session.userLogged,
       currentPage: paginaDeseada,
       totalPages: totalPages,
       pageRange: pageRange,
@@ -58,12 +58,12 @@ const controller = {
     return res.render("products/detail", {
       product,
       relatedProducts: relatedProductsToShow,
-      user: req.session.userLogged,
+      userLogged: req.session.userLogged,
     });
   },
 
   create: function (req, res) {
-    return res.render("products/create", { user: req.session.userLogged });
+    return res.render("products/create", { userLogged: req.session.userLogged });
   },
 
   store: async function (req, res) {
@@ -89,7 +89,7 @@ const controller = {
     if (product) {
       return res.render("products/edit", {
         product,
-        user: req.session.userLogged,
+        userLogged: req.session.userLogged,
       });
     }
     return res.redirect("/products");
@@ -143,7 +143,7 @@ const controller = {
     // Renderizar la vista de resultados de búsqueda
     return res.render("products/test", {
       products,
-      user: req.session.userLogged,
+      userLogged: req.session.userLogged,
     });
   },
   
