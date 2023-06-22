@@ -7,7 +7,7 @@ const controller = {
     let orders = [];
   
     if (req.query.userId && req.query.userId.trim() !== "") {
-      console.log("userId: " + req.query.userId);
+     
       let userdb = await db.User.findOne({
         where: {
           id_app: req.query.userId,
@@ -19,15 +19,12 @@ const controller = {
         return res.render("error", { error: "Usuario no encontrado" });
       }
   
-      console.log("------------------------------userdb: " + userdb.id_app);
-      console.log("------------------------------userdb: " + userdb.id);
-  
       orders = await db.Order.findAll({
         include: { model: db.User, as: "user" },
         where: { userId: userdb.id },
       });
     } else {
-      console.log("else");
+      
       orders = await db.Order.findAll({
         include: { model: db.User, as: "user" },
       });

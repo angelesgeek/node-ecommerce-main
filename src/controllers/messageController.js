@@ -6,16 +6,15 @@ const controller = {
     await db.Mensaje.create({
       remitente: req.body.remitente,
       mensaje: req.body.mensaje,
+      userId: parseInt(req.body.userId), // Convertir a entero
     });
     return res.redirect("/profile");
   },
+
   sendResponse: async function (req, res) {
     let mensaje = await db.Mensaje.findByPk(req.body.id);
-    console.log("buscar mensaje")
+    
     if (mensaje) {
-      console.log("await update")
-      console.log("respuesta " + req.body.respuesta)
-      console.log("id " + mensaje.id)
       await mensaje.update({
         respuesta: req.body.respuesta,
         mensaje: mensaje.mensaje,

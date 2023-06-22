@@ -57,7 +57,7 @@ app.use("/message/", messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  return res.render("errors/404", {"user": req.session.userLogged});
+  return res.render("errors/404", {"userLogged": req.session.userLogged});
   //next(createError(404));
 });
 
@@ -66,7 +66,7 @@ app.use(function (err, req, res, next) {
   console.log(err);
   if (err["view"] != null) {
     console.error("errorView", err.message);
-    return res.render("errors/500", {"user": req.session.userLogged});
+    return res.render("errors/500", {"userLogged": req.session.userLogged});
   }
   return next();
 });

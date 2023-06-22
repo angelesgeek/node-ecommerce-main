@@ -5,6 +5,9 @@
       <input type="text" name="remitente" id="remitente" value="Administrador" class="form-control white-text">
       <label for="remitente" class="active white-text">Remitente</label>
     </div>
+
+    <input type="hidden" id="userId" name="userId" value="<%= userLogged.id %>">
+
     <div class="md-form white-text">
       <textarea cols="50" rows="4" name="mensaje" id="mensaje" class="form-control white-text" maxlength="200"></textarea>
       <label for="mensaje" class="white-text" >Mensaje</label>
