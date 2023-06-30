@@ -11,14 +11,54 @@
         <main class="mt-5 pt-4 bg-dark">
             <div class="container">
                 <h2 class="mt-5 mb-3 h2 text-center text-white">Nuestros Productos</h2>
-                <form action="/products/search" method="GET" class="row">
-                    <div class="col">
+
+               <!--  Formulario de filtrado de productos -->
+
+                <form action="/products/search" id="filter-form" method="GET" class="row">
+                    <!-- <div class="col">
                         <input type="text" class="form-control" name="name" placeholder="Buscar por nombre">
                     </div>
                     <div class="col">
                         <input type="text" class="form-control" name="marca" placeholder="Buscar por marca">
                     </div>
-                        <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Buscar</button> -->
+                        
+                          <div class="form-group col-md-6">
+                            <label for="codigo" class="label-white">Código:</label>
+                            <input type="text" class="form-control" id="codigo" placeholder="Ingrese un código">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="descripcion" class="label-white">Descripción:</label>
+                            <input type="text" class="form-control" id="descripcion" placeholder="Ingrese una descripción">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="automotriz" class="label-white">Automotriz:</label>
+                            <select class="form-control" id="automotriz">
+                              <!-- Opciones de Automotriz -->
+                            </select>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="producto" class="label-white">Producto:</label>
+                            <select class="form-control" id="producto">
+                              <!-- Opciones de Producto -->
+                            </select>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="motor" class="label-white">Motor:</label>
+                            <select class="form-control" id="motor">
+                              <!-- Opciones de Motor -->
+                            </select>
+                          </div>
+                          
+                          <div class="form-group col-md-6">
+                            <label for="marca" class="label-white">Marca:</label>
+                            <select class="form-control" id="marca">
+                              <!-- Opciones de Marca -->
+                            </select>
+                          </div>
+                          <button type="button" class="btn btn-primary" onclick="limpiarFiltro()">Limpiar Filtro</button>
+                          <button type="submit" class="btn btn-primary">Filtrar</button>
+                          
                 </form>
                 
                 <% if (userLogged!=null&&userLogged.rol==1) { %>
@@ -78,6 +118,16 @@
         <%- include('../partials/footer') %>
             <%- include('../partials/scripts') %>
                 <script src="/js/cart.js"></script>
+                <script>
+                  function limpiarFiltro() {
+                    document.getElementById("filter-form").reset();
+                  }
+                
+                  document.getElementById("filter-form").addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    
+                  });
+                </script>
 </body>
 
 </html>
