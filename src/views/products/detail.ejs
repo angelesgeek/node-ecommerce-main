@@ -16,39 +16,51 @@
             <div class="row">
                 <!--Grid column-->
                 <div class="col-md-6 mb-4">
-                    imagen?
-                    <section><%= product.img %></section>       
+                    <p class="lead text-white">Código: <%= product.code %></p>
+                    <img src="/img/products/<%= product.img %>" class="img-fluid" alt="Imagen del producto">
                 </div>
+                
                     <!--Grid column-->
                     <div class="col-md-6 mb-4">
                         <!--Content-->
-                        <div class="p-4 white-text">
+                        <div class="p-4 white-text text-left">
                             <div class="mb-3">
-                                <% if (product.stock>20){ %>
+                                <% if (product.stock > 5){ %>
                                     <h6 class="font-weight-medium white-text"
                                         style="background-color: green; border-radius: 5px; padding: 5px; width: 50%;">
-                                        Stock <%= product.stock %>
+                                        Stock disponible <%= product.stock %>
                                     </h6>
+                                    <a href="https://wa.me/3513441314" target="_blank" class="btn btn-sm btn-success" style="border-radius: 5px; padding: 5px; width: 25%;">
+                                        <i class="fab fa-whatsapp"></i> Consultar </a>
                                 <% } %>
                     
-                                <% if (product.stock <10){ %>
+                                <% if (product.stock < 2){ %>
                                     <h6 class="font-weight-medium white-text"
                                         style="background-color: red; border-radius: 5px; padding: 5px; width: 50%;">
-                                        Stock <%= product.stock %>
+                                        Bajo pedido - <%= product.stock %> unidades
                                     </h6>
+                                    <a href="https://wa.me/3513441314" target="_blank" class="btn btn-sm btn-success" style="border-radius: 5px; padding: 5px; width: 25%;">
+                                        <i class="fab fa-whatsapp"></i> Consultar </a>
                                 <% } %>
                     
-                                <% if (product.stock <20&& product.stock>=10){ %>
-                                    <h6 class="font-weight-bold black-text"
+                                <% if (product.stock <2&& product.stock>=2){ %>
+                                    <h6 class="font-weight-m black-text"
                                         style="background-color: yellow; border-radius: 5px; padding: 5px; width: 50%;">
-                                        Stock <%= product.stock %>
+                                        Stock  <%= product.stock %> 
                                     </h6>
+                                    <a href="https://wa.me/3513441314" target="_blank" class="btn btn-sm btn-success" style="border-radius: 5px; padding: 5px; width: 25%;">
+                                        <i class="fab fa-whatsapp"></i> Consultar </a>
                                 <% } %>   
                             </div>
                            
-                            <p class="lead font-weight-medium">Nombre: <%= product.name %></p>
-                            <p class="lead font-weight-medium">Marca: <%= product.marca %></p>
-                            <p class="lead">Precio: <%= product.price %></p>
+                            <p>Nombre: <%= product.name %></p>
+                            <p>Marca: <%= product.brand %></p>
+                            <p>Precio: <%= product.price %> última actualización: <%= product.price_update %></p>
+                            <p>Automotriz: <%= product.automotive %></p>
+                            <p>Motor: <%= product.engine %></p>
+                            <p>Modelo: <%= product.model %></p>
+                            <p>Num. OE: <%= product.oe_number %></p>
+                            <p>Descripción: <%= product.description %></p>
                             
                             
                             <form class="d-flex justify-content-left">
@@ -62,21 +74,14 @@
 
                     </div>
             </div>
-               
-
                 <hr>
-
                 <!--Grid row-->
                 <div class="row d-flex justify-content-center white-text">
                     <!--Grid column-->
                     <div class="col-md-6 text-center">
                         <h4 class="my-4 h4">Especificaciones</h4>
 
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente
-                            illo soluta odit
-                            voluptates,
-                            quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in
-                            laborum.</p>
+                        <p><%= product.specification %></p>
 
                     </div>
                     <!--Grid column-->
@@ -91,7 +96,7 @@
                       <div class="col-lg-4 col-md-6 mb-4">
                         <img src="/img/products/<%= relatedProduct.img %>" class="img-fluid" alt="">
                         <p class="lead font-weight-medium" style="font-size: smaller;">Nombre: <%= relatedProduct.name %></p>
-                        <p class="lead font-weight-medium" style="font-size: smaller;">Marca: <%= relatedProduct.marca %></p>
+                        <p class="lead font-weight-medium" style="font-size: smaller;">Marca: <%= relatedProduct.brand %></p>
                         <a href="/products/detail/<%= relatedProduct.id %>" style="font-size: smaller;">Ver detalles</a>
                       </div>
                       <% }); %>

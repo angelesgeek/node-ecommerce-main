@@ -12,10 +12,21 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.STRING(100),
       allowNull: false,
     },
-    
     price: {
       type: dataTypes.DECIMAL(10, 2),
       allowNull: false,
+    },
+    code: {
+      type: dataTypes.STRING(50),
+      allowNull: true,
+    },
+    engine: {
+      type: dataTypes.STRING(100),
+      allowNull: true,
+    },
+    oe_number: {
+      type: dataTypes.STRING(50),
+      allowNull: true,
     },
     quantity: {
       type: dataTypes.INTEGER(11),

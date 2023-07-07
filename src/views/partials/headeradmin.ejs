@@ -70,7 +70,7 @@
                                 </li>
                             <% } %>
             </ul>
-            <% if (userLogged) { %>
+            <% if (typeof userLogged !== 'undefined' && userLogged && userLogged.name) { %>
                 <li class="nav-item" style="list-style: none;">
                     <span class="text-white">¡Hola, <%= userLogged.name %>!</span>
                 </li>

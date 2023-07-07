@@ -13,56 +13,52 @@
                 <h2 class="mt-5 mb-3 h2 text-center text-white">Nuestros Productos</h2>
 
                <!--  Formulario de filtrado de productos -->
+               <form action="/products/search" id="filter-form" method="GET" class="row">
+                  
+                <div class="form-group col-md-6">
+                  <label for="code" class="label-white">Código:</label>
+                  <input type="text" class="form-control" id="codigo" name="code">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="description" class="label-white">Descripción:</label>
+                  <input type="text" class="form-control" id="description" name="description">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="automotive" class="label-white">Automotriz:</label>
+                  <select class="form-control" id="automotive" name="automotive">
+                    <option value="automotive"></option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name" class="label-white">Producto:</label>
+                  <input type="text" class="form-control" id="name" name="name">
 
-                <form action="/products/search" id="filter-form" method="GET" class="row">
-                    <!-- <div class="col">
-                        <input type="text" class="form-control" name="name" placeholder="Buscar por nombre">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" name="marca" placeholder="Buscar por marca">
-                    </div>
-                        <button type="submit" class="btn btn-primary btn-sm">Buscar</button> -->
-                        
-                          <div class="form-group col-md-6">
-                            <label for="codigo" class="label-white">Código:</label>
-                            <input type="text" class="form-control" id="codigo" placeholder="Ingrese un código">
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="descripcion" class="label-white">Descripción:</label>
-                            <input type="text" class="form-control" id="descripcion" placeholder="Ingrese una descripción">
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="automotriz" class="label-white">Automotriz:</label>
-                            <select class="form-control" id="automotriz">
-                              <!-- Opciones de Automotriz -->
-                            </select>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="producto" class="label-white">Producto:</label>
-                            <select class="form-control" id="producto">
-                              <!-- Opciones de Producto -->
-                            </select>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="motor" class="label-white">Motor:</label>
-                            <select class="form-control" id="motor">
-                              <!-- Opciones de Motor -->
-                            </select>
-                          </div>
-                          
-                          <div class="form-group col-md-6">
-                            <label for="marca" class="label-white">Marca:</label>
-                            <select class="form-control" id="marca">
-                              <!-- Opciones de Marca -->
-                            </select>
-                          </div>
-                          <button type="button" class="btn btn-primary" onclick="limpiarFiltro()">Limpiar Filtro</button>
-                          <button type="submit" class="btn btn-primary">Filtrar</button>
-                          
-                </form>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="motor" class="label-white">Motor:</label>
+                  <select class="form-control" id="motor" name="motor">
+                    <option value="motor"></option>
+                  </select>
+                </div>
+                
+                <div class="form-group col-md-6">
+                  <label for="brand" class="label-white">Marca:</label>
+                  <select class="form-control" id="brand">
+                    <option value="brand"></option>
+                  </select>
+                </div>
+                <button type="button" class="btn-sm btn-primary" onclick="limpiarFiltro()">Limpiar Filtro</button>
+                <button type="submit" class="btn-sm btn-primary">Filtrar</button>
+                
+      </form>
+              
+              
+              
+              
                 
                 <% if (userLogged!=null&&userLogged.rol==1) { %>
-                    <a class="btn btn-primary btn-rounded" href="/products/create">Agregar Producto</a>
+                  <span></span>
+                    <div><a class="btn-sm btn-primary btn-rounded" href="/products/create">Agregar Producto</a></div>
                     <% } %>
                         <!-- Mostrar la información de la página actual y el número total de páginas -->
                         <p class="text-white">Página <%= currentPage %> de <%= totalPages %></p>
@@ -109,9 +105,7 @@
                             <% if (currentPage < totalPages) { %>
                               <a href="/products?page=<%= currentPage + 1 %>" class="page-link bg-dark text-white">Siguiente</a>
                             <% } %>
-                          </div>
-                          
-                          
+                          </div>      
             </div>
 
         </main>

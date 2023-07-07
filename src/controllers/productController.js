@@ -103,8 +103,19 @@ const controller = {
         image = req.file.filename;
       }
       await product.update({
+        code: req.body.code,
         name: req.body.name,
+        brand: req.body.brand,
+        automotive: req.body.automotive,
+        engine: req.body.engine,
+        motor: req.body.motor,
+        model: req.body.model,
+        oe_number: req.body.oe_number,
+        stock: req.body.stock,
+        description: req.body.description,
+        specification: req.body.specification,
         price: req.body.price,
+        price_update: req.body.price_update,
         img: image,
         marked: req.body.marked ? true : false,
       });
@@ -120,10 +131,16 @@ const controller = {
     return res.redirect("/products");
   },
 
+
   search: async function (req, res) {
     // Obtener los parámetros de búsqueda desde la URL
     const name = req.query.name;
-    const marca = req.query.marca;
+    const brand = req.query.brand;
+    const code = req.query.code;
+    const description = req.query.description;
+    const automotive = req.query.automotive;
+    const engine = req.query.engine;
+
   
     // Realizar la búsqueda en la base de datos
     let products = await getProducts();
@@ -134,12 +151,16 @@ const controller = {
         product.name.toLowerCase().includes(name.toLowerCase())
       );
     }
-    if (marca) {
+    if (code) {
       products = products.filter(product =>
-        product.marca.toLowerCase().includes(marca.toLowerCase())
+        product.code.toLowerCase().includes(code.toLowerCase())
       );
     }
-    
+    if (description) {
+      products = products.filter(product =>
+        product.description.toLowerCase().includes(description.toLowerCase())
+      );
+    }
     // Renderizar la vista de resultados de búsqueda
     return res.render("products/test", {
       products,

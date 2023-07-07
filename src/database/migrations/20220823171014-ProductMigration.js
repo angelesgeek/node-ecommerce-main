@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING(100),
         allowNull: false,
       },
-      marca: {
+      brand: {
         type: dataTypes.STRING(100),
         allowNull: false,
       },
