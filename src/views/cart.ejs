@@ -9,7 +9,7 @@
     <%- include('./partials/headeradmin') %>
         <main class="mt-5 pt-4">
             <div class="container bg-dark white-text">
-                <h2 class="mt-5 mb-3 h2 text-center"> Productos en mi pedido</h2>
+                <h2 class="mt-5 mb-3 h2 text-center"> Productos en el pedido</h2>
                 <div class="card my-5 bg-dark white-text">
                     <div class="card-body">
                         <table class="table table-responsive-md mb-0">
@@ -47,37 +47,80 @@
                         Terminar el pedido
                     </div>
                     <form class="card-body bg-dark white-text" id="checkoutCart">
-                        <div class="row">
-                            <div class=" col-md-6 mb-4">
-                                <label for="country">Tipo Envio</label>
-                                <select class="custom-select d-block w-100" id="shippingMethod" name=" shippingMethod"
-                                    required="">
-                                    <option value="">Elegir...</option>
-                                    <option value="Cadete">Cadete</option>
-                                    <option value="Correo">Correo Argentino</option>
-                                    <option value="Andreani">Andreani</option>
-                                    <option value="DHL">DHL</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Elija un tipo de envio.
-                                </div>
 
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                              <div class="form-group">
+                                <label for="shippingMethod">Método de entrega</label>
+                                <select class="custom-select" id="shippingMethod" name="shippingMethod" required>
+                                  <option value="">Elegir...</option>
+                                  <option value="retiro">Retiro</option>
+                                  <option value="despacho">Despacho</option>
+                                </select>
+                                <div class="invalid-feedback">Elija un método de entrega.</div>
+                              </div>
                             </div>
-                            <div class=" col-md-6 mb-4">
-                                <label for="country">Pago</label>
-                                <select class="custom-select d-block w-100" id="paymentMethod" name="paymentMethod"
-                                    required="">
+
+                            <div class="col-md-6 mb-4">
+                                <div class="form-group">
+                                  <label for="paymentMethod">Forma de Pago</label>
+                                  <select class="custom-select" id="paymentMethod" name="paymentMethod" required>
                                     <option value="">Elegir...</option>
                                     <option value="Efectivo">Efectivo</option>
-                                    <option value="Débito">Tarjeta Débito</option>
-                                    <option value="Crédito">Tarjeta Crédito</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Elija un tipo de envio.
+                                    <option value="Giro">Giro</option>
+                                    <option value="Depósito">Depósito</option>
+                                    <option value="Tarjeta">Tarjeta de crédito</option>
+                                    <option value="Mercado Pago">Mercado Pago</option>
+                                  </select>
+                                  <div class="invalid-feedback">Elija una forma de pago.</div>
                                 </div>
-
                             </div>
+                              
+                            <div class="col-md-6 mb-4">
+                                <div class="form-group">
+                                  <label for="bill_type">Tipo de factura</label>
+                                  <select class="custom-select" id="bill_type" name="bill_type" required>
+                                    <option value="">Elegir...</option>
+                                    <option value="Factura">Factura</option>
+                                    <option value="Presupuesto">Presupuesto</option>
+                                  </select>
+                                  <div class="invalid-feedback">Elija un tipo de factura.</div>
+                                </div>
+                            </div> 
+
+                            <div class="col-md-3 mb-4">
+                              <div class="form-group">
+                                <label for="order_status">Estado del pedido</label>
+                                <select class="custom-select" id="order_status" name="order_status" required>
+                                  <option value="">Elegir...</option>
+                                  <option value="0">En revisión</option>
+                                  <option value="1">En curso</option>
+                                  <option value="2">Confirmado</option>
+                                </select>
+                                <div class="invalid-feedback">Elija un estado de pedido.</div>
+                              </div>
+                            </div>
+
+                            
+
+                            <div class="col-md-3 mb-4">
+                              <div class="form-group">
+                                <label for="id_app">Asignar cliente</label>
+                                <select class="custom-select" id="id_app" name="id_app" required>
+                                  <option value="">Elegir...</option>
+                                  <option value="id_app">Código de clientes</option>
+                                </select>
+                                <div class="invalid-feedback">Asigne un código de cliente.</div>
+                              </div>
+                            </div>
+
+                          </div>
+
+                        <div>
+                            <label for="comments">Comentarios</label>
+                            <textarea class="form-control" id="comments" name="comments" rows="4"></textarea>
                         </div>
+                         <hr> 
                         <button class="btn btn-primary btn-lg btn-block waves-effect waves-light"
                             type="submit">Enviar</button>
                     </form>

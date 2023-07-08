@@ -2,15 +2,15 @@
   <div class="card-header bg-danger">Enviar Mensaje</div>
   <div class="card-body">
     <div class="md-form white-text">
-      <input type="text" name="remitente" id="remitente" value="Administrador" class="form-control white-text">
-      <label for="remitente" class="active white-text">Remitente</label>
+      <input type="text" name="sender" id="sender" value="Administrador" class="form-control white-text">
+      <label for="sender" class="active white-text">Remitente</label>
     </div>
 
     <input type="hidden" id="userId" name="userId" value="<%= userLogged.id %>">
 
     <div class="md-form white-text">
-      <textarea cols="50" rows="4" name="mensaje" id="mensaje" class="form-control white-text" maxlength="200"></textarea>
-      <label for="mensaje" class="white-text" >Mensaje</label>
+      <textarea cols="50" rows="4" name="message" id="message" class="form-control white-text" maxlength="200"></textarea>
+      <label for="message" class="white-text" >Mensaje</label>
     </div>
     <hr class="mb-4">
     <button class="btn btn-info ml-0" type="submit" value="enviar mensaje">Enviar Mensaje</button>

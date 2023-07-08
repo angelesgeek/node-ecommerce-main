@@ -125,7 +125,6 @@ const controller = {
   },
   
   update: async function (req, res) {
-    
 
     if (!req.session.userLogged.rol==1) {
       return res.redirect("/users");
@@ -168,10 +167,10 @@ const controller = {
       where: { userId: req.session.userLogged.id },
     });
     if(req.session.userLogged.rol==1){
-    let messages = await db.Mensaje.findAll();
+    let messages = await db.Message.findAll();
     return res.render("auth/profile", { "orders": orders, "messages": messages, "userLogged": req.session.userLogged });
     }else{
-    let messages = await db.Mensaje.findAll({
+    let messages = await db.Message.findAll({
       where:{userId:req.session.userLogged.id}
     })
     return res.render("auth/profile", { "orders": orders, "messages": messages, "userLogged": req.session.userLogged });

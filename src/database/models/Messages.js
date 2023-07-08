@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = "Mensaje";
+    let alias = "Message";
     let columns = {
       id: {
         type: dataTypes.INTEGER,
@@ -7,12 +7,12 @@ module.exports = (sequelize, dataTypes) => {
         autoIncrement: true,
       allowNull: false 
     },
-      fecha: {
+      date: {
           type: dataTypes.DATE,
           defaultValue: dataTypes.NOW,
         allowNull: false 
       },
-      remitente: {
+      sender: {
         type: dataTypes.STRING(200),
         allowNull: false 
       },
@@ -20,11 +20,11 @@ module.exports = (sequelize, dataTypes) => {
         type: dataTypes.INTEGER(11),
         allowNull: false,
       },
-      respuesta: {
+      response: {
         type: dataTypes.STRING(255),
         allowNull: true 
       },
-      mensaje: {
+      message: {
         type: dataTypes.STRING(200),
         allowNull: false 
       },
@@ -39,13 +39,13 @@ module.exports = (sequelize, dataTypes) => {
     };
 
     let configurations = {};
-    const Mensaje = sequelize.define(alias, columns, configurations);
+    const Message = sequelize.define(alias, columns, configurations);
     
-    Mensaje.associate = (models) => {
-      Mensaje.User = Mensaje.belongsTo(models.User, {
+    Message.associate = (models) => {
+      Message.User = Message.belongsTo(models.User, {
         as: "user",
         foreignKey: "userId",
       });
     };
-    return Mensaje;
+    return Message;
   };

@@ -1,12 +1,12 @@
 <tr>
     <td class="white-text">
         <h6>Mensaje</h6>
-        <%= mensaje.remitente %>
+        <%= message.sender %>
     </td>
 </tr>
 <tr class="white-text">
     <td>
-        <%= mensaje.mensaje %>
+        <%= message.message %>
     </td>
 </tr>
 <tr class="white-text">
@@ -16,7 +16,7 @@
 </tr>
 <tr class="white-text">
     <td>
-        <%= mensaje.respuesta %>
+        <%= message.response %>
     </td>
 </tr>
 
@@ -25,9 +25,9 @@
     <td>
         <form action="message/sendResponse" method="POST">
             <div class="md-form">
-                <textarea name="respuesta" id="respuesta" class="form-control"></textarea>
+                <textarea name="response" id="response" class="form-control"></textarea>
                 <label>Responder mensaje</label>
-                <input type="hidden" id="id" name="id" value="<%= mensaje.id %>">
+                <input type="hidden" id="id" name="id" value="<%= message.id %>">
             </div>
             <button class="btn btn-info ml-0" type="submit" value="responder">Enviar</button>
         </form>

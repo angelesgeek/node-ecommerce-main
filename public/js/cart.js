@@ -95,6 +95,10 @@ checkoutCart.onsubmit = (e) => {
     orderItems: products,
     paymentMethod: checkoutCart.paymentMethod.value,
     shippingMethod: checkoutCart.shippingMethod.value,
+    bill_type: checkoutCart.bill_type.value,
+    order_status: checkoutCart.order_status.value,
+    comments: checkoutCart.comments.value,
+    id_app: checkoutCart.id_app.value,
     total:calcularTotal(products),
   };
   fetch("/api/checkout", {

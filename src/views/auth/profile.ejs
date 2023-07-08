@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="card mb-5 bg-dark white-text">
-                    <%- include('../partials/mensajes') %>
+                    <%- include('../partials/messages') %>
                 </div>
                 <div class="card mb-5 bg-dark white-text">
                     <div class="card-header bg-danger white-text">
@@ -92,8 +92,8 @@
                         <table class="table table-responsive-md mb-0">
                             <thead>
                                 <tr class="white-text">
-                                    <% messages.forEach( mensaje=> { %>
-                                        <%- include('../partials/mensajesRecibidos', {mensaje}) %>
+                                    <% messages.forEach( message=> { %>
+                                        <%- include('../partials/mensajesRecibidos', {message}) %>
                                             <% } ) %>
                                 </tr>
                             </thead>

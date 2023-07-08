@@ -3,23 +3,23 @@ const db = require("../database/models");
 
 const controller = {
   sendMessage: async function (req, res) {
-    await db.Mensaje.create({
-      remitente: req.body.remitente,
-      mensaje: req.body.mensaje,
+    await db.Messages.create({
+      sender: req.body.sender,
+      message: req.body.message,
       userId: parseInt(req.body.userId), // Convertir a entero
     });
     return res.redirect("/profile");
   },
 
   sendResponse: async function (req, res) {
-    let mensaje = await db.Mensaje.findByPk(req.body.id);
+    let message = await db.Messages.findByPk(req.body.id);
     
-    if (mensaje) {
-      await mensaje.update({
-        respuesta: req.body.respuesta,
-        mensaje: mensaje.mensaje,
-        id: mensaje.id,
-        fecha: mensaje.fecha
+    if (message) {
+      await message.update({
+        response: req.body.respuesta,
+        message: message.message,
+        id: message.id,
+       date: message.date
       });
     }
     return res.redirect("/profile");

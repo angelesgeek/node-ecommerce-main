@@ -31,12 +31,13 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-   coments: {
+   comments: {
       type: dataTypes.STRING(100),
       allowNull: true,
     },
     order_status: {
-      type: dataTypes.STRING(25),
+      type: dataTypes.INTEGER(2),
+      defaultValue: 0,
       allowNull: false,
     },
     bill_type: {
