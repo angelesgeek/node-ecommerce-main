@@ -9,8 +9,9 @@ module.exports = {
     console.log("index userLogged "+ req.session.userLogged)
     return res.render("index", { title: "E-Commerce", products, "userLogged":req.session.userLogged, currentPage:1, totalPages:products.length });
   },
-  cart: function (req, res) {
-    return res.render("cart", {"userLogged":req.session.userLogged});
+  cart: async function (req, res) {
+    let users = await db.User.findAll();
+    return res.render("cart", {"userLogged":req.session.userLogged, "users":users});
   },
   order: async function (req, res) {
     let order = await db.Order.findByPk(req.params.id, {

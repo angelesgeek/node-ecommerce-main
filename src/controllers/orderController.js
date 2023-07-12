@@ -2,40 +2,48 @@ const db = require("../database/models");
 const fs = require("fs");
 const PDFDocument = require("pdfkit");
 
+
 const controller = {
   index: async function (req, res) {
+    const { Op } = require("sequelize");
+
     let orders = [];
-  
+
     if (req.query.userId && req.query.userId.trim() !== "") {
-     
       let userdb = await db.User.findOne({
         where: {
-          id_app: req.query.userId,
+          id_app: req.query.id_app,
         },
       });
-  
+
       if (!userdb) {
         // Usuario no encontrado, devuelve un mensaje de error o redirige a una página de error
         return res.render("error", { error: "Usuario no encontrado" });
       }
-  
+
       orders = await db.Order.findAll({
         include: { model: db.User, as: "user" },
-        where: { userId: userdb.id },
+        where: {
+          [Op.or]: [
+            { userId: userdb.id },
+            { userId: null, id_app: userdb.id_app },
+          ],
+        },
       });
     } else {
-      
       orders = await db.Order.findAll({
         include: { model: db.User, as: "user" },
       });
     }
-  
+
     return res.render("orders", {
       orders: orders,
       userLogged: req.session.userLogged,
       req: req, // Pasar req como variable local
     });
   },
+
+
 
   detail: async function (req, res) {
     try {
@@ -49,6 +57,7 @@ const controller = {
       return res.status(500).send("Error al obtener los detalles del pedido");
     }
   },
+
 
   generatePDF: async function (req, res) {
     try {

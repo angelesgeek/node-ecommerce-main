@@ -99,6 +99,7 @@ checkoutCart.onsubmit = (e) => {
     order_status: checkoutCart.order_status.value,
     comments: checkoutCart.comments.value,
     id_app: checkoutCart.id_app.value,
+    userId: checkoutCart.userId.value,
     total:calcularTotal(products),
   };
   fetch("/api/checkout", {
@@ -122,3 +123,4 @@ checkoutCart.onsubmit = (e) => {
 
 };
 }
+

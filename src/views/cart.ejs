@@ -50,6 +50,9 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-4">
+                              
+                              <input type="hidden" name="userId" id="userId" value="<%= userLogged.id %>">
+                              
                               <div class="form-group">
                                 <label for="shippingMethod">Método de entrega</label>
                                 <select class="custom-select" id="shippingMethod" name="shippingMethod" required>
@@ -107,13 +110,23 @@
                               <div class="form-group">
                                 <label for="id_app">Asignar cliente</label>
                                 <select class="custom-select" id="id_app" name="id_app" required>
+                                 
                                   <option value="">Elegir...</option>
-                                  <option value="id_app">Código de clientes</option>
-                                </select>
+                                  <% users.forEach(user => {
+                                      if (user.id_app !== null) { %>
+                                          <option value="<%= user.id %>"><%= user.id_app %> - <%= user.name %></option>
+                                      <% }
+                                  }) %>
+                                  </select>
+                                  
                                 <div class="invalid-feedback">Asigne un código de cliente.</div>
                               </div>
                             </div>
 
+
+
+
+                            
                           </div>
 
                         <div>

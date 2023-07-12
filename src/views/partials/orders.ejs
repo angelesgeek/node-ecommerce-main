@@ -3,19 +3,39 @@
         <%= orders.id %>
     </td>
     <td>    
-        <%= orders.user.id_app %>
-    </td>
-    <td>    
-         <%= orders.user.name %>
+        <%= orders.id_app %>
     </td>
     <td>
-        <%= orders.userId %>
-    </td>
+        <% if (orders.user.id_app) { %>
+          <%= orders.user.id_app %>
+        <% } else if (req.session.selectedUser && req.session.selectedUser.name) { %>
+          <%= req.session.selectedUser.name %>
+        <% } %>
+      </td>
+      
+      
+      
+      
+      
     <td>
         <%= orders.total %>
     </td>
     <td>
+        <%= orders.order_status === 0 ? "en revisión" : orders.order_status === 1 ? "en curso" : "confirmado" %>
+    </td>
+    <td>
+        <% if (orders.user.id_app !== null) { %>
+            cliente
+        <% } else { %>
+            <%= orders.user.id %> - <%= orders.user.name %>
+        <% } %>
+    </td>
+    
+    <td>
         <a class="btn btn-warning btn-sm" href="/order/<%= orders.id %>"><i class="fas fa-eye"></i></a>
+        
+    </td>
+    <td>
         <a class="btn btn-warning btn-sm" href="/orders/detail/<%= orders.id %>/pdf"><i class="fas fa-download"></i></a>
     </td>
 </tr>

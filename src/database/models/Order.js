@@ -15,6 +15,10 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.INTEGER(11),
       allowNull: false,
     },
+    assignedTo: {
+      type: dataTypes.STRING(50),
+      allowNull: true,
+    },
     code: {
       type: dataTypes.STRING(50),
       allowNull: true,

@@ -7,5 +7,4 @@ router.get("/", controller.index);
 router.get("/detail/:id", controller.detail);
 router.get("/detail/:id/pdf", controller.generatePDF);
 
-
 module.exports = router;
