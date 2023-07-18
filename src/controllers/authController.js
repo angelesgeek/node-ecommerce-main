@@ -57,9 +57,21 @@ const controller = {
       });
     }
   },
+
+
   showRegister: function (req, res) {
-    return res.render("auth/register", {"userLogged": req.session.userLogged});
-  },
+  if (req.query.type === "admin") {
+    // Si el enlace contiene el parámetro "type=admin", mostrar formulario para registrar vendedores y otros administradores
+    return res.render("auth/adminRegister", { "userLogged": req.session.userLogged });
+  } else if (req.query.type === "vendor") {
+    // Si el enlace contiene el parámetro "type=vendor", mostrar formulario para registrar vendedores
+    return res.render("auth/vendorRegister", { "userLogged": req.session.userLogged });
+  } else {
+    // Por defecto, mostrar formulario para registrar clientes
+    return res.render("auth/clientRegister", { "userLogged": req.session.userLogged });
+  }
+},
+
   register: async function (req, res) {
     // Validar los datos
     let errores = validationResult(req);
@@ -68,7 +80,7 @@ const controller = {
     if (!errores.isEmpty()) {
       let errors = errores.mapped();
       console.log(errors);
-      return res.render("register", { errors: errors, olds: req.body, userLogged: req.session.userLogged });
+      return res.render("clientRegister", { errors: errors, olds: req.body, userLogged: req.session.userLogged });
     }
   
     var salt = bcryptjs.genSaltSync(10);
