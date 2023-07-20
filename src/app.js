@@ -6,10 +6,8 @@ const logger = require("morgan");
 const mo = require("method-override");
 const ses = require("express-session");
 
-
-
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+const userRouter = require("./routes/users"); // Rutas para usuarios y vendedores
 const productsRouter = require("./routes/products");
 const authRouter = require("./routes/auth");
 const apiRouter = require("./routes/api");
@@ -48,7 +46,9 @@ app.use(menuMiddleware);
 
 app.use("/", indexRouter);
 app.use("/", authRouter);
-app.use("/users/", adminMiddleware, usersRouter);
+app.use("/users/", adminMiddleware, userRouter); // Rutas para usuarios
+app.use("/vendors/", adminMiddleware, userRouter); // Rutas para vendedores
+app.use("/admin/", adminMiddleware, userRouter); // Rutas para administradores
 app.use("/products/", productsRouter);
 app.use("/api/", apiRouter);
 app.use("/orders/", adminMiddleware, ordersRouter);
