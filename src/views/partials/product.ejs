@@ -27,33 +27,55 @@
                     <% } %>
                 </div>
             </div>
-            <div class="col-6 right">
-                <div class="card-body">
-                    <h6 class="font-weight-normal text-light">
-                        <%= prod.name %>
-                        <% if (prod.marked) { %>
-                        <span class="badge badge-pill primary-color">Nuevo</span>
-                        <% } %>
-                    </h6>
-                    <p>Marca: <%= prod.brand %></p>
-                    <p>Automotriz: <%= prod.automotive %></p>
-                    <p>Motor: <%= prod.engine %></p>
-                    <p>Modelo: <%= prod.model %></p>
-                    <p>Num OE: <%= prod.oe_number %></p>
-                    <p>$<%= prod.price %> - <%= prod.price_update %></p>
-                    <a href="/products/detail/<%= prod.id %>" class="text-light link">Ver detalles</a>
-                    <div class="d-flex">
-                        <button class="btn btn-primary btn-sm agregar_carrito" data-id="<%= prod.id %>">Agregar al Pedido</button>
+
+
+
+            <% if (isHomePage) { %>
+                <!-- Código para el home -->
+                <div class="col-6 right">
+                    <div class="card-body">
+                        <h6 class="font-weight-normal text-light">
+                            <%= prod.name %>
+                            <% if (prod.marked) { %>
+                            <span class="badge badge-pill primary-color">Nuevo</span>
+                            <% } %>
+                        </h6>
+                        <p>Marca: <%= prod.brand %></p>
+                        <p>Automotriz: <%= prod.automotive %></p>
+                        <p>Motor: <%= prod.engine %></p>
                     </div>
                 </div>
-            </div>
+            <% } else { %>
+                <!-- Código para el listado de productos -->
+                <div class="col-6 right">
+                    <div class="card-body">
+                        <h6 class="font-weight-normal text-light">
+                            <%= prod.name %>
+                            <% if (prod.marked) { %>
+                            <span class="badge badge-pill primary-color">Nuevo</span>
+                            <% } %>
+                        </h6>
+                        <p>Marca: <%= prod.brand %></p>
+                        <p>Automotriz: <%= prod.automotive %></p>
+                        <p>Motor: <%= prod.engine %></p>
+                        <p>Modelo: <%= prod.model %></p>
+                        <p>Num OE: <%= prod.oe_number %></p>
+                        <p>$<%= prod.price %> - <%= prod.price_update %></p>
+                        <a href="/products/detail/<%= prod.id %>" class="text-light link">Ver detalles</a>
+                        <div class="d-flex">
+                            <button class="btn btn-primary btn-sm agregar_carrito" data-id="<%= prod.id %>">Agregar al Pedido</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="https://wa.me/3513441314" target="_blank" class="whatsapp-icon text-white btn-sm btn-success">
+                        <i class="fab fa-whatsapp"> Consultar</i>
+                    </a>
+                </div>
+            <% } %>  
         </div>
     </div>
-    <div class="d-flex justify-content-center">
-        <a href="https://wa.me/3513441314" target="_blank" class="whatsapp-icon text-white btn-sm btn-success">
-            <i class="fab fa-whatsapp"> Consultar</i>
-        </a>
-    </div>
+   
     
     <% if (typeof userLogged !== 'undefined' && userLogged && userLogged.rol==1) { %>
         <div class="d-flex justify-content-around mt-3">

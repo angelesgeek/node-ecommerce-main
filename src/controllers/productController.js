@@ -36,6 +36,7 @@ const controller = {
       currentPage: paginaDeseada,
       totalPages: totalPages,
       pageRange: pageRange,
+      isHomePage: false,
     });
   },
 

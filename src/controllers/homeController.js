@@ -1,4 +1,5 @@
 const db = require("../database/models");
+
 module.exports = {
   home: async function (req, res) {
     let products = await db.Product.findAll({
@@ -6,9 +7,18 @@ module.exports = {
         marked: 1,
       },
     });
-    console.log("index userLogged "+ req.session.userLogged)
-    return res.render("index", { title: "E-Commerce", products, "userLogged":req.session.userLogged, currentPage:1, totalPages:products.length });
+    
+    return res.render("index", {
+      title: "E-Commerce",
+      products,
+      userLogged: req.session.userLogged,
+      currentPage: 1,
+      totalPages: products.length,
+      isHomePage: true,
+    });
   },
+
+
   cart: async function (req, res) {
     let users = await db.User.findAll();
     return res.render("cart", {"userLogged":req.session.userLogged, "users":users});

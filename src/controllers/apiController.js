@@ -35,13 +35,6 @@ module.exports = {
   
     res.json({ ok: true, status: 200, order: order });
   }
-  
-  
-  
-  
-  
-
-  
 
 };
 

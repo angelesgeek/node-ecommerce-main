@@ -15,24 +15,16 @@
           <%- include('./partials/carousel') %>
 
           <!--Section: Products v.3-->
-          <section class="text-center mb-4">
-
+          <section class="text-center mt-2 mb-4">
             <!--Grid row-->
             <div class="row">
 
               <% products.forEach( prod=> { %>
                 <%- include('./partials/product' ,{prod}) %>
-
-                  <% } ) %>
+              <% } ) %>
 
             </div>
-            <!--Grid row-->
-
-
-
           </section>
-
-
         </div>
       </main>
       <!--Main layout-->
@@ -42,5 +34,4 @@
         <%- include('./partials/scripts') %>
 
 </body>
-
 </html>
