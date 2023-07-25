@@ -124,13 +124,34 @@ const controller = {
     return res.redirect("/products");
   },
 
-  delete: async function (req, res) {
-    await db.Product.destroy({
-      where: { id: req.params.id },
-    });
 
-    return res.redirect("/products");
+
+
+  delete: async function (req, res) {
+    const productId = req.params.id;
+
+    try {
+      // Eliminar las filas relacionadas en la tabla OrderItem primero
+      await db.OrderItem.destroy({
+        where: { productId: productId },
+      });
+
+      // Luego eliminar el producto
+      await db.Product.destroy({
+        where: { id: productId },
+      });
+
+      return res.redirect("/products");
+    } catch (error) {
+      // Manejar el error en caso de que algo falle
+      console.error("Error al eliminar el producto:", error);
+      return res.status(500).send("Error al eliminar el producto.");
+    }
   },
+
+
+  
+
 
 
   search: async function (req, res) {
