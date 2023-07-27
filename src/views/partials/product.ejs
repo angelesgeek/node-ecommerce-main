@@ -1,92 +1,127 @@
+<!-- Aquí va el bucle forEach para mostrar la lista de productos -->
 <div class="col-lg-4 col-md-6 mb-4">
     <p class="text-left text-white">Código: <%= prod.code %></p>
-
     <div class="card text-light bg-dark">
         <div class="row d-flex align-items-center">
             <div class="col-6 left">
                 <div class="view overlay">
-                    <img src="/img/products/<%= prod.img != '' ? prod.img : 'default.jpg' %>" class="card-img-top">
+                    <img src="/img/products/<%= prod.img !== '' ? prod.img : 'default.jpg' %>" class="card-img-top">
                     <a href="/products/detail/<%= prod.id %>" class="link">
                         <div class="mask rgba-white-slight"></div>
                     </a>
                     <% if (prod.stock > 5) { %>
                     <h6 class="stock-badge" style="position: absolute; top: 10px; right: 10px; background-color: green;">
                         Stock disponible <%= prod.stock %> u.
-                        
                     </h6>
                     <% } else if (prod.stock < 2) { %>
                     <h6 class="stock-badge" style="position: absolute; top: 10px; right: 10px; background-color: red;">
                         Bajo pedido <%= prod.stock %> u.
-                        
                     </h6>
                     <% } else if (prod.stock < 20 && prod.stock >= 5) { %>
                     <h6 class="stock-badge" style="position: absolute; top: 10px; right: 10px; background-color: yellow;">
                         Consultar stock <%= prod.stock %> u.
-                        
                     </h6>
                     <% } %>
                 </div>
             </div>
 
-
-
             <% if (isHomePage) { %>
-                <!-- Código para el home -->
-                <div class="col-6 right">
-                    <div class="card-body">
-                        <h6 class="font-weight-normal text-light">
-                            <%= prod.name %>
-                            <% if (prod.marked) { %>
-                            <span class="badge badge-pill primary-color">Nuevo</span>
-                            <% } %>
-                        </h6>
-                        <p>Marca: <%= prod.brand %></p>
-                        <p>Automotriz: <%= prod.automotive %></p>
-                        <p>Motor: <%= prod.engine %></p>
-                    </div>
+            <!-- Código para el home -->
+            <div class="col-6 right">
+                <div class="card-body">
+                    <h6 class="font-weight-normal text-light">
+                        <%= prod.name %>
+                        <% if (prod.marked) { %>
+                        <span class="badge badge-pill primary-color">Nuevo</span>
+                        <% } %>
+                    </h6>
+                    <p>Marca: <%= prod.brand %></p>
+                    <p>Automotriz: <%= prod.automotive %></p>
+                    <p>Motor: <%= prod.engine %></p>
                 </div>
+            </div>
             <% } else { %>
-                <!-- Código para el listado de productos -->
-                <div class="col-6 right">
-                    <div class="card-body">
-                        <h6 class="font-weight-normal text-light">
-                            <%= prod.name %>
-                            <% if (prod.marked) { %>
-                            <span class="badge badge-pill primary-color">Nuevo</span>
-                            <% } %>
-                        </h6>
-                        <p>Marca: <%= prod.brand %></p>
-                        <p>Automotriz: <%= prod.automotive %></p>
-                        <p>Motor: <%= prod.engine %></p>
-                        <p>Modelo: <%= prod.model %></p>
-                        <p>Num OE: <%= prod.oe_number %></p>
-                        <p>$<%= prod.price %> - <%= prod.price_update %></p>
-                        <a href="/products/detail/<%= prod.id %>" class="text-light link">Ver detalles</a>
-                        <div class="d-flex">
-                            <button class="btn btn-primary btn-sm agregar_carrito" data-id="<%= prod.id %>">Agregar al Pedido</button>
-                        </div>
+            <!-- Código para el listado de productos -->
+            <div class="col-6 right">
+                <div class="card-body">
+                    <h6 class="font-weight-normal text-light">
+                        <%= prod.name %>
+                        <% if (prod.marked) { %>
+                        <span class="badge badge-pill primary-color">Nuevo</span>
+                        <% } %>
+                    </h6>
+                    <p>Marca: <%= prod.brand %></p>
+                    <p>Automotriz: <%= prod.automotive %></p>
+                    <p>Motor: <%= prod.engine %></p>
+                    <p>Modelo: <%= prod.model %></p>
+                    <p>Num OE: <%= prod.oe_number %></p>
+                    <p>$<%= prod.price %> - <%= prod.price_update %></p>
+                    <a href="/products/detail/<%= prod.id %>" class="text-light link">Ver detalles</a>
+                    <div class="d-flex">
+                        <button class="btn btn-primary btn-sm agregar_carrito" data-id="<%= prod.id %>">
+                            Agregar al Pedido
+                        </button>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <a href="https://wa.me/3513441314" target="_blank" class="whatsapp-icon text-white btn-sm btn-success">
-                        <i class="fab fa-whatsapp"> Consultar</i>
-                    </a>
-                </div>
-            <% } %>  
+            </div>
+            <div class="d-flex justify-content-center">
+                <a href="https://wa.me/3513441314" target="_blank" class="whatsapp-icon text-white btn-sm btn-success">
+                    <i class="fab fa-whatsapp"> Consultar</i>
+                </a>
+            </div>
+            <% } %>
         </div>
     </div>
-   
-    
-    <% if (typeof userLogged !== 'undefined' && userLogged && userLogged.rol==1) { %>
-        <div class="d-flex justify-content-around mt-3">
-            <a type="button" href="/products/edit/<%= prod.id %>" class="btn btn-warning btn-sm btn-floating">
-                <i class="fas fa-edit"></i>
-            </a>
-            <form action="/products/<%= prod.id %>?_method=delete" method="POST">
-                <button class="btn btn-danger btn-floating btn-sm" type="submit">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </form>
-        </div>
-        <% } %>
+
+    <% if (typeof userLogged !== 'undefined' && userLogged && userLogged.rol === 1) { %>
+    <div class="d-flex justify-content-around mt-3">
+        <a type="button" href="/products/edit/<%= prod.id %>" class="btn btn-warning btn-sm btn-floating">
+            <i class="fas fa-edit"></i>
+        </a>
+        <!-- Botón de eliminar con Toastr para la confirmación -->
+        <button class="btn btn-danger btn-floating btn-sm" onclick="showDeleteConfirmation('<%= prod.id %>')">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </div>
+    <% } %>
 </div>
+
+<!-- Agregar el cuadro de diálogo de confirmación al final del archivo ejs (oculto) -->
+<div id="confirmationDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar este producto?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" onclick="deleteProduct('<%= prod.id %>')">Aceptar</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Código JavaScript al final del archivo ejs -->
+<script>
+    function showDeleteConfirmation(productId) {
+        // Mostrar el cuadro de diálogo de confirmación
+        $("#confirmationDialog").modal("show");
+    }
+
+    function deleteProduct(productId) {
+        const form = document.createElement("form");
+        form.action = `/products/${productId}?_method=delete`;
+        form.method = "POST";
+        document.body.appendChild(form);
+        form.submit();
+
+        // Mostrar mensaje de confirmación de eliminación
+        toastr.success("El producto ha sido eliminado exitosamente.", "", { timeOut: 5000 });
+
+        // Opcionalmente, redireccionar a la página de productos después de eliminar
+        setTimeout(function () {
+            window.location.href = "/products";
+        }, 5000); // Redireccionar después de 3 segundos (opcional)
+    }
+</script>

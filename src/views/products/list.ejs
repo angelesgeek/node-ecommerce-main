@@ -12,48 +12,46 @@
             <div class="container">
                 <h2 class="mt-5 mb-3 h2 text-center text-white">Nuestros Productos</h2>
 
-               <!--  Formulario de filtrado de productos -->
-               <form action="/products/search" id="filter-form" method="GET" class="row">
-                  
-                <div class="form-group col-md-6">
-                  <label for="code" class="label-white">Código:</label>
-                  <input type="text" class="form-control" id="codigo" name="code">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="description" class="label-white">Descripción:</label>
-                  <input type="text" class="form-control" id="description" name="description">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="automotive" class="label-white">Automotriz:</label>
-                  <select class="form-control" id="automotive" name="automotive">
-                    <option value="automotive"></option>
-                  </select>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name" class="label-white">Producto:</label>
-                  <input type="text" class="form-control" id="name" name="name">
 
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="motor" class="label-white">Motor:</label>
-                  <select class="form-control" id="motor" name="motor">
-                    <option value="motor"></option>
-                  </select>
-                </div>
+
+
+
+
+                <form action="/products/search" id="filter-form" method="GET" class="row">
+                  <div class="form-group col-md-6">
+                    <label for="code" class="label-white">Código:</label>
+                    <input type="text" class="form-control" id="code" name="code">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="description" class="label-white">Descripción:</label>
+                    <input type="text" class="form-control" id="description" name="description">
+                  </div>
                 
-                <div class="form-group col-md-6">
-                  <label for="brand" class="label-white">Marca:</label>
-                  <select class="form-control" id="brand">
-                    <option value="brand"></option>
-                  </select>
-                </div>
-                <button type="button" class="btn-sm btn-primary" onclick="limpiarFiltro()">Limpiar Filtro</button>
-                <button type="submit" class="btn-sm btn-primary">Filtrar</button>
+                  <div class="form-group col-md-6">
+                    <label for="automotive" class="label-white">Automotriz:</label>
+                    <input type="text" class="form-control" id="automotive" name="automotive">
+                  </div>
                 
-      </form>
-              
-              
-              
+                  <div class="form-group col-md-6">
+                    <label for="name" class="label-white">Producto:</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                  </div>
+                
+                  <div class="form-group col-md-6">
+                    <label for="engine" class="label-white">Motor:</label>
+                    <input type="text" class="form-control" id="engine" name="engine">
+                  </div>
+                
+                  <div class="form-group col-md-6">
+                    <label for="brand" class="label-white">Marca:</label>
+                    <input type="text" class="form-control" id="brand" name="brand">
+                  </div>
+                
+                  <button type="button" class="btn-sm btn-primary" onclick="limpiarFiltro()">Limpiar Filtro</button>
+                  <button type="submit" class="btn-sm btn-primary">Filtrar</button>
+                </form>
+
+
               
                 
                 <% if (userLogged!=null&&userLogged.rol==1) { %>
@@ -111,6 +109,7 @@
         </main>
         <%- include('../partials/footer') %>
             <%- include('../partials/scripts') %>
+            <script src="/vendor/toastr/toastr.min.js"></script>
                 <script src="/js/cart.js"></script>
                 <script>
                   function limpiarFiltro() {

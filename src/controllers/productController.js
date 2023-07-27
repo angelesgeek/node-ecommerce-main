@@ -86,23 +86,45 @@ const controller = {
   },
 
   edit: async function (req, res) {
-    let product = await db.Product.findByPk(req.params.id);
-    if (product) {
-      return res.render("products/edit", {
-        product,
-        userLogged: req.session.userLogged,
-      });
+    try {
+      let product = await db.Product.findByPk(req.params.id);
+      if (product) {
+        return res.render("products/edit", {
+          product,
+          userLogged: req.session.userLogged,
+        });
+      }
+      return res.redirect("/products");
+    } catch (err) {
+      console.error("Error al obtener el producto:", err);
+      return res.status(500).send("Error al obtener el producto");
     }
-    return res.redirect("/products");
   },
 
   update: async function (req, res) {
-    let product = await db.Product.findByPk(req.params.id);
-    if (product) {
+    try {
+      let product = await db.Product.findByPk(req.params.id);
+      if (!product) {
+        return res.status(404).send("Producto no encontrado");
+      }
+
+      // Realizar la actualización del producto
+      let priceUpdate = null;
+      if (req.body.price_update) {
+        const parsedDate = Date.parse(req.body.price_update);
+        if (isNaN(parsedDate)) {
+          return res.status(400).send("Fecha inválida para price_update");
+        }
+        priceUpdate = new Date(parsedDate);
+      } else {
+        priceUpdate = product.price_update;
+      }
+
       let image = product.img;
       if (req.file) {
         image = req.file.filename;
       }
+
       await product.update({
         code: req.body.code,
         name: req.body.name,
@@ -116,16 +138,18 @@ const controller = {
         description: req.body.description,
         specification: req.body.specification,
         price: req.body.price,
-        price_update: req.body.price_update,
+        price_update: priceUpdate,
         img: image,
         marked: req.body.marked ? true : false,
       });
+
+      // Redirigir a la vista de edición con un mensaje de éxito
+      return res.redirect("/products/edit/" + product.id + "?success=Producto editado exitosamente");
+    } catch (err) {
+      console.error("Error al actualizar el producto:", err);
+      return res.status(500).send("Error al actualizar el producto");
     }
-    return res.redirect("/products");
   },
-
-
-
 
   delete: async function (req, res) {
     const productId = req.params.id;
@@ -151,9 +175,6 @@ const controller = {
 
 
   
-
-
-
   search: async function (req, res) {
     // Obtener los parámetros de búsqueda desde la URL
     const name = req.query.name;
