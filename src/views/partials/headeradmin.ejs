@@ -108,18 +108,16 @@
   </nav>
   
   <!-- Script -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-Ku8KrGh2o5UKMVJf/9lj0QLRdvpbRjV+LeX4fUpI/41pL1YqxKkF9C8kAi0lIq6x"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"
-    integrity="sha384-7EVXJ7U7GanOrrGB7nPnoUOvp+9C8n0Wid2Xxvq05qVYMKWbDb9yeqmQg3WmhBQ6" crossorigin="anonymous"></script>
+  <script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
   <script>
-    $(document).ready(function() {
-      $('#navbarDropdown').on('mouseover', function() {
-        $(this).addClass('show');
+    jQuery(document).ready(function() {
+      jQuery('#navbarDropdown').on('mouseover', function() {
+        jQuery(this).addClass('show');
       });
   
-      $('#navbarDropdown').on('mouseout', function() {
-        $(this).removeClass('show');
+      jQuery('#navbarDropdown').on('mouseout', function() {
+        jQuery(this).removeClass('show');
       });
     });
   </script>

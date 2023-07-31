@@ -3,6 +3,7 @@
 
 <head>
     <%- include('./partials/head') %>
+    
 </head>
 
 <body class="bg-dark">
@@ -12,6 +13,7 @@
                 <h2 class="mt-5 mb-3 h2 text-center"> Productos en el pedido</h2>
                 <div class="card my-5 bg-dark white-text">
                     <div class="card-body">
+
                         <table class="table table-responsive-md mb-0">
                             <thead class="white-text">
                                 <tr>
@@ -37,6 +39,7 @@
                                 
                             </tbody>
                         </table>
+
                         <div class="card-footer text-right">
                             <h2>Total: <span class="totalAmount">$ 0</span></h2>
                         </div>
@@ -140,9 +143,10 @@
                 </div>
             </div>
         </main>
+        <script src="/js/cart.js"></script>
         <%- include('./partials/footer') %>
             <%- include('./partials/scripts') %>
-                <script src="/js/cart.js"></script>
+                
 </body>
 
 </html>

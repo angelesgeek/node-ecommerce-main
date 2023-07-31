@@ -184,31 +184,29 @@ const controller = {
     const automotive = req.query.automotive;
     const engine = req.query.engine;
 
-  
-    // Realizar la búsqueda en la base de datos
-    let products = await getProducts();
-  
-    // Filtrar los productos por nombre y marca
-    if (name) {
-      products = products.filter(product =>
-        product.name.toLowerCase().includes(name.toLowerCase())
-      );
+    try {
+      // Realizar la búsqueda en la base de datos usando Sequelize
+      const products = await Product.findAll({
+        where: {
+          // Aquí especificamos las condiciones de búsqueda
+          name: { $like: `%${name}%` },
+          brand: { $like: `%${brand}%` },
+          code: { $like: `%${code}%` },
+          description: { $like: `%${description}%` },
+          automotive: { $like: `%${automotive}%` },
+          engine: { $like: `%${engine}%` }
+        }
+      });
+
+      // Renderizar la vista de resultados de búsqueda
+      return res.render("products/test", {
+        products,
+        userLogged: req.session.userLogged,
+      });
+    } catch (error) {
+      console.error("Error en la búsqueda:", error);
+      return res.status(500).send("Error en la búsqueda");
     }
-    if (code) {
-      products = products.filter(product =>
-        product.code.toLowerCase().includes(code.toLowerCase())
-      );
-    }
-    if (description) {
-      products = products.filter(product =>
-        product.description.toLowerCase().includes(description.toLowerCase())
-      );
-    }
-    // Renderizar la vista de resultados de búsqueda
-    return res.render("products/test", {
-      products,
-      userLogged: req.session.userLogged,
-    });
   },
   
 

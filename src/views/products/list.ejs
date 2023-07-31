@@ -17,7 +17,7 @@
 
 
 
-                <form action="/products/search" id="filter-form" method="GET" class="row">
+                <form action="/search" id="filter-form" method="GET" class="row">
                   <div class="form-group col-md-6">
                     <label for="code" class="label-white">Código:</label>
                     <input type="text" class="form-control" id="code" name="code">
@@ -107,10 +107,11 @@
             </div>
 
         </main>
+        <script src="/js/cart.js"></script>
         <%- include('../partials/footer') %>
             <%- include('../partials/scripts') %>
-            <script src="/vendor/toastr/toastr.min.js"></script>
-                <script src="/js/cart.js"></script>
+            <script src="/vendor/toastr/toastr.js"></script>
+                
                 <script>
                   function limpiarFiltro() {
                     document.getElementById("filter-form").reset();
