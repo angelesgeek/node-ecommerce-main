@@ -43,13 +43,13 @@ app.use(sessionMiddleware);
 app.use(sessionTimeMiddleware);
 
 app.use(menuMiddleware);
-
 app.use("/", indexRouter);
 app.use("/", authRouter);
 app.use("/users/", adminMiddleware, userRouter); // Rutas para usuarios
 app.use("/vendors/", adminMiddleware, userRouter); // Rutas para vendedores
 app.use("/admin/", adminMiddleware, userRouter); // Rutas para administradores
 app.use("/products/", productsRouter);
+app.use("/search/", productsRouter);
 app.use("/api/", apiRouter);
 app.use("/orders/", adminMiddleware, ordersRouter);
 app.use("/reports", adminMiddleware, reportsRouter);

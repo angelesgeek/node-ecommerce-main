@@ -12,12 +12,7 @@
             <div class="container">
                 <h2 class="mt-5 mb-3 h2 text-center text-white">Nuestros Productos</h2>
 
-
-
-
-
-
-                <form action="/search" id="filter-form" method="GET" class="row">
+                <form action="/search/searchProducts" method="GET" class="row" id="filter-form">
                   <div class="form-group col-md-6">
                     <label for="code" class="label-white">Código:</label>
                     <input type="text" class="form-control" id="code" name="code">
@@ -47,13 +42,10 @@
                     <input type="text" class="form-control" id="brand" name="brand">
                   </div>
                 
-                  <button type="button" class="btn-sm btn-primary" onclick="limpiarFiltro()">Limpiar Filtro</button>
+                  <button type="reset" class="btn-sm btn-primary" onclick="limpiarFiltro()">Limpiar Filtro</button>
                   <button type="submit" class="btn-sm btn-primary">Filtrar</button>
                 </form>
 
-
-              
-                
                 <% if (userLogged!=null&&userLogged.rol==1) { %>
                   <span></span>
                     <div><a class="btn-sm btn-primary btn-rounded" href="/products/create">Agregar Producto</a></div>
@@ -112,16 +104,11 @@
             <%- include('../partials/scripts') %>
             <script src="/vendor/toastr/toastr.js"></script>
                 
-                <script>
-                  function limpiarFiltro() {
-                    document.getElementById("filter-form").reset();
-                  }
-                
-                  document.getElementById("filter-form").addEventListener("submit", function(event) {
-                    event.preventDefault();
-                    
-                  });
-                </script>
+            <script>
+              function limpiarFiltro() {
+                document.getElementById("filter-form").reset();
+              }
+            </script>
 </body>
 
 </html>

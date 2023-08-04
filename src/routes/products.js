@@ -38,6 +38,6 @@ router.put("/:id", upload.single("img"), controller.update);
 router.delete("/:id", controller.delete);
 
 // Ruta para búsqueda
-router.get("/search", controller.search);
+router.get("/searchProducts", controller.searchProducts);
 
 module.exports = router;

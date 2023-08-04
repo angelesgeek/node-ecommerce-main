@@ -1,4 +1,5 @@
 const db = require("../database/models");
+const Sequelize = require('sequelize'); // Asegúrate de importar Sequelize correctamente
 
 const controller = {
   index: async function (req, res) {
@@ -175,7 +176,8 @@ const controller = {
 
 
   
-  search: async function (req, res) {
+   searchProducts: async function (req, res) {
+    console.log("Search controller is running");
     // Obtener los parámetros de búsqueda desde la URL
     const name = req.query.name;
     const brand = req.query.brand;
@@ -184,19 +186,45 @@ const controller = {
     const automotive = req.query.automotive;
     const engine = req.query.engine;
 
+    // Definir un objeto vacío para las condiciones de búsqueda
+    const searchConditions = {};
+
+    // Verificar si cada campo tiene un valor y agregarlo a las condiciones de búsqueda
+    if (name) {
+      searchConditions.name = { [Sequelize.Op.like]: `%${name}%` };
+    }
+    if (brand) {
+      searchConditions.brand = { [Sequelize.Op.like]: `%${brand}%` };
+    }
+    if (code) {
+      searchConditions.code = { [Sequelize.Op.like]: `%${code}%` };
+    }
+    if (description) {
+      searchConditions.description = { [Sequelize.Op.like]: `%${description}%` };
+    }
+    if (automotive) {
+      searchConditions.automotive = { [Sequelize.Op.like]: `%${automotive}%` };
+    }
+    if (engine) {
+      searchConditions.engine = { [Sequelize.Op.like]: `%${engine}%` };
+    }
+
     try {
-      // Realizar la búsqueda en la base de datos usando Sequelize
-      const products = await Product.findAll({
-        where: {
-          // Aquí especificamos las condiciones de búsqueda
-          name: { $like: `%${name}%` },
-          brand: { $like: `%${brand}%` },
-          code: { $like: `%${code}%` },
-          description: { $like: `%${description}%` },
-          automotive: { $like: `%${automotive}%` },
-          engine: { $like: `%${engine}%` }
-        }
+      console.log("Parametros de búsqueda:");
+      console.log("name:", name);
+      console.log("brand:", brand);
+      console.log("code:", code);
+      console.log("description:", description);
+      console.log("automotive:", automotive);
+      console.log("engine:", engine);
+
+      // Realizar la búsqueda en la base de datos usando Sequelize con las condiciones de búsqueda
+      const products = await db.Product.findAll({
+        where: searchConditions, // Aquí especificamos las condiciones de búsqueda
       });
+
+      console.log("Resultados de la búsqueda:");
+      console.log(products);
 
       // Renderizar la vista de resultados de búsqueda
       return res.render("products/test", {
@@ -205,10 +233,9 @@ const controller = {
       });
     } catch (error) {
       console.error("Error en la búsqueda:", error);
-      return res.status(500).send("Error en la búsqueda");
+      return res.render("errors/404", { "userLogged": req.session.userLogged });
     }
   },
-  
 
 };
 

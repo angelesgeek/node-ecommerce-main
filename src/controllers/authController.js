@@ -187,12 +187,6 @@ const controller = {
     })
     return res.render("auth/profile", { "orders": orders, "messages": messages, "userLogged": req.session.userLogged });
     }
-   
-    
   },
-
 };
-
-
-
 module.exports = controller;
