@@ -59,6 +59,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.JSON,
       allowNull: true,
     },
+    substituteProducts: {
+      type: DataTypes.STRING(500),
+      allowNull: true,
+    },
     marked: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,

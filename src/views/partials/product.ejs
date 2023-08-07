@@ -1,8 +1,9 @@
-<!-- Aquí va el bucle forEach para mostrar la lista de productos -->
+<!-- Bucle forEach para mostrar la lista de productos -->
 <div class="col-lg-4 col-md-6 mb-4">
     <p class="text-left text-white">Código: <%= prod.code %></p>
     <div class="card text-light bg-dark">
         <div class="row d-flex align-items-center">
+            <!-- Semáforo de stock -->
             <div class="col-6 left">
                 <div class="view overlay">
                     <img src="/img/products/<%= prod.img !== '' ? prod.img : 'default.jpg' %>" class="card-img-top">
@@ -64,6 +65,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Whatsapp-->
             <div class="d-flex justify-content-center">
                 <a href="https://wa.me/3513441314" target="_blank" class="whatsapp-icon text-white btn-sm btn-success">
                     <i class="fab fa-whatsapp"> Consultar</i>
@@ -72,7 +74,7 @@
             <% } %>
         </div>
     </div>
-
+             <!-- Botones de edición-->
     <% if (typeof userLogged !== 'undefined' && userLogged && userLogged.rol === 1) { %>
     <div class="d-flex justify-content-around mt-3">
         <a type="button" href="/products/edit/<%= prod.id %>" class="btn btn-warning btn-sm btn-floating">
@@ -86,7 +88,7 @@
     <% } %>
 </div>
 
-<!-- Agregar el cuadro de diálogo de confirmación al final del archivo ejs (oculto) -->
+<!-- Cuadro de diálogo de confirmación -->
 <div id="confirmationDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -102,7 +104,7 @@
     </div>
 </div>
 
-<!-- Código JavaScript al final del archivo ejs -->
+<!-- Código JavaScript de cuadro de confirmación -->
 <script>
     function showDeleteConfirmation(productId) {
         // Mostrar el cuadro de diálogo de confirmación

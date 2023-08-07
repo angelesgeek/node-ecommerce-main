@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
       },
       brand: {
-        type: dataTypes.STRING(100),
+        type: Sequelize.STRING(100), // Corregido aquí
         allowNull: false,
       },
       img: {
@@ -26,12 +26,16 @@ module.exports = {
         allowNull: false,
       },
       stock: {
-        type: dataTypes.DECIMAL(11, 2),
+        type: Sequelize.DECIMAL(11, 2), // Corregido aquí
         allowNull: false,
       },
       marked: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
+      },
+      substituteProducts: {
+        type: Sequelize.STRING(500), 
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,

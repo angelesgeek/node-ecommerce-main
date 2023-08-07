@@ -18,8 +18,15 @@
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card text-white bg-dark">
                             <div class="card-body">
+                              <img src="/img/products/<%= product.img !== '' ? product.img : 'default.jpg' %>" class="card-img-top">
+                    <a href="/products/detail/<%= product.id %>" class="link">
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
                                 <h5><%= product.name %></h5>
                                 <p>Marca: <%= product.brand %></p>
+                                <p>Automotriz: <%= product.automotive %></p>
+                                <p>Motor: <%= product.engine %></p>
+                                <p>Modelo: <%= product.model %></p>
                                 <a href="" class="text-white">Ver detalles</a> 
                                 <!-- Mostrar otros detalles del producto si es necesario -->
                             </div>

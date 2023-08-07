@@ -24,6 +24,8 @@
                     <div class="col-md-6 mb-4">
                         <!--Content-->
                         <div class="p-4 white-text text-left">
+
+                             <!-- Stock -->
                             <div class="mb-3">
                                 <% if (product.stock > 5){ %>
                                     <h6 class="font-weight-medium white-text"
@@ -52,7 +54,7 @@
                                         <i class="fab fa-whatsapp"></i> Consultar </a>
                                 <% } %>   
                             </div>
-                           
+                             <!-- Datos de productos  -->
                             <p>Nombre: <%= product.name %></p>
                             <p>Marca: <%= product.brand %></p>
                             <p>Precio: <%= product.price %> última actualización: <%= product.price_update %></p>
@@ -62,9 +64,9 @@
                             <p>Num. OE: <%= product.oe_number %></p>
                             <p>Descripción: <%= product.description %></p>
                             
-                            
+                            <!-- Agregar al carrito -->
                             <form class="d-flex justify-content-left">
-                                <!-- Default input -->
+                                
                                 <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
                                 <button class="btn btn-primary btn-md my-0 agregar_carrito" data-id="<%= product.id %>" >Agregar al pedido<i class="fas fa-shopping-cart ml-1"></i>
                                 </button>
@@ -75,36 +77,41 @@
                     </div>
             </div>
                 <hr>
-                <!--Grid row-->
+                <!--Especificaciones-->
                 <div class="row d-flex justify-content-center white-text">
-                    <!--Grid column-->
+                    
                     <div class="col-md-6 text-center">
                         <h4 class="my-4 h4">Especificaciones</h4>
 
                         <p><%= product.specification %></p>
 
                     </div>
-                    <!--Grid column-->
+                    
 
                 </div>
+                
+                <!-- Sustitutos-->
                 <div class="white-text">
                     <h4 class="my-4 h4">Sustitutos</h4>
-                    <!--Grid row-->
+                    
                     <div class="row">
                       <% relatedProducts.forEach(function(relatedProduct) { %>
-                      <!--Grid column-->
-                      <div class="col-lg-4 col-md-6 mb-4">
-                        <img src="/img/products/<%= relatedProduct.img %>" class="img-fluid" alt="">
-                        <p class="lead font-weight-medium" style="font-size: smaller;">Nombre: <%= relatedProduct.name %></p>
-                        <p class="lead font-weight-medium" style="font-size: smaller;">Marca: <%= relatedProduct.brand %></p>
-                        <a href="/products/detail/<%= relatedProduct.id %>" style="font-size: smaller;">Ver detalles</a>
-                      </div>
+                      
+                        <div class="col-lg-4 col-md-6 mb-4">
+
+                            <img src="/img/products/<%= relatedProduct.img %>" class="img-fluid" alt="">
+                            <p class="lead font-weight-medium" style="font-size: smaller;">Nombre: <%= relatedProduct.name %></p>
+                            <p class="lead font-weight-medium" style="font-size: smaller;">Marca: <%= relatedProduct.brand %></p>
+                            <a href="/products/detail/<%= relatedProduct.id %>" style="font-size: smaller;">Ver detalles</a>
+                        
+                        </div>
+
                       <% }); %>
                     </div>
-                  </div>
+                </div>
                   
     </main>
-        <!--Main layout-->
+        <!--Footer-->
         <%- include('../partials/footer') %>
             <%- include('../partials/scripts') %>
 </body>

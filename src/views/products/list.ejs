@@ -11,7 +11,7 @@
         <main class="mt-5 pt-4 bg-dark">
             <div class="container">
                 <h2 class="mt-5 mb-3 h2 text-center text-white">Nuestros Productos</h2>
-
+               <!-- Formulario de búsqueda-->
                 <form action="/search/searchProducts" method="GET" class="row" id="filter-form">
                   <div class="form-group col-md-6">
                     <label for="code" class="label-white">Código:</label>
@@ -49,10 +49,12 @@
                 <% if (userLogged!=null&&userLogged.rol==1) { %>
                   <span></span>
                     <div><a class="btn-sm btn-primary btn-rounded" href="/products/create">Agregar Producto</a></div>
-                    <% } %>
+                <% } %>
+
                         <!-- Mostrar la información de la página actual y el número total de páginas -->
                         <p class="text-white">Página <%= currentPage %> de <%= totalPages %></p>
-
+                         
+                        <!-- Partial de productos-->
                         <section class="text-center mt-2 mb-4">
                             <div class="row">
                                 <% products.forEach( prod=> { %>
@@ -60,50 +62,54 @@
                                 <% } ) %>
                             </div>
                         </section>
-                        </div>
-
-                        <div class="pagination justify-content-center mt-3 bg-dark text-white">
-                            <% if (currentPage > 1) { %>
-                              <a href="/products?page=<%= currentPage - 1 %>" class="page-link bg-dark text-white">Anterior</a>
-                            <% } %>
+            </div>
+             <!-- Paginación -->
+              <div class="pagination justify-content-center mt-3 bg-dark text-white">
+              <% if (currentPage > 1) { %>
+                <a href="/products?page=<%= currentPage - 1 %>" class="page-link bg-dark text-white">Anterior</a>
+              <% } %>
                           
-                            <% if (pageRange.includes(1)) { %>
-                              <a href="/products?page=1" class="page-link bg-dark text-white">1</a>
-                              <% if (pageRange.includes(2)) { %>
-                                <% if (pageRange[0] > 2) { %>
+              <% if (pageRange.includes(1)) { %>
+                  <a href="/products?page=1" class="page-link bg-dark text-white">1</a>
+                <% if (pageRange.includes(2)) { %>
+                  <% if (pageRange[0] > 2) { %>
                                   <span class="page-link bg-dark text-white">...</span>
-                                <% } %>
-                                <% for (let i = 1; i < pageRange.length; i++) { %>
-                                  <% if (pageRange[i] !== pageRange[i - 1] + 1) { %>
+                  <% } %>
+                  <% for (let i = 1; i < pageRange.length; i++) { %>
+                  <% if (pageRange[i] !== pageRange[i - 1] + 1) { %>
                                     <span class="page-link bg-dark text-white">...</span>
-                                  <% } %>
+                <% } %>
                                   <a href="/products?page=<%= pageRange[i] %>" class="page-link bg-dark text-white"><%= pageRange[i] %></a>
-                                <% } %>
-                              <% } %>
-                            <% } else { %>
-                              <% if (pageRange.length > 0) { %>
-                                <span class="page-link bg-dark text-white">...</span>
-                              <% } %>
-                              <% for (let i = 0; i < pageRange.length; i++) { %>
-                                <% if (i > 0 && pageRange[i] !== pageRange[i - 1] + 1) { %>
-                                  <span class="page-link bg-dark text-white">...</span>
-                                <% } %>
-                                <a href="/products?page=<%= pageRange[i] %>" class="page-link bg-dark text-white"><%= pageRange[i] %></a>
-                              <% } %>
-                            <% } %>
+              <% } %>
+              <% } %>
+                <% } else { %>
+              <% if (pageRange.length > 0) { %>
+                  <span class="page-link bg-dark text-white">...</span>
+              <% } %>
+              <% for (let i = 0; i < pageRange.length; i++) { %>
+                <% if (i > 0 && pageRange[i] !== pageRange[i - 1] + 1) { %>
+                  <span class="page-link bg-dark text-white">...</span>
+                <% } %>
+                  <a href="/products?page=<%= pageRange[i] %>" class="page-link bg-dark text-white"><%= pageRange[i] %></a>
+                <% } %>
+              <% } %>
                           
-                            <% if (currentPage < totalPages) { %>
-                              <a href="/products?page=<%= currentPage + 1 %>" class="page-link bg-dark text-white">Siguiente</a>
-                            <% } %>
-                          </div>      
+              <% if (currentPage < totalPages) { %>
+                <a href="/products?page=<%= currentPage + 1 %>" class="page-link bg-dark text-white">Siguiente</a>
+              <% } %>
+            </div>      
             </div>
 
         </main>
+         <!-- Footer -->
         <script src="/js/cart.js"></script>
         <%- include('../partials/footer') %>
             <%- include('../partials/scripts') %>
+
+
             <script src="/vendor/toastr/toastr.js"></script>
-                
+
+             <!-- Limpiar el filtro -->  
             <script>
               function limpiarFiltro() {
                 document.getElementById("filter-form").reset();

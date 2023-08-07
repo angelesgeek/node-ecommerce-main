@@ -1,5 +1,5 @@
 const db = require("../database/models");
-const Sequelize = require('sequelize'); // Asegúrate de importar Sequelize correctamente
+const Sequelize = require('sequelize');
 
 const controller = {
   index: async function (req, res) {
@@ -174,8 +174,6 @@ const controller = {
     }
   },
 
-
-  
    searchProducts: async function (req, res) {
     console.log("Search controller is running");
     // Obtener los parámetros de búsqueda desde la URL
