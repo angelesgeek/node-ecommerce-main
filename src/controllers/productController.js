@@ -138,6 +138,7 @@ const controller = {
         stock: req.body.stock,
         description: req.body.description,
         specification: req.body.specification,
+        substituteProducts: req.body.substituteProducts,
         price: req.body.price,
         price_update: priceUpdate,
         img: image,

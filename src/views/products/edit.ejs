@@ -16,8 +16,6 @@
         <div class="col-md-8 mx-auto">
           <div class="card shadow my-4 bg-dark text-white">
 
-
-            
             <form class="card-body" action="/products/<%= product.id %>?_method=put" method="POST"
               enctype="multipart/form-data" id="productForm">
               
@@ -79,6 +77,11 @@
               <div class="form-floating mb-3">
                 <input type="text" name="specification" id="specification" class="form-control bg-dark text-white border-bottom" value="<%= product.specification %>">
                 <label for="specification" class="text-white">Especificaciones</label>
+              </div>
+              
+              <div class="form-floating mb-3">
+                <input type="text" name="substituteProducts" id="substituteProducts" class="form-control bg-dark text-white border-bottom" value="<%= product.substituteProducts %>">
+                <label for="substituteProducts" class="text-white">Núm de OE de productos sustitutos</label>
               </div>
 
               <div class="custom-file mb-3">
