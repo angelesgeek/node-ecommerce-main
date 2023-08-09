@@ -62,6 +62,7 @@
                             <p>Motor: <%= product.engine %></p>
                             <p>Modelo: <%= product.model %></p>
                             <p>Num. OE: <%= product.oe_number %></p>
+                            <p>Sustitutos: <%= product.substituteProducts %></p>
                             <p>Descripción: <%= product.description %></p>
                             
                             <!-- Agregar al carrito -->
@@ -90,25 +91,27 @@
 
                 </div>
                 
-                <!-- Sustitutos-->
-                <div class="white-text">
-                    <h4 class="my-4 h4">Sustitutos</h4>
-                    
-                    <div class="row">
-                      <% relatedProducts.forEach(function(relatedProduct) { %>
-                      
-                        <div class="col-lg-4 col-md-6 mb-4">
-
-                            <img src="/img/products/<%= relatedProduct.img %>" class="img-fluid" alt="">
-                            <p class="lead font-weight-medium" style="font-size: smaller;">Nombre: <%= relatedProduct.name %></p>
-                            <p class="lead font-weight-medium" style="font-size: smaller;">Marca: <%= relatedProduct.brand %></p>
-                            <a href="/products/detail/<%= relatedProduct.id %>" style="font-size: smaller;">Ver detalles</a>
-                        
-                        </div>
-
-                      <% }); %>
-                    </div>
+          <!-- Sustitutos -->
+<div class="white-text">
+    <h4 class="my-4 h4">Sustitutos</h4>
+    
+    <div class="row">
+        <% if (product.subsProducts.length > 0) { %>
+            <% product.subsProducts.forEach(function(substituteProduct) { %>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="/img/products/<%= substituteProduct.product.img %>" class="img-fluid" alt="">
+                    <p class="lead font-weight-medium" style="font-size: smaller;">Nombre: <%= substituteProduct.product.name %></p>
+                    <p class="lead font-weight-medium" style="font-size: smaller;">Marca: <%= substituteProduct.product.brand %></p>
+                    <a href="/products/detail/<%= substituteProduct.product.id %>" style="font-size: smaller;">Ver detalles</a>
                 </div>
+            <% }); %>
+            
+            
+        <% } else { %>
+            <p>No hay productos sustitutos disponibles.</p>
+        <% } %>
+    </div>
+</div>
                   
     </main>
         <!--Footer-->

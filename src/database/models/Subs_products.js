@@ -13,7 +13,19 @@ module.exports = (sequelize, DataTypes) => {
     oe_number: {
       type: DataTypes.STRING,
       allowNull: true
-    }
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false 
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false 
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true 
+    },
   };
   
   let configurations = {};

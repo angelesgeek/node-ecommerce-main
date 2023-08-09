@@ -41,27 +41,24 @@ const controller = {
     });
   },
 
-
   detail: async function (req, res) {
-    let products = await getProducts();
-    let product = await db.Product.findByPk(req.params.id);
-
-    // Obtener productos relacionados por nombre
-    const relatedProducts = products.filter(
-      (relatedProduct) =>
-        relatedProduct.name !== product.name && relatedProduct.id !== product.id
-    );
-
-    // Limitar la cantidad de productos relacionados que se mostrarán
-    const maxRelatedProducts = 3;
-    const relatedProductsToShow = relatedProducts.slice(0, maxRelatedProducts);
-
-    // Pasar los productos relacionados a la vista
-    return res.render("products/detail", {
-      product,
-      relatedProducts: relatedProductsToShow,
-      userLogged: req.session.userLogged,
-    });
+    try {
+      let product = await db.Product.findByPk(req.params.id, {
+        include: [{ model: db.Subs_products, as: 'subsProducts' }],
+      });
+  
+      if (!product) {
+        return res.status(404).send("Producto no encontrado");
+      }
+  
+      return res.render("products/detail", {
+        product,
+        userLogged: req.session.userLogged,
+      });
+    } catch (err) {
+      console.error("Error al obtener el producto:", err);
+      return res.status(500).send("Error al obtener el producto");
+    }
   },
 
   create: function (req, res) {
@@ -73,17 +70,51 @@ const controller = {
     if (req.file) {
       image = req.file.filename;
     }
-
-    // Guardar el nuevo producto en la base de datos
-    await db.Product.create({
-      name: req.body.name,
-      price: req.body.price,
-      img: image,
-      marked: req.body.marked ? true : false,
-    });
-
-    // Redireccionar al listado de productos
-    return res.redirect("/products");
+  
+    try {
+      // Obtener la fecha de actualización de precios desde la vista
+      const priceUpdate = req.body.priceUpdate || null;
+  
+      // Crear el nuevo producto en la tabla products
+      const newProduct = await db.Product.create({
+        code: req.body.code,
+        name: req.body.name,
+        brand: req.body.brand,
+        automotive: req.body.automotive,
+        engine: req.body.engine,
+        motor: req.body.motor,
+        model: req.body.model,
+        oe_number: req.body.oe_number,
+        stock: req.body.stock,
+        description: req.body.description,
+        specification: req.body.specification,
+        price: req.body.price,
+        price_update: priceUpdate,
+        img: image,
+        marked: req.body.marked ? true : false,
+      });
+  
+      // Obtener los números de OE de los productos sustitutos desde el formulario
+      const substituteOEList = req.body.substituteProducts.split(',').map(oe => oe.trim());
+  
+      // Iterar sobre la lista de números de OE y buscar los productos correspondientes
+      for (const oeNumber of substituteOEList) {
+        const product = await db.Product.findOne({ where: { oe_number: oeNumber } });
+        if (product) {
+          // Crear el registro en la tabla subs_products
+          await db.Subs_products.create({
+            prod_id: newProduct.id,
+            oe_number: oeNumber,
+          });
+        }
+      }
+  
+      // Redireccionar al listado de productos
+      return res.redirect("/products");
+    } catch (error) {
+      console.error("Error al guardar el producto:", error);
+      return res.status(500).send("Error al guardar el producto");
+    }
   },
 
   edit: async function (req, res) {
@@ -138,7 +169,6 @@ const controller = {
         stock: req.body.stock,
         description: req.body.description,
         specification: req.body.specification,
-        substituteProducts: req.body.substituteProducts,
         price: req.body.price,
         price_update: priceUpdate,
         img: image,
