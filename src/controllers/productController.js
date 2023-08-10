@@ -43,23 +43,31 @@ const controller = {
 
   detail: async function (req, res) {
     try {
-      let product = await db.Product.findByPk(req.params.id, {
-        include: [{ model: db.Subs_products, as: 'subsProducts' }],
-      });
-  
-      if (!product) {
-        return res.status(404).send("Producto no encontrado");
-      }
-  
-      return res.render("products/detail", {
-        product,
-        userLogged: req.session.userLogged,
-      });
+        let product = await db.Product.findByPk(req.params.id);
+
+        if (!product) {
+            return res.status(404).send("Producto no encontrado");
+        }
+
+        // Buscar los productos sustitutos en la tabla subs_products
+        const subsProducts = await db.Subs_products.findAll({
+            where: { prod_id: req.params.id },
+        });
+
+        // Obtener los números de OE de los productos sustitutos
+        const substituteOEList = subsProducts.map(subsProduct => subsProduct.oe_number);
+        console.log(substituteOEList);
+        return res.render("products/detail", {
+          product,
+          substituteOEList,
+          subsProducts,
+          userLogged: req.session.userLogged,
+        });
     } catch (err) {
-      console.error("Error al obtener el producto:", err);
-      return res.status(500).send("Error al obtener el producto");
+        console.error("Error al obtener el producto:", err);
+        return res.status(500).send("Error al obtener el producto");
     }
-  },
+},
 
   create: function (req, res) {
     return res.render("products/create", { userLogged: req.session.userLogged });
