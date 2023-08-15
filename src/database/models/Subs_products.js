@@ -14,6 +14,30 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
+    name: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    brand: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    automotive: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    img: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    engine: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    model: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false 

@@ -5,8 +5,6 @@ module.exports = {
     let product = await db.Product.findByPk(req.params.id);
     return res.json(product);
   },
-
-  
   checkout: async function (req, res) {
     let id_app;
   

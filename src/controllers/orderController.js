@@ -17,7 +17,7 @@ const controller = {
       });
 
       if (!userdb) {
-        // Usuario no encontrado, devuelve un mensaje de error o redirige a una página de error
+        // Usuario no encontrado
         return res.render("error", { error: "Usuario no encontrado" });
       }
 
@@ -43,8 +43,6 @@ const controller = {
     });
   },
 
-
-
   detail: async function (req, res) {
     try {
       let order = await db.Order.findByPk(req.params.id);
@@ -57,7 +55,6 @@ const controller = {
       return res.status(500).send("Error al obtener los detalles del pedido");
     }
   },
-
 
   generatePDF: async function (req, res) {
     try {

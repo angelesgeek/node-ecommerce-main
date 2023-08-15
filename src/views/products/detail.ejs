@@ -75,9 +75,6 @@
                             <% } else { %>
                                 <p>Sustitutos: No hay productos sustitutos disponibles.</p>
                             <% } %></p>
-                        </div>
-                    </div>
-
                             <p>Descripción: <%= product.description %></p>
                             
                             <!-- Agregar al carrito -->
@@ -87,6 +84,9 @@
                                 <button class="btn btn-primary btn-md my-0 agregar_carrito" data-id="<%= product.id %>" >Agregar al pedido<i class="fas fa-shopping-cart ml-1"></i>
                                 </button>
                             </form>
+                        </div>
+                    </div>
+  
                         </div>
                         <!--Content-->
 
@@ -107,9 +107,30 @@
                 </div>
 
                 <!--Sustitutos-->
-                <div class="row d-flex justify-content-center white-text">
-                    
+                <div class="col-md-6 text-center text-white">
+                <h4 class="my-4 h4">Productos Sustitutos</h4>
                 </div>
+<div class="row d-flex justify-content-center white-text">
+    <% for (const oeNumber of substituteOEList) { %>
+        <% const substituteProduct = subsProducts.find(subsProduct => subsProduct.oe_number === oeNumber); %>
+        <% if (substituteProduct) { %>
+            <div class="col-md-3 text-center">
+                <div class="card mb-4 bg-dark text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Producto Sustituto</h5>
+                        <img src="/img/products/<%= substituteProduct.img %>" class="img-fluid" alt="Imagen del producto sustituto">
+                        <p class="card-text">Número OE: <%= substituteProduct.oe_number %></p>
+                        <p class="card-text">Nombre: <%= substituteProduct.name %></p>
+                        <p class="card-text">Marca: <%= substituteProduct.brand %></p>
+                        <!-- Agrega aquí los demás campos que deseas mostrar -->
+                        <a href="/products/detail/<%= substituteProduct.prod_id %>" class="btn btn-primary">Ver Detalles</a>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    <% } %>
+
+</div>
                 
 
 

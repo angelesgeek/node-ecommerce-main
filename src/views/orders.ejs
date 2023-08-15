@@ -18,8 +18,8 @@
                         <div class="card-header bg-dark">
                             <form action="/orders" method="GET" class="form-inline">
                               <div class="form-group">
-                                <label for="userId" class="mr-2">ID de Cliente:</label>
-                                <input type="text" name="userId" id="userId" class="form-control" placeholder="Sólo números">
+                                <label for="userId" class="mr-2">ID de Cliente, sólo números:</label>
+                                <input type="text" name="userId" id="userId" class="form-control">
                               </div>
                               <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
                               <% if (req.query.userId && req.query.userId.trim() !== "") { %>
@@ -39,10 +39,6 @@
                                         <strong>ID de Cliente</strong>
                                     </th>
                                     <th class="white-text">
-                                        <strong>Nombre cliente</strong>
-                                    </th>
-                                    
-                                    <th class="white-text">
                                         <strong>Total</strong>
                                     </th>
                                     <th class="white-text">
@@ -52,7 +48,7 @@
                                         <strong>Realizado por </strong>
                                     </th>
                                     <th class="white-text">
-                                        <strong>Ver</strong>
+                                        <strong>Acciones</strong>
                                     </th>
                                     <th class="white-text">
                                         <strong>Descargar</strong>

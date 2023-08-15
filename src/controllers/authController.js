@@ -57,8 +57,6 @@ const controller = {
       });
     }
   },
-
-
   showRegister: function (req, res) {
   if (req.query.type === "admin") {
     // Si el enlace contiene el parámetro "type=admin", mostrar formulario para registrar vendedores y otros administradores
@@ -71,7 +69,6 @@ const controller = {
     return res.render("auth/clientRegister", { "userLogged": req.session.userLogged });
   }
 },
-
   register: async function (req, res) {
     // Validar los datos
     let errores = validationResult(req);
@@ -107,8 +104,6 @@ const controller = {
       return res.status(500).send('Error al crear el usuario');
     }
   },
-  
-  
   logout: function (req, res) {
     req.session.destroy();
     res.clearCookie("userId");
@@ -135,7 +130,6 @@ const controller = {
     }
     return res.redirect("/users");
   },
-  
   update: async function (req, res) {
 
     if (!req.session.userLogged.rol==1) {
@@ -157,7 +151,6 @@ const controller = {
           return res.redirect("/users");
 
     },
-
   delete: async function (req, res) {
 
     try{

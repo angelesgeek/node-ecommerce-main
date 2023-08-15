@@ -7,5 +7,5 @@ const authMiddleware = require("../middlewares/authMiddleware");
 router.get("/", controller.home);
 router.get("/cart", authMiddleware, controller.cart);
 router.get("/order/:id", authMiddleware, controller.order);
-
+router.post("/deleteOrder/:id", controller.deleteOrder);
 module.exports = router;
