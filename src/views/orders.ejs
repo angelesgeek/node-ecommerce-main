@@ -13,8 +13,10 @@
             <h2 class="mt-5 mb-3 h2 text-center">
                Todos los pedidos
             </h2>
+             
             <div class="card mb-5 bg-dark white-text">
-                    <div class="">
+                    <div>
+                        <!-- Form de búqueda por Id cte -->
                         <div class="card-header bg-dark">
                             <form action="/orders" method="GET" class="form-inline">
                               <div class="form-group">
@@ -26,10 +28,11 @@
                                 <a href="/orders" class="btn btn-primary btn-sm ml-2">Ver Todos</a>
                               <% } %>
                             </form>
-                          </div>
+                        </div>
                         
                     <div class="card-body">
                         <table class="table table-responsive-md mb-0">
+                            <!-- Títulos de la tabla -->
                             <thead>
                                 <tr>
                                     <th class="white-text">
@@ -48,19 +51,25 @@
                                         <strong>Realizado por </strong>
                                     </th>
                                     <th class="white-text">
-                                        <strong>Acciones</strong>
+                                        <strong>Ver</strong>
+                                    </th>
+                                    <th class="white-text">
+                                        <strong>Eliminar</strong>
                                     </th>
                                     <th class="white-text">
                                         <strong>Descargar</strong>
                                     </th>
                                 </tr>
                             </thead>
+                            <!-- TBody For each llamada al partial -->
                             <tbody class="white-text">
                                 <% orders.forEach( orders=> { %>
                                     <%- include('./partials/orders' ,{orders}) %>
                                 <% } ) %>
                             </tbody>
                         </table>
+                        <!-- Boton de actualizar estados -->
+                        <button class="btn btn-primary btn-sm" id="updateAllStatusBtn">Actualizar Estados de Pedidos</button>
                     </div>
             </div>
         </div>
@@ -68,5 +77,39 @@
    
     <%- include('./partials/footer') %>
     <%- include('./partials/scripts') %>
+
+    <script>
+        function updateAllStatus() {
+            const selectElements = document.querySelectorAll('select.status-select');
+            const dataToUpdate = {};
+    
+            selectElements.forEach(select => {
+                const orderId = select.getAttribute('data-order-id');
+                const newStatus = select.value;
+                dataToUpdate[`statusSelect_${orderId}`] = newStatus;
+            });
+    
+            fetch('/updateOrderStatus', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dataToUpdate)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const updateButton = document.getElementById('updateAllStatusBtn');
+            updateButton.addEventListener('click', updateAllStatus);
+        });
+    </script>
+
 </body>
 </html>

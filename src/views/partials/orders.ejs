@@ -8,14 +8,21 @@
     <td>
         <%= orders.total %>
     </td>
+
+    <!-- Cambio de estado de pedidos -->
+   
+    
     <td>
-        <select id="statusSelect">
-          <option value="0" <%= orders.order_status === 0 ? "selected" : "" %>>En Revisión</option>
-          <option value="1" <%= orders.order_status === 1 ? "selected" : "" %>>En Curso</option>
-          <option value="2" <%= orders.order_status === 2 ? "selected" : "" %>>Confirmado</option>
+        <select class="form-select status-select" name="statusSelect_<%= orders.id %>" data-order-id="<%= orders.id %>">
+            <option value="0" <%= orders.order_status === 0 ? "selected" : "" %>>En Revisión</option>
+            <option value="1" <%= orders.order_status === 1 ? "selected" : "" %>>En Curso</option>
+            <option value="2" <%= orders.order_status === 2 ? "selected" : "" %>>Confirmado</option>
         </select>
-        <button id="updateStatusBtn" data-order-id="<%= orders.id %>">Actualizar Estado</button>
-      </td>
+    </td>
+    
+    
+
+    <!-- Nombre de vendedor -->
     <td>
         <% if (orders.user.id_app !== null) { %>
             cliente
@@ -24,54 +31,68 @@
         <% } %>
     </td>
 
-
+    <!-- Ver Pedido -->
     <td>
-    <div class="btn-group" role="group">
-        <a class="btn btn-warning btn-sm" href="/order/<%= orders.id %>">
-            <i class="fas fa-eye"></i>
-        </a>
-        <button class="btn btn-danger btn-sm" id="deleteOrderBtn_<%= orders.id %>"
-            onclick="showDeleteConfirmation('<%= orders.id %>')">
-        <i class="fas fa-trash"></i>
-    </button>
-    </div>
-</td>
-<!-- Agrega un modal para el mensaje de confirmación -->
-<div class="modal fade" id="confirmationModal_<%= orders.id %>" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content bg-dark text-white">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmationModalLabel">Confirmar Eliminación</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body bg-dark text-white">
-                ¿Estás seguro de que quieres eliminar este pedido?
-            </div>
-            <div class="modal-footer bg-dark text-white">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" onclick="deleteOrder('<%= orders.id %>')">Confirmar</button>
+            <a class="btn btn-warning btn-sm" href="/order/<%= orders.id %>">
+                <i class="fas fa-eye"></i>
+            </a>
+    </td>
+
+    <!-- Eliminar Pedido -->
+    <td>
+            <button class="btn btn-warning btn-sm" id="deleteOrderBtn_<%= orders.id %>"
+                onclick="showDeleteConfirmation('<%= orders.id %>')">
+                <i class="fas fa-trash"></i>
+            </button>
+        
+        <!-- Modal para el mensaje de confirmación -->
+
+        <div class="modal fade" id="confirmationModal_<%= orders.id %>" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content bg-dark text-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationModalLabel">Confirmar Eliminación</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body bg-dark text-white">
+                        ¿Estás seguro de que quieres eliminar este pedido?
+                    </div>
+                    <div class="modal-footer bg-dark text-white">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteOrder('<%= orders.id %>')">Confirmar</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </td>
 
-<script>
-    function deleteOrder(orderId) {
-    const form = document.createElement("form");
-    form.action = `/deleteOrder/${orderId}`;
-    form.method = "POST";
-    document.body.appendChild(form);
-    form.submit();
-
-    // Opcionalmente, redireccionar a la página de pedidos después de eliminar
-    setTimeout(function () {
-        toastr.success("El pedido ha sido eliminado exitosamente.", "", { timeOut: 10000 });
-
-        setTimeout(function () {
-            window.location.href = "/orders";
-        }, 10000); // Redireccionar después de 10 segundos (opcional)
-    }, 500); // Esperar 500 ms antes de mostrar el mensaje de toast
-}
-</script>
+    <td>
+        <a class="btn btn-warning btn-sm" href="/orders/detail/<%= orders.id %>/pdf"><i class="fas fa-download"></i></a>
+    </td>
+       
+    <!-- Popup y mensaje para confirmar borrado -->
+        <script>
+            function showDeleteConfirmation(orderId) {
+                const confirmationModal = document.getElementById(`confirmationModal_${orderId}`);
+                $(confirmationModal).modal('show'); // Mostrar el modal usando jQuery
+            }
+        
+            function deleteOrder(orderId) {
+                const form = document.createElement("form");
+                form.action = `/deleteOrder/${orderId}`;
+                form.method = "POST";
+                document.body.appendChild(form);
+                form.submit();
+        
+                // Redireccionar a la página de pedidos después de eliminar
+                setTimeout(function () {
+                    toastr.success("El pedido ha sido eliminado exitosamente.", "", { timeOut: 10000 });
+        
+                    setTimeout(function () {
+                        window.location.href = "/orders";
+                    }, 10000);
+                }, 500); 
+            }
+        </script>

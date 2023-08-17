@@ -18,11 +18,11 @@ module.exports = {
     });
   },
 
-
   cart: async function (req, res) {
     let users = await db.User.findAll();
     return res.render("cart", {"userLogged":req.session.userLogged, "users":users});
   },
+
   order: async function (req, res) {
     let order = await db.Order.findByPk(req.params.id, {
       include: db.Order.OrderItems,
@@ -58,5 +58,29 @@ module.exports = {
     }
 },
 
+updateOrderStatus: async function (req, res) {
+  console.log("por acá pasa")
+  try {
+      const dataToUpdate = req.body;
+
+      for (const [key, value] of Object.entries(dataToUpdate)) {
+          if (key.startsWith('statusSelect_')) {
+              const orderId = key.replace('statusSelect_', '');
+              const newStatus = parseInt(value);
+
+              const order = await db.Order.findByPk(orderId);
+              if (order) {
+                  order.order_status = newStatus;
+                  await order.save();
+              }
+          }
+      }
+      console.log("por acá pasa 2")
+      return res.json({ message: 'Estados de pedido actualizados con éxito' });
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Error al actualizar los estados de pedido' });
+  }
+},
 
 };
