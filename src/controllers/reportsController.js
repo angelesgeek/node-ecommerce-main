@@ -44,8 +44,61 @@ const getOrdersPerWeek = async () => {
 const renderReports = async (req, res) => {
   try {
 
-    // Consulta para obtener la cantidad total de productos
+    const productsWithStockAbove5 = await db.Product.count({
+      where: {
+        stock: {
+          [db.Sequelize.Op.gt]: 5
+        }
+      }
+    });
+
+    const productsWithStockBelow2 = await db.Product.count({
+      where: {
+        stock: {
+          [db.Sequelize.Op.lt]: 2
+        }
+      }
+    });
+
     const totalProducts = await db.Product.count();
+
+    const percentageAbove5 = (productsWithStockAbove5 / totalProducts) * 100;
+    const percentageBelow2 = (productsWithStockBelow2 / totalProducts) * 100;
+    const percentageConsult = 100 - percentageAbove5 - percentageBelow2;
+    
+     // Consulta para obtener el ranking de productos más pedidos con order_status = 2
+     const productRanking = await db.OrderItem.findAll({
+      attributes: ['productId', [db.sequelize.fn('COUNT', db.sequelize.col('productId')), 'productCount']],
+      where: {
+        '$order.order_status$': 2
+      },
+      include: [
+        {
+          model: db.Order,
+          as: 'order',
+          required: true
+        }
+      ],
+      group: ['productId'],
+      order: db.sequelize.literal('productCount DESC'),
+      limit: 10
+    });
+
+    const productIds = productRanking.map(item => item.productId);
+
+    // Consulta para obtener la información de los productos en el ranking
+    const topProducts = await db.Product.findAll({
+      where: {
+        id: productIds
+      },
+      include: [
+        {
+          model: db.OrderItem,
+          as: 'orderItems'
+        }
+      ]
+    });
+   
 
     // Consulta para obtener la cantidad de productos en pedidos
     const productsInOrders = await db.OrderItem.count({
@@ -74,7 +127,7 @@ const renderReports = async (req, res) => {
       attributes: ['id_app', [db.sequelize.fn('COUNT', db.sequelize.col('id')), 'orderCount']],
       group: ['id_app'],
       order: db.sequelize.literal('orderCount DESC'),
-      limit: 10 // Puedes ajustar la cantidad de clientes en el ranking que deseas mostrar
+      limit: 2
     });
 
     // Consulta para obtener la cantidad de pedidos con order_status = 2
@@ -119,7 +172,11 @@ const renderReports = async (req, res) => {
       productsInOrders,
       productsInOrdersPercentage,
       ordersWithStatus2,
-      ordersWithStatus2Percentage
+      ordersWithStatus2Percentage,
+      topProducts,
+      percentageAbove5,
+      percentageBelow2,
+      percentageConsult
     });
 
   } catch (error) {
