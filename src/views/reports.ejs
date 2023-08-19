@@ -12,60 +12,110 @@
       <div class="container-fluid">
         <!-- Info boxes -->
         <div class="row">
-            <!-- /.col -->
-            <div class="info-box iconos" style="margin-top: 120px;">
+            
+
+          <!-- /Boxes con información general -->
+
+          <div class="info-box iconos" style="margin-top: 120px;">
+
+                <!-- /Cantidad Total de Pedidos -->
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box mb-3">
                         <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-shopping-cart"></i></span>
   
                         <div class="info-box-content">
-                        <span class="info-box-text">Pedidos</span>
-                        <span class="info-box-number">41,410</span>
-                </div>
-                <!-- /.info-box-content -->
+                          <span class="info-box-text">Pedidos Totales</span>
+                          <span class="info-box-number"><%= totalOrders %></span> 
+                        </div>
                     </div>
-              <!-- /.info-box -->
                 </div>
-            <!-- /.col -->
+
+                <div class="clearfix hidden-md-up"></div>
+
+                <!-- /Cantidad Total en Pesos -->
+                  <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                      <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-dollar-sign"></i></span>
         
-            <!-- fix for small devices only -->
-            <div class="clearfix hidden-md-up"></div>
-  
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-dollar-sign"></i></span>
-  
-                <div class="info-box-content">
-                  <span class="info-box-text">Totales</span>
-                  <span class="info-box-number">760</span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
+                      <div class="info-box-content">
+                        <span class="info-box-text">Totales en Pesos</span>
+                        <span class="info-box-number">$<%= totalOrdersMoney.toFixed(2) %></span>
+                      </div>
+                      
+                    </div>
+                  </div>
+            
+            <!-- /Cantidad Total de Clientes registrados -->
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-users"></i></span>
   
                 <div class="info-box-content">
-                  <span class="info-box-text">Usuarios</span>
-                  <span class="info-box-number">2,000</span>
+                  <span class="info-box-text">Clientes Registrados</span>
+                  <span class="info-box-number"><%= totalUsersWithRole0 %></span>
                 </div>
-                <!-- /.info-box-content -->
+                
               </div>
-        </div>
-              <!-- /.info-box -->
             </div>
-            <!-- /.col -->
+              
           </div>
-        <!-- /.row -->
+        </div>
 
+        <!-- /Ranking de clientes -->
+        <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Ranking de Clientes por Pedidos</h3>
+                </div>
+                <div class="card-body">
+                  <ul class="list-group">
+                    <% for (const customer of customerRanking) { %>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Cliente ID: <%= customer.id_app %>
+                        <span class="badge badge-primary badge-pill"><%= customer.orderCount %></span>
+                      </li>
+                    <% } %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Estadísticas</h3>
+                </div>
+                <div class="card-body">
+                  <div class="progress-group">
+                    Productos en los pedidos: <%= productsInOrdersPercentage.toFixed(2) %>%
+                    <div>
+                      <span class="float-right"><b><%= productsInOrders %></b>/<%= totalProducts %></span>
+                      <div class="progress progress-sm"> 
+                        <div class="progress-bar bg-primary" style="width: <%= productsInOrdersPercentage %>%"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="progress-group">
+                    Pedidos confirmados: <%= ordersWithStatus2Percentage.toFixed(2) %>%
+                    <span class="float-right"><b><%= ordersWithStatus2 %></b>/<%= totalOrders %></span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-primary" style="width: <%= ordersWithStatus2Percentage %>%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- /Gráficos de Pedidos -->
         <div class="row">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
+
                 <h5 class="card-title">Reporte de pedidos mensuales</h5>
+
+                <!-- /Barra de herramientas -->
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -88,27 +138,137 @@
                   </button>
                 </div>
               </div>
-              <!-- /.card-header -->
+
+              <!-- Gráfico de pedidos en cualquier estado por mes -->
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-8">
                     <p class="text-center">
-                      <strong>Pedidos: 1 Jun, 2023 - 30 Jul, 2023</strong>
+                      <strong>Pedidos por mes, año 2023</strong>
                     </p>
+
+                    <!-- /Gráfico -->
+
+                    <div class="chart">
+                      <!-- Orders Per Month Chart Canvas -->
+                      <canvas id="ordersPerMonthChart" height="180" style="height: 180px;"></canvas>
+                    </div>
+                  </div>
+
+                  <!-- /Columna de barras horizontales estadísticas -->
+                  <div class="col-md-4">
+                    Agregar alguna explicación al gráfico
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tarjetas de Totales -->
+<div class="card-footer">
+  <div class="row">
+    <div class="col-sm-3 col-6">
+      <!-- Total de todos los pedidos -->
+      <div class="description-block border-right">
+        <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
+        <h5 class="description-header">$<%= totalOrdersMoney.toFixed(2) %></h5>
+        <span class="description-text">TOTAL</span>
+      </div>
+    </div>
+    <div class="col-sm-3 col-6">
+      <!-- Bloque para mostrar el total por mes -->
+      <div class="description-block border-right">
+        <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
+        <h5 class="description-header" id="totalPerMonth"><%= totalPerMonth.toFixed(2) %></h5>
+        <span class="description-text">TOTAL POR MES</span>
+      </div>
+    </div>
+    <div class="col-sm-3 col-6">
+      <!-- Bloque para mostrar el total por semana -->
+      <div class="description-block border-right">
+        <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
+        <h5 class="description-header" id="totalPerWeek"><%= totalPerWeek.toFixed(2) %></h5>
+        <span class="description-text">TOTAL POR SEMANA</span>
+      </div>
+    </div>
+    <div class="col-sm-3 col-6">
+      <!-- Total Anual -->
+      <div class="description-block">
+        <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>
+        <h5 class="description-header">1200</h5>
+        <span class="description-text">TOTAL ANUAL</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+                    
+                    <!-- /.description-block -->
+                  </div>
+                </div>
+                <!-- /.row -->
+        </div>
+              <!-- /.card-footer -->
+      </div>
+        
+        <!--Gráficos de productos -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+
+                <h5 class="card-title">Reporte de Productos</h5>
+
+                <!-- /Barra de herramientas -->
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                      <i class="fas fa-wrench"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                      <a href="#" class="dropdown-item">Action</a>
+                      <a href="#" class="dropdown-item">Another action</a>
+                      <a href="#" class="dropdown-item">Something else here</a>
+                      <a class="dropdown-divider"></a>
+                      <a href="#" class="dropdown-item">Separated link</a>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Productos -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-8">
+                    <p class="text-center">
+                      <strong>Productos 2023</strong>
+                    </p>
+
+                    <!-- /Gráfico -->
 
                     <div class="chart">
                       <!-- Sales Chart Canvas -->
                       <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
                     </div>
+
                     <!-- /.chart-responsive -->
                   </div>
-                  <!-- /.col -->
+
+                  <!-- /Columna de barras horizontales -->
                   <div class="col-md-4">
+
                     <p class="text-center">
                       <strong>Estadísticas</strong>
                     </p>
 
                     <div class="progress-group">
+
                       Productos en los pedidos
                       <span class="float-right"><b>160</b>/200</span>
                       <div class="progress progress-sm">
@@ -195,16 +355,76 @@
           </div>
           <!-- /.col -->
         </div>
-        <!-- /.row -->
 
         
       </div><!--/. container-fluid -->
     </section>
     <%- include('./partials/footer') %>
-</body>
-<!-- Dashboard Script -->
+    <%- include('./partials/scripts') %>
 
-<%- include('./partials/scripts') %>
-<script src="/plugins/Chart.min.js"></script>
-<script src="/js/dashboard2.js"></script>
+    <script src="/plugins/Chart.min.js"></script>
+    <script src="/js/dashboard2.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          var ctx = document.getElementById("salesChart").getContext("2d");
+          var salesChart = new Chart(ctx, {
+              type: "bar", // Tipo de gráfico (puede ser 'line', 'bar', 'pie', etc.)
+              data: {
+                  labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+                  datasets: [
+                      {
+                          label: "Cantidad de Pedidos",
+                          data: [50, 80, 120, 90, 110, 70],
+                          backgroundColor: "#007bff", // Color de fondo de las barras
+                      },
+                  ],
+              },
+              options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  scales: {
+                      y: {
+                          beginAtZero: true,
+                      },
+                  },
+              },
+          });
+      });
+    </script>
+    <script>
+      var orderCountsPerMonth = <%- JSON.stringify(orderCountsPerMonth) %>;
+      var months = [];
+      var orderCounts = [];
+
+      orderCountsPerMonth.forEach(function(entry) {
+        months.push(entry.year + "-" + entry.month);
+        orderCounts.push(entry.orderCount);
+      });
+
+      var ctx = document.getElementById("ordersPerMonthChart").getContext("2d");
+      var ordersPerMonthChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: months,
+          datasets: [
+            {
+              label: "Pedidos por Mes",
+              data: orderCounts,
+              backgroundColor: "rgba(75, 192, 192, 0.2)",
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    </script>
+
+</body>
 </html>
