@@ -23,7 +23,7 @@ router.put("/editUsers/:id", authMiddleware, controller.update);
 
 router.get("/delete/:id", controller.delete);
 
-
+router.get("/profile/:userId", controller.profile);
 
 
 module.exports = router;

@@ -11,22 +11,43 @@
 
         <!--Main layout-->
         <main class="mt-5 pt-4 bg-dark white-text">
-            <div class="container bg-dark">
-                <h2 class="mt-5 mb-3 h2 text-center">
-                    Perfil de <%= locals.userLogged.name%>
-                </h2>
-                <div class="card mb-5 bg-dark white-text">
-                    <div class="card-header bg-danger">
-                        Mis Datos
+            <div class="container bg-dark mt-5 mb-5">
+                <div class="row">
+                    <div class="col-md-12">
+                    <% if (userToView) { %>
+                        <h2 class="text-center">Perfil de <%= userToView.name %></h2>
+                        <!-- ... muestra la información del perfil de "userToView" ... -->
+                    <% } else { %>
+                        <p>Perfil de <%= loggedInUser.name %></p>
+                        <!-- ... muestra la información del perfil del usuario logueado ... -->
+                    <% } %>
                     </div>
-
-                    <div class="card-body">
-                        <p><span class="font-weight-bold mr-2">Nombre: </span><%= locals.userLogged.name %></p>
-                        <p><span class="font-weight-bold mr-2">Email: </span><%= locals.userLogged.email %></p>
-                    </div>
-                      
                 </div>
-                
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <div class="card mb-5 bg-dark white-text">
+                        <div class="card-header bg-danger">
+                            Datos del perfil
+                        </div>
+
+                        <div class="card-body">
+
+                                            <% if (userToView) { %>
+                        <p>Perfil de <%= userToView.name %></p>
+                        <p>Correo electrónico: <%= userToView.email %></p>
+                        <!-- ... muestra la información del perfil de "userToView" ... -->
+                        <% } else { %>
+                        <p>Perfil de <%= loggedInUser.name %></p>
+                        <p>Correo electrónico: <%= loggedInUser.email %></p>
+                        <!-- ... muestra la información del perfil del usuario logueado ... -->
+                        <% } %>
+                        </div>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                 <div class="card mb-5 bg-dark white-text">
                     <div class="card-header bg-danger">
                         Mis Pedidos
@@ -81,9 +102,20 @@
                         </table>
                     </div>
                 </div>
-                <div class="card mb-5 bg-dark white-text">
-                    <%- include('../partials/messages') %>
+                    </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                <div class="card mb-5 bg-dark white-text">
+                    <% include('../partials/messages', { userLogged: loggedInUser }) %>
+                </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
                 <div class="card mb-5 bg-dark white-text">
                     <div class="card-header bg-danger white-text">
                         Mensajes Recibidos
@@ -100,6 +132,23 @@
                         </table>
                     </div>
                 </div>
+                    </div>
+                </div>
+
+                <div>
+                    <% if (loggedInUser.rol === 1) { %>
+                        <div>
+                          <% if (numberOfOrders !== undefined && totalSpent !== undefined) { %>
+                            <p>Cantidad de Pedidos: <%= numberOfOrders %></p>
+                            <% if (typeof totalSpent === 'number') { %>
+                              <p>Total Gastado: $<%= totalSpent.toFixed(2) %></p>
+                            <% } %>
+                          <% } %>
+                          <a href="/users/clients" class="btn btn-primary">Volver a la Lista de Clientes</a>
+                        </div>
+                      <% } %>
+                </div>
+            
             </div>
             </div>
         </main>

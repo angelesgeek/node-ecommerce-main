@@ -12,5 +12,7 @@ router.get("/vendors", controller.indexVendor);
 // Ruta para administradores
 router.get("/admin", controller.indexAdmin);
 
+
+
 module.exports = router;
 

@@ -58,7 +58,7 @@ module.exports = {
     }
 },
 
-updateOrderStatus: async function (req, res) {
+  updateOrderStatus: async function (req, res) {
   console.log("por acá pasa")
   try {
       const dataToUpdate = req.body;

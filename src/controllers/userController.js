@@ -15,6 +15,7 @@ const controller = {
     let users = await db.User.findAll({ where: { rol: 2 } });
     return res.render("listVendor", { users, userLogged: req.session.userLogged });
   },
+
 };
 
 module.exports = controller;

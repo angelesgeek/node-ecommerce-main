@@ -164,21 +164,44 @@ const controller = {
     }
   },
 
-  //Mostrar mensajes del usuario logueado
-
-
   profile: async function (req, res) {
-    let orders = await db.Order.findAll({
-      where: { userId: req.session.userLogged.id },
-    });
-    if(req.session.userLogged.rol==1){
-    let messages = await db.Message.findAll();
-    return res.render("auth/profile", { "orders": orders, "messages": messages, "userLogged": req.session.userLogged });
-    }else{
-    let messages = await db.Message.findAll({
-      where:{userId:req.session.userLogged.id}
-    })
-    return res.render("auth/profile", { "orders": orders, "messages": messages, "userLogged": req.session.userLogged });
+    const loggedInUser = req.session.userLogged;
+    const userIdToView = req.params.userId;
+
+    try {
+      let userToView; 
+
+      if (userIdToView) {
+        userToView = await db.User.findByPk(userIdToView); 
+        if (!userToView) {
+          return res.redirect("/users");
+        }
+      }
+
+      let orders = await db.Order.findAll({
+        where: { userId: userIdToView ? userToView.id : loggedInUser.id },
+      });
+
+      let totalSpent = orders.reduce((total, order) => total + order.total, 0);
+      let numberOfOrders = orders.length;
+
+      let messages = await db.Message.findAll({
+        where: { userId: userIdToView ? userToView.id : loggedInUser.id }
+      });
+
+      return res.render("auth/profile", {
+        userToView,
+        loggedInUser,
+        orders,
+        messages,
+        totalSpent,
+        numberOfOrders,
+        userLogged: loggedInUser, // Pasa "loggedInUser" como "userLogged" a la vista
+      });
+
+    } catch (error) {
+      console.log(error);
+      return res.redirect("/error");
     }
   },
 };
