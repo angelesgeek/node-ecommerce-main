@@ -57,53 +57,85 @@ const controller = {
       });
     }
   },
+
+
   showRegister: function (req, res) {
+
   if (req.query.type === "admin") {
     // Si el enlace contiene el parámetro "type=admin", mostrar formulario para registrar vendedores y otros administradores
+    
     return res.render("auth/adminRegister", { "userLogged": req.session.userLogged });
   } else if (req.query.type === "vendor") {
     // Si el enlace contiene el parámetro "type=vendor", mostrar formulario para registrar vendedores
+  
     return res.render("auth/vendorRegister", { "userLogged": req.session.userLogged });
   } else {
     // Por defecto, mostrar formulario para registrar clientes
+  
     return res.render("auth/clientRegister", { "userLogged": req.session.userLogged });
   }
 },
-  register: async function (req, res) {
-    // Validar los datos
-    let errores = validationResult(req);
-  
-    // Si hay errores, retornarlos a la vista
-    if (!errores.isEmpty()) {
-      let errors = errores.mapped();
-      console.log(errors);
-      return res.render("clientRegister", { errors: errors, olds: req.body, userLogged: req.session.userLogged });
+
+register: async function (req, res) {
+  // Validar los datos
+  let errores = validationResult(req);
+
+  // Si hay errores, retornarlos a la vista
+  if (!errores.isEmpty()) {
+    let errors = errores.mapped();
+    console.log(errors);
+
+    // Asegúrate de verificar el tipo y renderizar la vista correcta según el tipo
+
+    if (req.body.rol === "admin") {
+      return res.render("auth/adminRegister", { errors: errors, olds: req.body, userLogged: req.session.userLogged });
+    } else if (req.body.rol === "vendor") {
+
+      return res.render("auth/vendorRegister", { errors: errors, olds: req.body, userLogged: req.session.userLogged });
+    } else {
+
+      return res.render("auth/clientRegister", { errors: errors, olds: req.body, userLogged: req.session.userLogged });
     }
-  
-    var salt = bcryptjs.genSaltSync(10);
-    var plainPassword = req.body.password;
-    var password = bcryptjs.hashSync(req.body.password, salt);
-  
-    let data = {
-      name: req.body.name,
-      id_app: req.body.id_app ? req.body.id_app : null, // Verificamos si existe req.body.id_app
-      email: req.body.email,
-      rol: req.body.rol,
-      password: password
-    };
-  
-    // Guardar el usuario en la base de datos
-    try {
-      let newUser = await db.User.create(data);
-  
-      // Redirigimos al menú de usuario
-      return res.redirect(`/users/`);
-    } catch (error) {
-      // Manejo de errores
-      console.log(error);
-      return res.status(500).send('Error al crear el usuario');
+  }
+
+  var salt = bcryptjs.genSaltSync(10);
+  var plainPassword = req.body.password;
+  var password = bcryptjs.hashSync(req.body.password, salt);
+
+  let data = {
+    name: req.body.name,
+    id_app: req.body.id_app ? req.body.id_app : null,
+    email: req.body.email,
+    rol: req.body.rol,
+    password: password,
+  };
+
+  // Guardar el usuario en la base de datos
+  try {
+    let newUser = await db.User.create(data);
+
+    console.log("_________________________________________Valor de rol:", req.body.rol);
+
+    // Redirigimos según el tipo de usuario creado
+    if (req.body.rol === 1) {
+
+      return res.redirect(`/users/admin/`);
+
+    } else if (req.body.rol >= 10 && req.body.rol <= 40) {
+
+      return res.redirect(`/users/vendors/`);
+    } else {
+
+      return res.redirect(`/users/clients/`);
     }
-  },
+
+  } catch (error) {
+    // Manejo de errores
+    console.log(error);
+    return res.status(500).send("Error al crear el usuario");
+  }
+},
+
   logout: function (req, res) {
     req.session.destroy();
     res.clearCookie("userId");
@@ -130,6 +162,7 @@ const controller = {
     }
     return res.redirect("/users");
   },
+
   update: async function (req, res) {
 
     if (!req.session.userLogged.rol==1) {
@@ -151,6 +184,7 @@ const controller = {
           return res.redirect("/users");
 
     },
+
   delete: async function (req, res) {
 
     try{
@@ -196,7 +230,7 @@ const controller = {
         messages,
         totalSpent,
         numberOfOrders,
-        userLogged: loggedInUser, // Pasa "loggedInUser" como "userLogged" a la vista
+        userLogged: loggedInUser,
       });
 
     } catch (error) {
@@ -204,5 +238,7 @@ const controller = {
       return res.redirect("/error");
     }
   },
+  
 };
+
 module.exports = controller;

@@ -1,4 +1,5 @@
 const db = require("../database/models");
+const { Op } = require('sequelize');
 
 const controller = {
   index: async function (req, res) {
@@ -12,7 +13,14 @@ const controller = {
   },
 
   indexVendor: async function (req, res) {
-    let users = await db.User.findAll({ where: { rol: 2 } });
+    let users = await db.User.findAll({ 
+      where: {
+        rol: {
+          [Op.between]: [10, 40]
+        }
+      }
+    });
+
     return res.render("listVendor", { users, userLogged: req.session.userLogged });
   },
 
