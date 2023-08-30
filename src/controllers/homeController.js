@@ -1,4 +1,5 @@
 const db = require("../database/models");
+const { Op } = require("sequelize");
 
 module.exports = {
   home: async function (req, res) {
@@ -20,7 +21,7 @@ module.exports = {
 
   cart: async function (req, res) {
     let users = await db.User.findAll();
-    return res.render("cart", {"userLogged":req.session.userLogged, "users":users});
+    return res.render("cart", {"userLogged":req.session.userLogged, "users":users,});
   },
 
   order: async function (req, res) {

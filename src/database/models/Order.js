@@ -33,7 +33,7 @@ module.exports = (sequelize, dataTypes) => {
     },
     total: {
       type: dataTypes.DECIMAL(10, 2),
-      allowNull: false,
+      allowNull: true,
     },
    comments: {
       type: dataTypes.STRING(100),
@@ -67,9 +67,17 @@ module.exports = (sequelize, dataTypes) => {
       foreignKey: "userId",
     });
     
+    Order.App = Order.belongsTo(models.User, {
+      as: "app",
+      foreignKey: "id_app",
+    });
+
     Order.OrderItems = Order.hasMany(models.OrderItem, {
       as: "orderItems",
     });
+
+
+
   };
 
   return Order;

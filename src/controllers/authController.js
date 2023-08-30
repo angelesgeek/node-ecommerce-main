@@ -6,6 +6,7 @@ const controller = {
   showLogin: function (req, res) {
     return res.render("auth/login", { "userLogged": req.session.userLogged });
   },
+
   login: async function (req, res) {
     //validar los datos
     let errores = validationResult(req);
@@ -58,7 +59,6 @@ const controller = {
     }
   },
 
-
   showRegister: function (req, res) {
 
   if (req.query.type === "admin") {
@@ -76,7 +76,7 @@ const controller = {
   }
 },
 
-register: async function (req, res) {
+  register: async function (req, res) {
   // Validar los datos
   let errores = validationResult(req);
 
@@ -183,7 +183,7 @@ register: async function (req, res) {
 
           return res.redirect("/users");
 
-    },
+  },
 
   delete: async function (req, res) {
 

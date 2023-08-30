@@ -226,8 +226,8 @@ const controller = {
     }
   },
 
-   searchProducts: async function (req, res) {
-    console.log("Search controller is running");
+  searchProducts: async function (req, res) {
+    
     // Obtener los parámetros de búsqueda desde la URL
     const name = req.query.name;
     const brand = req.query.brand;
@@ -260,21 +260,11 @@ const controller = {
     }
 
     try {
-      console.log("Parametros de búsqueda:");
-      console.log("name:", name);
-      console.log("brand:", brand);
-      console.log("code:", code);
-      console.log("description:", description);
-      console.log("automotive:", automotive);
-      console.log("engine:", engine);
 
       // Realizar la búsqueda en la base de datos usando Sequelize con las condiciones de búsqueda
       const products = await db.Product.findAll({
         where: searchConditions, // Aquí especificamos las condiciones de búsqueda
       });
-
-      console.log("Resultados de la búsqueda:");
-      console.log(products);
 
       // Renderizar la vista de resultados de búsqueda
       return res.render("products/test", {
@@ -282,7 +272,7 @@ const controller = {
         userLogged: req.session.userLogged,
       });
     } catch (error) {
-      console.error("Error en la búsqueda:", error);
+      
       return res.render("errors/404", { "userLogged": req.session.userLogged });
     }
   },

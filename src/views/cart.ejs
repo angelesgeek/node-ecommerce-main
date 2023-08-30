@@ -37,6 +37,8 @@
                             </thead>
                             <tbody class="cartRows white-text">
                                 
+
+                              
                             </tbody>
                         </table>
 
@@ -49,12 +51,15 @@
                     <div class="card-header text-center bg-danger white-text">
                         Terminar el pedido
                     </div>
+
                     <form class="card-body bg-dark white-text" id="checkoutCart">
 
                         <div class="row">
+
                             <div class="col-md-6 mb-4">
                               
                               <input type="hidden" name="userId" id="userId" value="<%= userLogged.id %>">
+                              
                               
                               <div class="form-group">
                                 <label for="shippingMethod">Método de entrega</label>
@@ -110,9 +115,10 @@
                             
 
                             <div class="col-md-3 mb-4">
+
                               <div class="form-group">
                                 <label for="id_app">Asignar cliente</label>
-                                <select class="custom-select" id="id_app" name="id_app" required>
+                                <select class="custom-select" id="id_app" name="id_app">
                                  
                                   <option value="">Elegir...</option>
                                   <% users.forEach(user => {
@@ -124,12 +130,13 @@
                                   
                                 <div class="invalid-feedback">Asigne un código de cliente.</div>
                               </div>
+
+
                             </div>
 
 
 
 
-                            
                           </div>
 
                         <div>
@@ -143,6 +150,7 @@
                 </div>
             </div>
         </main>
+        
         <%- include('./partials/scripts') %>
         <script src="/js/cart.js"></script>
         <%- include('./partials/footer') %>
