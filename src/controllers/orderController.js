@@ -10,7 +10,7 @@ const controller = {
     let orders = [];
   
     if (req.query.userId && req.query.userId.trim() !== "") {
-      console.log("userId: " + req.query.userId);
+
       let userdb = await db.User.findOne({
         where: {
           id_app: req.query.userId,
@@ -26,19 +26,28 @@ const controller = {
       orders = await db.Order.findAll({
         include: { model: db.User, as: "user" },
         where: { userId: userdb.id },
+
       });
+
     } else {
+
       console.log("else");
+
       orders = await db.Order.findAll({
         include: { model: db.User, as: "user" },
+
       });
+
     }
   
     return res.render("orders", {
+
       orders: orders,
       userLogged: req.session.userLogged,
       req: req, 
+
     });
+    
   },
 
   detail: async function (req, res) {

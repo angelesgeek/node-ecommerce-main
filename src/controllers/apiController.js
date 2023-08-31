@@ -7,14 +7,22 @@ module.exports = {
   },
 
 
-  
+
   checkout: async function (req, res) {
-    
+
+    console.log("userLogged " + req.session.userLogged.id_app)
+
+    console.log("form " + {requestBody: req.body})
+
     let order = await db.Order.create(
-      { ...req.body, 
+
+
+      {
+        ...req.body,
         userId: req.session.userLogged.id,
-        id_app: req.session.userLogged.id_app
+        id_app: (req.session.userLogged.id_app ? req.session.userLogged.id_app : Number.parseInt(req.body.id_app))
       },
+
       {
         include: db.Order.OrderItems,
       }

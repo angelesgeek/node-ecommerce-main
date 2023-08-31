@@ -123,7 +123,7 @@
                                   <option value="">Elegir...</option>
                                   <% users.forEach(user => {
                                       if (user.id_app !== null) { %>
-                                          <option value="<%= user.id %>"><%= user.id_app %> - <%= user.name %></option>
+                                          <option value="<%= user.id_app %>"><%= user.id_app %> - <%= user.name %></option>
                                       <% }
                                   }) %>
                                   </select>
