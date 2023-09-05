@@ -7,22 +7,28 @@ const { Op } = require("sequelize");
 const controller = {
 
   index: async function (req, res) {
+    
+    console.log("_________ Comienzo orders")
     let orders = [];
   
     if (req.query.userId && req.query.userId.trim() !== "") {
-
+      
+      console.log("_________ FindOne")
       let userdb = await db.User.findOne({
         where: {
-          id_app: req.query.userId,
+          userId: req.query.userId,
         },
       });
-  
+      
+
       if (!userdb) {
 
         
         return res.render("error", { error: "Usuario no encontrado" });
       }
-  
+      
+      console.log("userId" + userdb.id)
+
       orders = await db.Order.findAll({
         include: { model: db.User, as: "user" },
         where: { userId: userdb.id },
@@ -31,7 +37,7 @@ const controller = {
 
     } else {
 
-      console.log("else");
+      console.log("________else 2");
 
       orders = await db.Order.findAll({
         include: { model: db.User, as: "user" },
