@@ -27,9 +27,10 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
-                                <% if (req.query.userId && req.query.userId.trim() !=="" ) { %>
+                                <% if (req.body.userId && req.body.userId.trim() !=="" ) { %>
                                     <a href="/orders" class="btn btn-primary btn-sm ml-2">Ver Todos</a>
                                     <% } %>
+
                             </form>
                         </div>
 

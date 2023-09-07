@@ -34,30 +34,45 @@ module.exports = {
   },
 
   deleteOrder: async function (req, res) {
+    const orderId = req.params.id;
+
     try {
-      const orderId = req.params.id;
+      // Inicia una transacción
+      const t = await db.sequelize.transaction();
 
-      // Aquí está la declaración de orderId, por lo que ahora se puede usar en el console.log
-      console.log("Order ID to delete:", orderId);
+      // Elimina las filas relacionadas en la tabla 'orderitems'
+      await db.OrderItem.destroy({
+        where: { orderId: orderId },
+        transaction: t
+      });
 
-      // Buscar el pedido por su ID
-      const order = await db.Order.findByPk(orderId);
-      if (!order) {
-        console.log("Pedido no encontrado");
-        return res.status(404).send("Pedido no encontrado");
-      }
+      // Elimina la orden en la tabla 'Orders'
+      await db.Order.destroy({
+        where: { id: orderId },
+        transaction: t
+      });
 
-      // Eliminar el pedido
-      await order.destroy();
+      // Confirma la transacción
+      await t.commit();
 
-      console.log("Pedido eliminado:", orderId);
+      console.log("Pedido y filas relacionadas eliminados:", orderId);
 
-      // Redireccionar a la lista de pedidos
       return res.redirect("/orders");
     } catch (error) {
+
+      // Revierte la transacción en caso de error
+      await t.rollback();
+
       console.error(error);
       return res.status(500).send("Error al eliminar el pedido");
     }
+
+
+
+
+
+
+
   },
 
   updateOrderStatus: async function (req, res) {

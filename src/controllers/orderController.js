@@ -7,13 +7,10 @@ const { Op } = require("sequelize");
 const controller = {
 
   index: async function (req, res) {
-    console.log("________________Entrando al método index");
-
+    
     let orders = [];
 
     if (req.body.userId && req.body.userId.trim() !== "") {
-
-      console.log("_________________Filtrando por userId:", req.query.userId);
 
       let userdb = await db.User.findOne({
        
