@@ -7,7 +7,7 @@ const mo = require("method-override");
 const ses = require("express-session");
 
 const indexRouter = require("./routes/index");
-const userRouter = require("./routes/users"); 
+const userRouter = require("./routes/users");
 const productsRouter = require("./routes/products");
 const authRouter = require("./routes/auth");
 const apiRouter = require("./routes/api");
@@ -45,9 +45,9 @@ app.use(sessionTimeMiddleware);
 app.use(menuMiddleware);
 app.use("/", indexRouter);
 app.use("/", authRouter);
-app.use("/users/", adminMiddleware, userRouter); 
-app.use("/vendors/", adminMiddleware, userRouter); 
-app.use("/admin/", adminMiddleware, userRouter); 
+app.use("/users/", adminMiddleware, userRouter);
+app.use("/vendors/", adminMiddleware, userRouter);
+app.use("/admin/", adminMiddleware, userRouter);
 app.use("/products/", productsRouter);
 app.use("/search/", productsRouter);
 app.use("/api/", apiRouter);
@@ -57,8 +57,8 @@ app.use("/message/", messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  return res.render("errors/404", {"userLogged": req.session.userLogged});
-  
+  return res.render("errors/404", { "userLogged": req.session.userLogged });
+
 });
 
 // vista no encontrada
@@ -66,7 +66,7 @@ app.use(function (err, req, res, next) {
   console.log(err);
   if (err["view"] != null) {
     console.error("errorView", err.message);
-    return res.render("errors/500", {"userLogged": req.session.userLogged});
+    return res.render("errors/500", { "userLogged": req.session.userLogged });
   }
   return next();
 });

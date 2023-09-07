@@ -7,56 +7,60 @@ const { Op } = require("sequelize");
 const controller = {
 
   index: async function (req, res) {
-    
-    console.log("_________ Comienzo orders")
+    console.log("________________Entrando al método index");
+
     let orders = [];
-  
-    if (req.query.userId && req.query.userId.trim() !== "") {
-      
-      console.log("_________ FindOne")
+
+    if (req.body.userId && req.body.userId.trim() !== "") {
+
+      console.log("_________________Filtrando por userId:", req.query.userId);
+
       let userdb = await db.User.findOne({
+       
         where: {
-          userId: req.query.userId,
+
+          id_app: req.body.userId,
+
         },
+
       });
-      
+
 
       if (!userdb) {
 
-        
         return res.render("error", { error: "Usuario no encontrado" });
+
       }
-      
-      console.log("userId" + userdb.id)
 
       orders = await db.Order.findAll({
+
         include: { model: db.User, as: "user" },
-        where: { userId: userdb.id },
+        where: { id_app: userdb.id_app },
 
       });
 
     } else {
 
-      console.log("________else 2");
-
       orders = await db.Order.findAll({
+
         include: { model: db.User, as: "user" },
 
       });
 
     }
-  
+
     return res.render("orders", {
 
       orders: orders,
       userLogged: req.session.userLogged,
-      req: req, 
+      req: req,
 
     });
-    
+
   },
 
   detail: async function (req, res) {
+
     try {
 
       let order = await db.Order.findByPk(req.params.id);
@@ -66,12 +70,12 @@ const controller = {
         return res.status(404).send("Pedido no encontrado");
 
       }
+
       return res.render("order", { order: order, userLogged: req.session.userLogged });
 
     } catch (error) {
 
       console.error(error);
-
       return res.status(500).send("Error al obtener los detalles del pedido");
 
     }

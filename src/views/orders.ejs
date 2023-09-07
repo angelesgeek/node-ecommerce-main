@@ -8,110 +8,119 @@
 <body>
     <%- include('./partials/headeradmin') %>
 
-    <main class="mt-5 pt-4 bg-dark white-text">
-        <div class="container">
-            <h2 class="mt-5 mb-3 h2 text-center">
-               Todos los pedidos
-            </h2>
-             
-            <div class="card mb-5 bg-dark white-text">
+        <main class="mt-5 pt-4 bg-dark white-text">
+            <div class="container">
+                <h2 class="mt-5 mb-3 h2 text-center">
+                    Todos los pedidos
+                </h2>
+
+                <div class="card mb-5 bg-dark white-text">
                     <div>
 
                         <!-- Form de búqueda por Id cte -->
                         <div class="card-header bg-dark">
-                            <form action="/orders" method="GET" class="form-inline">
-                              <div class="form-group">
-                                <label for="userId" class="mr-2">ID de Cliente, sólo números:</label>
-                                <input type="text" name="userId" id="userId" class="form-control">
-                              </div>
-                              <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
-                              <% if (req.query.userId && req.query.userId.trim() !== "") { %>
-                                <a href="/orders" class="btn btn-primary btn-sm ml-2">Ver Todos</a>
-                              <% } %>
+                            <form action="/orders" method="POST" class="form-inline">
+
+                                <div class="form-group">
+                                    <label for="userId" class="mr-2">ID de Cliente, sólo números:</label>
+                                    <input type="text" name="userId" id="userId" class="form-control">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
+                                <% if (req.query.userId && req.query.userId.trim() !=="" ) { %>
+                                    <a href="/orders" class="btn btn-primary btn-sm ml-2">Ver Todos</a>
+                                    <% } %>
                             </form>
                         </div>
-                        
-                        
-                    <div class="card-body">
-                        <table class="table table-responsive-md mb-0">
-                            <!-- Títulos de la tabla -->
-                            <thead>
-                                <tr>
-                                    <th class="white-text">
-                                        <strong>ID de Pedido</strong>
-                                    </th>
-                                    <th class="white-text">
-                                        <strong>ID de Cliente</strong>
-                                    </th>
-                                    <th class="white-text">
-                                        <strong>Total</strong>
-                                    </th>
-                                    <th class="white-text">
-                                        <strong>Estado</strong>
-                                    </th>
-                                    <th class="white-text">
-                                        <strong>Realizado por </strong>
-                                    </th>
-                                    <th class="white-text">
-                                        <strong>Ver</strong>
-                                    </th>
-                                    <th class="white-text">
-                                        <strong>Eliminar</strong>
-                                    </th>
-                                    <th class="white-text">
-                                        <strong>Descargar</strong>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <!-- TBody For each llamada al partial -->
-                            <tbody class="white-text">
-                                <% orders.forEach( orders=> { %>
-                                    <%- include('./partials/orders' ,{orders}) %>
-                                <% } ) %>
-                            </tbody>
-                        </table>
-                        <!-- Boton de actualizar estados -->
-                        <button class="btn btn-primary btn-sm" id="updateAllStatusBtn">Actualizar Estados de Pedidos</button>
-                    </div>
-            </div>
-        </div>
-    </main>
-   
-    <%- include('./partials/footer') %>
-    <%- include('./partials/scripts') %>
 
-    <script>
-        function updateAllStatus() {
-            const selectElements = document.querySelectorAll('select.status-select');
-            const dataToUpdate = {};
-    
-            selectElements.forEach(select => {
-                const orderId = select.getAttribute('data-order-id');
-                const newStatus = select.value;
-                dataToUpdate[`statusSelect_${orderId}`] = newStatus;
-            });
-    
-            fetch('/updateOrderStatus', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(dataToUpdate)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.message);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-    
-        document.addEventListener('DOMContentLoaded', function() {
-            const updateButton = document.getElementById('updateAllStatusBtn');
-            updateButton.addEventListener('click', updateAllStatus);
-        });
-    </script>
+
+                        <div class="card-body">
+                            <table class="table table-responsive-md mb-0">
+                                <!-- Títulos de la tabla -->
+                                <thead>
+                                    <tr>
+                                        <th class="white-text">
+                                            <strong>ID de Pedido</strong>
+                                        </th>
+                                        <th class="white-text">
+                                            <strong>ID de Cliente</strong>
+                                        </th>
+                                        <th class="white-text">
+                                            <strong>Total</strong>
+                                        </th>
+                                        <th class="white-text">
+                                            <strong>Estado</strong>
+                                        </th>
+                                        <th class="white-text">
+                                            <strong>Realizado por </strong>
+                                        </th>
+                                        <th class="white-text">
+                                            <strong>Ver</strong>
+                                        </th>
+                                        <th class="white-text">
+                                            <strong>Eliminar</strong>
+                                        </th>
+                                        <th class="white-text">
+                                            <strong>Descargar</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <!-- TBody forEach llamada al partial -->
+                                <tbody class="white-text">
+                                    <% orders.forEach( orders=> { %>
+
+                                        <%- include('./partials/orders' ,{orders}) %>
+
+                                            <% } ) %>
+                                </tbody>
+                            </table>
+
+                            <!-- Boton de actualizar estados -->
+                            <button class="btn btn-primary btn-sm" id="updateAllStatusBtn">
+                                Actualizar Estados de Pedidos
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        </main>
+
+        <%- include('./partials/footer') %>
+            <%- include('./partials/scripts') %>
+
+                <script>
+                    function updateAllStatus() {
+                        const selectElements = document.querySelectorAll('select.status-select');
+                        const dataToUpdate = {};
+
+                        selectElements.forEach(select => {
+                            const orderId = select.getAttribute('data-order-id');
+                            const newStatus = select.value;
+                            dataToUpdate[`statusSelect_${orderId}`] = newStatus;
+                        });
+
+                        fetch('/updateOrderStatus', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(dataToUpdate)
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data.message);
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                    }
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const updateButton = document.getElementById('updateAllStatusBtn');
+                        updateButton.addEventListener('click', updateAllStatus);
+                    });
+                </script>
 
 </body>
+
 </html>
