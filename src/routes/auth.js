@@ -12,18 +12,18 @@ const userValidationsLogin = require("../middlewares/userValidationsLogin");
 router.get("/login", redirectIfAutenticated, controller.showLogin);
 router.post("/login", controller.login);
 
-router.get("/register", controller.showRegister);
-router.post("/register", controller.register);
+router.get("/register", authMiddleware, controller.showRegister);
+router.post("/register", authMiddleware, controller.register);
 
 router.post("/logout", controller.logout);
 router.get("/profile", authMiddleware, controller.profile);
 
-router.get("/edit/:id", authMiddleware, controller.edit); 
-router.put("/editUsers/:id", authMiddleware, controller.update); 
+router.get("/edit/:id", controller.edit); 
+router.put("/editUsers/:id", controller.update); 
 
 router.get("/delete/:id", controller.delete);
 
-router.get("/profile/:userId", controller.profile);
+router.get("/profile/:userId", authMiddleware, controller.profile);
 
 
 module.exports = router;

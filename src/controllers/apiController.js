@@ -12,7 +12,7 @@ module.exports = {
 
     console.log("userLogged " + req.session.userLogged.id_app)
 
-    console.log("form " + {requestBody: req.body})
+    console.log("form " + { requestBody: req.body })
 
     let order = await db.Order.create(
 
