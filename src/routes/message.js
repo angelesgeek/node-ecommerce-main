@@ -5,8 +5,9 @@ const multer = require("multer");
 const { check } = require("express-validator");
 
 const controller = require("../controllers/messageController");
+const maintenanceMiddleware = require("../middlewares/maintenanceMiddleware");
 
-router.post("/sendMessage", controller.sendMessage);
-router.post("/sendResponse", controller.sendResponse);
+router.post("/sendMessage", maintenanceMiddleware, controller.sendMessage);
+router.post("/sendResponse", maintenanceMiddleware, controller.sendResponse);
 
 module.exports = router;

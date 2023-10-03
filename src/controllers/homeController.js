@@ -68,11 +68,6 @@ module.exports = {
     }
 
 
-
-
-
-
-
   },
 
   updateOrderStatus: async function (req, res) {

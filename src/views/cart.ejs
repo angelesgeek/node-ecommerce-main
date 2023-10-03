@@ -2,160 +2,160 @@
 <html lang="es">
 
 <head>
-    <%- include('./partials/head') %>
-    
+  <%- include('./partials/head') %>
+
 </head>
 
 <body class="bg-dark">
-    <%- include('./partials/headeradmin') %>
-        <main class="mt-5 pt-4">
-            <div class="container bg-dark white-text">
-                <h2 class="mt-5 mb-3 h2 text-center"> Productos en el pedido</h2>
-                <div class="card my-5 bg-dark white-text">
-                    <div class="card-body">
+  <%- include('./partials/headeradmin') %>
+    <main class="mt-5 pt-4">
+      <div class="container bg-dark white-text">
+        <h2 class="mt-5 mb-3 h2 text-center"> Productos en el pedido</h2>
+        <div class="card my-5 bg-dark white-text">
+          <div class="card-body">
 
-                        <table class="table table-responsive-md mb-0">
-                            <thead class="white-text">
-                                <tr>
-                                    <th style="width: 50px;">
-                                        <strong>#</strong>
-                                    </th>
-                                    <th class="th-lg">
-                                        <strong>Producto</strong>
-                                    </th>
-                                    <th class="th-lg ">
-                                        <strong>Precio</strong>
-                                    </th>
-                                    <th class="text-center">
-                                        <strong>Cantidad</strong>
-                                    </th>
-                                    <th class="text-center">
-                                        <strong>Subtotal</strong>
-                                    </th>
-                                    <th style="width: 50px;"></th>
-                                </tr>
-                            </thead>
-                            <tbody class="cartRows white-text">
-                                
-
-                              
-                            </tbody>
-                        </table>
-
-                        <div class="card-footer text-right">
-                            <h2>Total: <span class="totalAmount">$ 0</span></h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header text-center bg-danger white-text">
-                        Terminar el pedido
-                    </div>
-
-                    <form class="card-body bg-dark white-text" id="checkoutCart">
-
-                        <div class="row">
-
-                            <div class="col-md-6 mb-4">
-                              
-                              <input type="hidden" name="userId" id="userId" value="<%= userLogged.id %>">
-                              
-                              
-                              <div class="form-group">
-                                <label for="shippingMethod">Método de entrega</label>
-                                <select class="custom-select" id="shippingMethod" name="shippingMethod" required>
-                                  <option value="">Elegir...</option>
-                                  <option value="retiro">Retiro</option>
-                                  <option value="despacho">Despacho</option>
-                                </select>
-                                <div class="invalid-feedback">Elija un método de entrega.</div>
-                              </div>
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-                                <div class="form-group">
-                                  <label for="paymentMethod">Forma de Pago</label>
-                                  <select class="custom-select" id="paymentMethod" name="paymentMethod" required>
-                                    <option value="">Elegir...</option>
-                                    <option value="Efectivo">Efectivo</option>
-                                    <option value="Giro">Giro</option>
-                                    <option value="Depósito">Depósito</option>
-                                    <option value="Tarjeta">Tarjeta de crédito</option>
-                                    <option value="Mercado Pago">Mercado Pago</option>
-                                  </select>
-                                  <div class="invalid-feedback">Elija una forma de pago.</div>
-                                </div>
-                            </div>
-                              
-                            <div class="col-md-6 mb-4">
-                                <div class="form-group">
-                                  <label for="bill_type">Tipo de factura</label>
-                                  <select class="custom-select" id="bill_type" name="bill_type" required>
-                                    <option value="">Elegir...</option>
-                                    <option value="Factura">Factura</option>
-                                    <option value="Presupuesto">Presupuesto</option>
-                                  </select>
-                                  <div class="invalid-feedback">Elija un tipo de factura.</div>
-                                </div>
-                            </div> 
-
-                            <div class="col-md-3 mb-4">
-                              <div class="form-group">
-                                <label for="order_status">Estado del pedido</label>
-                                <select class="custom-select" id="order_status" name="order_status" required>
-                                  <option value="">Elegir...</option>
-                                  <option value="0">En revisión</option>
-                                  <option value="1">En curso</option>
-                                  <option value="2">Confirmado</option>
-                                </select>
-                                <div class="invalid-feedback">Elija un estado de pedido.</div>
-                              </div>
-                            </div>
-
-                            
-
-                            <div class="col-md-3 mb-4">
-
-                              <div class="form-group">
-                                <label for="id_app">Asignar cliente</label>
-                                <select class="custom-select" id="id_app" name="id_app">
-                                 
-                                  <option value="">Elegir...</option>
-                                  <% users.forEach(user => {
-                                      if (user.id_app !== null) { %>
-                                          <option value="<%= user.id_app %>"><%= user.id_app %> - <%= user.name %></option>
-                                      <% }
-                                  }) %>
-                                  </select>
-                                  
-                                <div class="invalid-feedback">Asigne un código de cliente.</div>
-                              </div>
-
-
-                            </div>
+            <table class="table table-responsive-md mb-0">
+              <thead class="white-text">
+                <tr>
+                  <th style="width: 50px;">
+                    <strong>#</strong>
+                  </th>
+                  <th class="th-lg">
+                    <strong>Producto</strong>
+                  </th>
+                  <th class="th-lg ">
+                    <strong>Precio</strong>
+                  </th>
+                  <th class="text-center">
+                    <strong>Cantidad</strong>
+                  </th>
+                  <th class="text-center">
+                    <strong>Subtotal</strong>
+                  </th>
+                  <th style="width: 50px;"></th>
+                </tr>
+              </thead>
+              <tbody class="cartRows white-text">
 
 
 
+              </tbody>
+            </table>
 
-                          </div>
-
-                        <div>
-                            <label for="comments">Comentarios</label>
-                            <textarea class="form-control" id="comments" name="comments" rows="4"></textarea>
-                        </div>
-                         <hr> 
-                        <button class="btn btn-primary btn-lg btn-block waves-effect waves-light"
-                            type="submit">Enviar</button>
-                    </form>
-                </div>
+            <div class="card-footer text-right">
+              <h2>Total: <span class="totalAmount">$ 0</span></h2>
             </div>
-        </main>
-        
-        <%- include('./partials/scripts') %>
-        <script src="/js/cart.js"></script>
-        <%- include('./partials/footer') %>
-        
-                
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header text-center bg-danger white-text">
+            Terminar el pedido
+          </div>
+
+          <form class="card-body bg-dark white-text" id="checkoutCart">
+
+            <div class="row">
+
+              <div class="col-md-6 mb-4">
+
+                <input type="hidden" name="userId" id="userId" value="<%= userLogged.id %>">
+
+
+                <div class="form-group">
+                  <label for="shippingMethod">Método de entrega</label>
+                  <select class="custom-select" id="shippingMethod" name="shippingMethod" required>
+                    <option value="">Elegir...</option>
+                    <option value="retiro">Retiro</option>
+                    <option value="despacho">Despacho</option>
+                  </select>
+                  <div class="invalid-feedback">Elija un método de entrega.</div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-4">
+                <div class="form-group">
+                  <label for="paymentMethod">Forma de Pago</label>
+                  <select class="custom-select" id="paymentMethod" name="paymentMethod" required>
+                    <option value="">Elegir...</option>
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Giro">Giro</option>
+                    <option value="Depósito">Depósito</option>
+                    <option value="Tarjeta">Tarjeta de crédito</option>
+                    <option value="Mercado Pago">Mercado Pago</option>
+                  </select>
+                  <div class="invalid-feedback">Elija una forma de pago.</div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-4">
+                <div class="form-group">
+                  <label for="bill_type">Tipo de factura</label>
+                  <select class="custom-select" id="bill_type" name="bill_type" required>
+                    <option value="">Elegir...</option>
+                    <option value="Factura">Factura</option>
+                    <option value="Presupuesto">Presupuesto</option>
+                  </select>
+                  <div class="invalid-feedback">Elija un tipo de factura.</div>
+                </div>
+              </div>
+
+              <div class="col-md-3 mb-4">
+                <div class="form-group">
+                  <label for="order_status">Estado del pedido</label>
+                  <select class="custom-select" id="order_status" name="order_status" required>
+                    <option value="">Elegir...</option>
+                    <option value="0">En revisión</option>
+                    <option value="1">En curso</option>
+                    <option value="2">Confirmado</option>
+                  </select>
+                  <div class="invalid-feedback">Elija un estado de pedido.</div>
+                </div>
+              </div>
+
+
+
+              <div class="col-md-3 mb-4">
+
+                <div class="form-group">
+                  <label for="id_app">Asignar cliente</label>
+                  <select class="custom-select" id="id_app" name="id_app">
+
+                    <option value="">Elegir...</option>
+                    <% users.forEach(user=> {
+                      if (user.id_app !== null) { %>
+                      <option value="<%= user.id_app %>">
+                        <%= user.id_app %> - <%= user.name %>
+                      </option>
+                      <% } }) %>
+                  </select>
+
+                  <div class="invalid-feedback">Asigne un código de cliente.</div>
+                </div>
+
+
+              </div>
+
+
+
+
+            </div>
+
+            <div>
+              <label for="comments">Comentarios</label>
+              <textarea class="form-control" id="comments" name="comments" rows="4"></textarea>
+            </div>
+            <hr>
+            <button class="btn btn-primary btn-lg btn-block waves-effect waves-light" type="submit">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <%- include('./partials/scripts') %>
+      <script src="/js/cart.js"></script>
+      <%- include('./partials/footer') %>
+
+
 </body>
 
 </html>

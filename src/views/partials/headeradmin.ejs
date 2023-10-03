@@ -60,7 +60,7 @@
             <% if (locals.userFound) { %>
 
               <li class="nav-item  <%= locals.active == 'profile' ? 'active':'' %>">
-                <a class="nav-link" href="/profile/<%= userLogged.id %>">Mi Cuenta </a>
+                <a class="nav-link" href="/profile/<%= userLogged.id %>">Cuenta </a>
               </li>
               <li class="nav-item">
                 <form action="/logout" method="POST">

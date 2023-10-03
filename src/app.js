@@ -6,6 +6,7 @@ const logger = require("morgan");
 const mo = require("method-override");
 const ses = require("express-session");
 
+
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/users");
 const productsRouter = require("./routes/products");
@@ -21,12 +22,16 @@ const messageRouter = require("./routes/message");
 
 const app = express();
 
+global.modoDeMantenimientoActivado = false;
+
+
 // .ENV
 require("dotenv").config();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.set("modoDeMantenimientoActivado", modoDeMantenimientoActivado);
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -84,3 +89,4 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+

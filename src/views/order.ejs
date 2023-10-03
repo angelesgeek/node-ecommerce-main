@@ -9,7 +9,9 @@
     <%- include('./partials/headeradmin') %>
         <main class="mt-5 pt-4">
             <div class="container">
-                <h2 class="mt-5 mb-3 h2 text-center white-text"> Pedido Nro <%= order.id %> del cliente número <%= order.id_app %></h2>
+                <h2 class="mt-5 mb-3 h2 text-center white-text"> Pedido Nro <%= order.id %> del cliente número <%=
+                            order.id_app %>
+                </h2>
                 <div class="card my-5">
                     <div class="card-body bg-dark white-text">
                         <table class="table table-responsive-md mb-0">
@@ -67,27 +69,45 @@
                     <form class="card-body" id="checkoutCart">
                         <div class="row">
                             <div class=" col-md-6 mb-4">
-                                <p><strong>Método de Entrega:</strong> <%= order.shippingMethod %></p>
+                                <p><strong>Método de Entrega:</strong>
+                                    <%= order.shippingMethod %>
+                                </p>
                             </div>
                             <div class=" col-md-6 mb-4">
-                                <p><strong>Forma de Pago:</strong> <%= order.paymentMethod %></p> 
+                                <p><strong>Forma de Pago:</strong>
+                                    <%= order.paymentMethod %>
+                                </p>
                             </div>
                             <div class=" col-md-6 mb-4">
-                                <p><strong>Tipo de factura:</strong> <%= order.bill_type %></p> 
+                                <p><strong>Tipo de factura:</strong>
+                                    <%= order.bill_type %>
+                                </p>
                             </div>
                             <div class=" col-md-6 mb-4">
-                                <p><strong>Estado del pedido:</strong> <%= order.order_status %></p> 
+                                <p><strong>Estado del pedido:</strong>
+                                    <% if (order.order_status===1) { %>
+                                        En curso
+                                        <% } else if (order.order_status===2) { %>
+                                            Confirmado
+                                            <% } else { %>
+                                                En revisión
+                                                <% } %>
+                                </p>
                             </div>
                             <div class=" col-md-6 mb-4">
-                                <p><strong>Comentarios:</strong> <%= order.comments %></p> 
+                                <p><strong>Comentarios:</strong>
+                                    <%= order.comments %>
+                                </p>
                             </div>
                             <div class=" col-md-6 mb-4">
-                                <p><strong>Cliente:</strong> <%= order.id_app %></p> 
+                                <p><strong>Cliente:</strong>
+                                    <%= order.id_app %>
+                                </p>
                             </div>
                         </div>
                     </form>
                 </div>
-                <a href="/profile" class="btn btn-info ml-0">Ir al Perfil</a>
+                <a href="/orders" class="btn btn-info ml-0">Ir a Pedidos</a>
             </div>
         </main>
         <%- include('./partials/footer') %>

@@ -9,10 +9,10 @@
 <body>
   <%- include('./partials/headeradmin') %>
 
-      <!--Main layout-->
-      <main class="bg-dark">
-        <div class="container">
-          <%- include('./partials/carousel') %>
+    <!--Main layout-->
+    <main class="bg-dark">
+      <div class="container">
+        <%- include('./partials/carousel') %>
 
           <!--Section: Products v.3-->
           <section class="text-center mt-2 mb-4">
@@ -21,17 +21,18 @@
 
               <% products.forEach( prod=> { %>
                 <%- include('./partials/product' ,{prod}) %>
-              <% } ) %>
+                  <% } ) %>
 
             </div>
           </section>
-        </div>
-      </main>
-      <!--Main layout-->
+      </div>
+    </main>
+    <!--Main layout-->
 
-      <%- include('./partials/footer') %>
+    <%- include('./partials/footer') %>
 
-        <%- include('./partials/scripts') %>
+      <%- include('./partials/scripts') %>
 
 </body>
+
 </html>

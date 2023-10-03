@@ -1,6 +1,7 @@
 const bcryptjs = require("bcryptjs");
 const db = require("../database/models");
 const { validationResult } = require("express-validator");
+let modoDeMantenimientoActivado = false;
 
 const controller = {
   showLogin: function (req, res) {
@@ -197,7 +198,6 @@ const controller = {
 
     }
 
-
     let user = await db.User.findByPk(req.params.id);
 
     if (user) {
@@ -233,6 +233,7 @@ const controller = {
 
       id: req.body.id,
       name: req.body.name,
+      rol: req.body.rol,
       email: req.body.email,
       password: password
 
@@ -247,19 +248,19 @@ const controller = {
   delete: async function (req, res) {
     try {
       const user = await db.User.findByPk(req.params.id);
-  
+
       if (!user) {
 
-       
+
         return res.redirect("/users");
       }
-  
-      const roleId = user.rol; 
-  
+
+      const roleId = user.rol;
+
       await db.User.destroy({
         where: { id: req.params.id },
       });
-  
+
       // Ahora, redirige al usuario según el rol del usuario eliminado
       if (roleId === 1) {
 
@@ -274,12 +275,12 @@ const controller = {
         return res.redirect("/users/clients/");
 
       }
-      
+
     } catch (error) {
       console.error(error);
       return res.redirect("/error");
     }
-  
+
 
   },
 
@@ -390,6 +391,20 @@ const controller = {
 
     }
 
+  },
+
+  activateMaintenance: function (req, res) {
+    global.modoDeMantenimientoActivado = true;
+    console.log("Modo de mantenimiento activado");
+    return res.render("maintenanceMode.ejs", { userLogged: req.session.userLogged });
+  },
+
+
+  deactivateMaintenanceMode: function (req, res) {
+    console.log("Desactivando el modo de mantenimiento");
+    global.modoDeMantenimientoActivado = false;
+
+    res.redirect("/");
   },
 
 };

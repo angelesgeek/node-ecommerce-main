@@ -4,6 +4,7 @@ const router = express.Router();
 const multer = require("multer");
 
 const controller = require("../controllers/productController");
+const maintenanceMiddleware = require("../middlewares/maintenanceMiddleware");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -21,23 +22,23 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 /* GET home page. */
-router.get("/", controller.index);
+router.get("/", maintenanceMiddleware, controller.index);
 
 /* GET Product */
-router.get("/detail/:id", controller.detail);
+router.get("/detail/:id", maintenanceMiddleware, controller.detail);
 
 // Rutas para crear
-router.get("/create", controller.create);
-router.post("/", upload.single("img"), controller.store);
+router.get("/create", maintenanceMiddleware, controller.create);
+router.post("/", upload.single("img"), maintenanceMiddleware, controller.store);
 
 // Rutas para editar
-router.get("/edit/:id", controller.edit);
-router.put("/:id", upload.single("img"), controller.update);
+router.get("/edit/:id", maintenanceMiddleware, controller.edit);
+router.put("/:id", upload.single("img"), maintenanceMiddleware, controller.update);
 
 // Ruta para eliminar
-router.delete("/:id", controller.delete);
+router.delete("/:id", maintenanceMiddleware, controller.delete);
 
 // Ruta para búsqueda
-router.get("/searchProducts", controller.searchProducts);
+router.get("/searchProducts", maintenanceMiddleware, controller.searchProducts);
 
 module.exports = router;

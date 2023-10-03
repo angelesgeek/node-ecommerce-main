@@ -7,54 +7,81 @@
 
 <body>
   <%- include('../partials/headeradmin') %>
-  <main class="my-5 py-4">
-    <div class="container">
-      <h2 class="my-5 h2 text-center text-white">Editar perfil de usuario </h2>
-      <div class="row mb-5">
-        <div class="col-md-8 mx-auto">
-          <div class="card shadow my-4">
+    <main class="my-5 py-4">
+      <div class="container">
+        <h2 class="my-5 h2 text-center text-white">Editar perfil de usuario </h2>
+        <div class="row mb-5">
+          <div class="col-md-8 mx-auto">
+            <div class="card bg-dark my-4">
 
-            <form class="card-body" action="/editUsers/<%= user.id %>?_method=put" method="post">
-                
-              <div class="md-form">
-                <input type="text" name="name" id="name" value="<%= user.name %>" class="form-control">
-                
-              </div>
+              <form class="card-body" action="/editUsers/<%= user.id %>?_method=put" method="post">
+                <div class="mb-3">
+                  <label for="name" class="text-white mt-3">Nombre y Apellido</label>
+                  <div class="form-floating">
+                    <input type="text" name="name" id="name" value="<%= user.name %>" class="form-control">
+                  </div>
+                </div>
 
-              <div class="md-form">
-                <input type="hidden" name="id_app" id="id_app" value="<%= user.id_app %>" class="form-control">
-              </div>
-              
-              <div class="md-form">
-                <input type="hidden" name="id" id="id" value="<%= user.id %>" class="form-control">
-              </div>
 
-              <div class="md-form">
-                <input type="text" name="email" id="email" value="<%= user.email %>" class="form-control">
-                
-              </div>
+                <div class="mb-3">
+                  <label for="rol" class="text-white mt-3">Rol:</label>
+                  <select name="rol" id="rol" class="form-select">
+                    <option value="0" <%=user.rol===0 ? 'selected' : '' %>>Cliente</option>
+                    <option value="2" <%=user.rol===2 ? 'selected' : '' %>>Cliente Mecánico</option>
+                    <option value="3" <%=user.rol===3 ? 'selected' : '' %>>Cliente Rectificador</option>
+                    <option value="4" <%=user.rol===4 ? 'selected' : '' %>>Cliente Revendedor</option>
+                    <option value="5" <%=user.rol===5 ? 'selected' : '' %>>Cliente Subdistribuidor</option>
+                    <option value="6" <%=user.rol===6 ? 'selected' : '' %>>Cliente Mayorista</option>
+                    <option value="40" <%=user.rol===40 ? 'selected' : '' %>>Administrador General</option>
+                    <option value="30" <%=user.rol===30 ? 'selected' : '' %>>Vendedor</option>
+                    <option value="10" <%=user.rol===10 ? 'selected' : '' %>>Vendedor Administrativo</option>
+                    <option value="20" <%=user.rol===20 ? 'selected' : '' %>>Vendedor Logística</option>
+                  </select>
+                </div>
 
-              <div class="md-form">
-                <input type="password" name="password" id="password" class="form-control">
-               
-              </div>
 
-              <div class="md-form">
-                <input type="password" name="confirm-password" id="confirm-password" class="form-control">
-                
-              </div>
 
-              <!-- Agregar el botón de enviar -->
-              <button type="submit" class="btn btn-primary">Guardar</button>
-            </form>
-            
+                <div class="md-form">
+                  <input type="hidden" name="id_app" id="id_app" value="<%= user.id_app %>" class="form-control">
+                </div>
+
+                <div class="md-form">
+                  <input type="hidden" name="id" id="id" value="<%= user.id %>" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                  <label for="email" class="text-white mt-3">Correo Electrónico:</label>
+                  <div class="form-floating">
+                    <input type="text" name="email" id="email" value="<%= user.email %>" class="form-control">
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="password" class="text-white mt-3">Contraseña:</label>
+                  <div class="form-floating">
+                    <input type="password" name="password" id="password" class="form-control">
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="confirm-password" class="text-white mt-3">Confirmar Nueva Contraseña:</label>
+                  <div class="form-floating">
+                    <input type="password" name="confirm-password" id="confirm-password" class="form-control">
+                  </div>
+                </div>
+
+                <!-- Agregar el botón de enviar -->
+                <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+              </form>
+
+            </div>
+
           </div>
         </div>
       </div>
-    </div>
-  </main>
-  <%- include('../partials/footer') %>
-  <%- include('../partials/scripts') %>
+    </main>
+    <%- include('../partials/footer') %>
+      <%- include('../partials/scripts') %>
 </body>
 
 </html>

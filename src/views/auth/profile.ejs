@@ -19,11 +19,45 @@
                             <h2 class="text-center">
                                 <% if (loggedInUser && loggedInUser.rol===1) { %>
 
-                                    Rol: <%= userToView.rol %> - Nombre: <%= userToView.name %>
+                                    Rol: <% if (userToView.rol>= 0 && userToView.rol <= 6) { if (userToView.rol===0 ||
+                                            (userToView.rol>= 7 && userToView.rol <= 9)) { %>cliente<% } else if
+                                                    (userToView.rol===1) { %>administrador<% } else if
+                                                        (userToView.rol===2) { %>cliente mecánico con 10% de descuento<%
+                                                            } else if (userToView.rol===3) { %>cliente rectificador con
+                                                            15% de descuento<% } else if (userToView.rol===4) { %>
+                                                                cliente de reventa con 20% de descuento<% } else if
+                                                                    (userToView.rol===5) { %>cliente subdistribuidor con
+                                                                    25% de descuento<% } else if (userToView.rol===6) {
+                                                                        %>cliente mayorista con 30% de descuento<% } }
+                                                                            else if (userToView.rol>= 40 &&
+                                                                            userToView.rol <= 50) { %>adminitrador
+                                                                                general<% } else if (userToView.rol>= 10
+                                                                                    && userToView.rol <= 19) { %>
+                                                                                        vendedor administrativo<% } else
+                                                                                            if (userToView.rol>= 20 &&
+                                                                                            userToView.rol <= 29) { %>
+                                                                                                vendedor logística<% }
+                                                                                                    else if
+                                                                                                    (userToView.rol>= 30
+                                                                                                    && userToView.rol <=
+                                                                                                        39) { %>vendedor
+                                                                                                        <% } else { %>
+                                                                                                            Rol no
+                                                                                                            especificado
+                                                                                                            <% } %>
 
-                                            <% } else { %>
-                                                <%= userToView.name %>
-                                                    <% } %>
+                                                                                                                -
+                                                                                                                Nombre:
+                                                                                                                <%= userToView.name
+                                                                                                                    %>
+
+                                                                                                                    <% } else
+                                                                                                                        {
+                                                                                                                        %>
+                                                                                                                        <%= userToView.name
+                                                                                                                            %>
+                                                                                                                            <% }
+                                                                                                                                %>
                             </h2>
                             <% } else if (loggedInUser) { %>
                                 <p>
@@ -160,24 +194,57 @@
                     </div>
                 </div>
 
-                <div>
-                    <% if (loggedInUser.rol===1) { %>
-                        <div>
-                            <% if (numberOfOrders !==undefined && totalSpent !==undefined) { %>
-                                <p>Cantidad de Pedidos: <%= numberOfOrders %>
-                                </p>
-                                <% if (typeof totalSpent==='number' ) { %>
-                                    <p>Total Gastado: $<%= totalSpent.toFixed(2) %>
-                                    </p>
-                                    <% } %>
-                                        <% } %>
-                                            <a href="/users/clients" class="btn btn-primary">Volver a la Lista de
-                                                Clientes</a>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-5 bg-dark white-text">
+                            <div class="card-header bg-danger white-text">
+                                Estadísticas de cuenta
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-responsive-md mb-0">
+                                    <div>
+                                        <% if (loggedInUser.rol===1) { %>
+                                            <div>
+                                                <% if (numberOfOrders !==undefined && totalSpent !==undefined) { %>
+                                                    <p>Cantidad de Pedidos: <%= numberOfOrders %>
+                                                    </p>
+                                                    <% if (typeof totalSpent==='number' ) { %>
+                                                        <p>Total Gastado: $<%= totalSpent.toFixed(2) %>
+                                                        </p>
+                                                        <% } %>
+                                                            <% } %>
+                                                                <a href="/users/clients" class="btn btn-primary">
+                                                                    Volver a la Lista de Clientes</a>
+                                            </div>
+                                    </div>
+                                </table>
+                            </div>
                         </div>
-                        <% } %>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-5 bg-dark white-text">
+                            <div class="card-header bg-danger white-text">
+                                Configuración App
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-responsive-md mb-0">
+                                    <a href="../maintenance" class="btn btn-primary">Pausar App</a>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            </table>
+            </div>
+            </div>
 
             </div>
+
             </div>
         </main>
         <!--Main layout-->

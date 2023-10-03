@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <%- include('./partials/head') %>
+</head>
+
+<body>
+  <%- include('./partials/headeradmin') %>
+    <main class="error white-text">
+      <div class="container" style="margin-top: 150px;">
+        <h1>App en mantenimiento</h1>
+        <h2 class="text-center white-text">
+          Estamos trabajando para mejorar tu experiencia, <br> 
+          gracias por tu paciencia volveremos pronto
+        </h2>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-5 bg-dark white-text">
+                <div class="card-header bg-danger white-text">
+                    Configuración App
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-md mb-0">
+                        <a href="/maintenanceOff" class="btn btn-success">Activar App</a>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    </main>
+</body>
+
+</html>
