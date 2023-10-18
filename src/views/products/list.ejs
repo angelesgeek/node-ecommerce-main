@@ -11,6 +11,7 @@
         <main class="mt-5 pt-4 bg-dark">
             <div class="container">
                 <h2 class="mt-5 mb-3 h2 text-center text-white">Nuestros Productos</h2>
+
                <!-- Formulario de búsqueda-->
                 <form action="/search/searchProducts" method="GET" class="row" id="filter-form">
                   <div class="form-group col-md-6">
@@ -46,10 +47,11 @@
                   <button type="submit" class="btn-sm btn-primary">Filtrar</button>
                 </form>
 
-                <% if (userLogged!=null&&userLogged.rol==1) { %>
-                  <span></span>
-                    <div><a class="btn-sm btn-primary btn-rounded" href="/products/create">Agregar Producto</a></div>
+                <% if (userLogged != null && (userLogged.rol === 1 || (userLogged.rol >= 10 && userLogged.rol <= 19) || (userLogged.rol >= 40 && userLogged.rol <= 50))) { %>
+                 <span></span>
+                 <div><a class="btn-sm btn-primary btn-rounded" href="/products/create">Agregar Producto</a></div>
                 <% } %>
+
 
                         <!-- Mostrar la información de la página actual y el número total de páginas -->
                         <p class="text-white">Página <%= currentPage %> de <%= totalPages %></p>

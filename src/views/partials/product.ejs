@@ -1,6 +1,7 @@
 <!-- Bucle forEach para mostrar la lista de productos -->
 <div class="col-lg-4 col-md-6 mb-4">
-    <p class="text-left text-white">Código: <%= prod.code %></p>
+    <p class="text-left text-white">Código: <%= prod.code %>
+    </p>
     <div class="card text-light bg-dark">
         <div class="row d-flex align-items-center">
             <!-- Semáforo de stock -->
@@ -10,82 +11,96 @@
                     <a href="/products/detail/<%= prod.id %>" class="link">
                         <div class="mask rgba-white-slight"></div>
                     </a>
-                    <% if (prod.stock > 5) { %>
-                    <h6 class="stock-badge" style="position: absolute; top: 10px; right: 10px; background-color: green;">
-                        Stock disponible <%= prod.stock %> u.
-                    </h6>
-                    <% } else if (prod.stock < 2) { %>
-                    <h6 class="stock-badge" style="position: absolute; top: 10px; right: 10px; background-color: red;">
-                        Bajo pedido <%= prod.stock %> u.
-                    </h6>
-                    <% } else if (prod.stock < 20 && prod.stock >= 5) { %>
-                    <h6 class="stock-badge" style="position: absolute; top: 10px; right: 10px; background-color: yellow;">
-                        Consultar stock <%= prod.stock %> u.
-                    </h6>
-                    <% } %>
+                    <% if (prod.stock> 5) { %>
+                        <h6 class="stock-badge"
+                            style="position: absolute; top: 10px; right: 10px; background-color: green;">
+                            Stock disponible <%= prod.stock %> u.
+                        </h6>
+                        <% } else if (prod.stock < 2) { %>
+                            <h6 class="stock-badge"
+                                style="position: absolute; top: 10px; right: 10px; background-color: red;">
+                                Bajo pedido <%= prod.stock %> u.
+                            </h6>
+                            <% } else if (prod.stock < 20 && prod.stock>= 5) { %>
+                                <h6 class="stock-badge"
+                                    style="position: absolute; top: 10px; right: 10px; background-color: yellow;">
+                                    Consultar stock <%= prod.stock %> u.
+                                </h6>
+                                <% } %>
                 </div>
             </div>
 
             <% if (isHomePage) { %>
-            <!-- Código para el home -->
-            <div class="col-6 right">
-                <div class="card-body">
-                    <h6 class="font-weight-normal text-light">
-                        <%= prod.name %>
-                        <% if (prod.marked) { %>
-                        <span class="badge badge-pill primary-color">Nuevo</span>
-                        <% } %>
-                    </h6>
-                    <p>Marca: <%= prod.brand %></p>
-                    <p>Automotriz: <%= prod.automotive %></p>
-                    <p>Motor: <%= prod.engine %></p>
-                </div>
-            </div>
-            <% } else { %>
-            <!-- Código para el listado de productos -->
-            <div class="col-6 right">
-                <div class="card-body">
-                    <h6 class="font-weight-normal text-light">
-                        <%= prod.name %>
-                        <% if (prod.marked) { %>
-                        <span class="badge badge-pill primary-color">Nuevo</span>
-                        <% } %>
-                    </h6>
-                    <p>Marca: <%= prod.brand %></p>
-                    <p>Automotriz: <%= prod.automotive %></p>
-                    <p>Motor: <%= prod.engine %></p>
-                    <p>Modelo: <%= prod.model %></p>
-                    <p>Num OE: <%= prod.oe_number %></p>
-                    <p>$<%= prod.price %> - <%= prod.price_update %></p>
-                    <a href="/products/detail/<%= prod.id %>" class="text-light link">Ver detalles</a>
-                    <div class="d-flex">
-                        <button class="btn btn-primary btn-sm agregar_carrito" data-id="<%= prod.id %>">
-                            Agregar al Pedido
-                        </button>
+                <!-- Código para el home -->
+                <div class="col-6 right">
+                    <div class="card-body">
+                        <h6 class="font-weight-normal text-light">
+                            <%= prod.name %>
+                                <% if (prod.marked) { %>
+                                    <span class="badge badge-pill primary-color">Nuevo</span>
+                                    <% } %>
+                        </h6>
+                        <p>Marca: <%= prod.brand %>
+                        </p>
+                        <p>Automotriz: <%= prod.automotive %>
+                        </p>
+                        <p>Motor: <%= prod.engine %>
+                        </p>
                     </div>
                 </div>
-            </div>
-            <!-- Whatsapp-->
-            <div class="d-flex justify-content-center">
-                <a href="https://wa.me/3513441314" target="_blank" class="whatsapp-icon text-white btn-sm btn-success">
-                    <i class="fab fa-whatsapp"> Consultar</i>
-                </a>
-            </div>
-            <% } %>
+                <% } else { %>
+                    <!-- Código para el listado de productos -->
+                    <div class="col-6 right">
+                        <div class="card-body">
+                            <h6 class="font-weight-normal text-light">
+                                <%= prod.name %>
+                                    <% if (prod.marked) { %>
+                                        <span class="badge badge-pill primary-color">Nuevo</span>
+                                        <% } %>
+                            </h6>
+                            <p>Marca: <%= prod.brand %>
+                            </p>
+                            <p>Automotriz: <%= prod.automotive %>
+                            </p>
+                            <p>Motor: <%= prod.engine %>
+                            </p>
+                            <p>Modelo: <%= prod.model %>
+                            </p>
+                            <p>Num OE: <%= prod.oe_number %>
+                            </p>
+                            <p>$<%= prod.price %> - <%= prod.price_update %>
+                            </p>
+                            <a href="/products/detail/<%= prod.id %>" class="text-light link">Ver detalles</a>
+                            <div class="d-flex">
+                                <button class="btn btn-primary btn-sm agregar_carrito" data-id="<%= prod.id %>">
+                                    Agregar al Pedido
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Whatsapp-->
+                    <div class="d-flex justify-content-center">
+                        <a href="https://wa.me/3513441314" target="_blank"
+                            class="whatsapp-icon text-white btn-sm btn-success">
+                            <i class="fab fa-whatsapp"> Consultar</i>
+                        </a>
+                    </div>
+                    <% } %>
         </div>
     </div>
-             <!-- Botones de edición-->
-    <% if (typeof userLogged !== 'undefined' && userLogged && userLogged.rol === 1) { %>
-    <div class="d-flex justify-content-around mt-3">
-        <a type="button" href="/products/edit/<%= prod.id %>" class="btn btn-warning btn-sm btn-floating">
-            <i class="fas fa-edit"></i>
-        </a>
-        <!-- Botón de eliminar con Toastr para la confirmación -->
-        <button class="btn btn-danger btn-floating btn-sm" onclick="showDeleteConfirmation('<%= prod.id %>')">
-            <i class="fas fa-trash-alt"></i>
-        </button>
-    </div>
+    <!-- Botones de edición-->
+    <% if (typeof userLogged !== 'undefined' && userLogged && (userLogged.rol === 1 || (userLogged.rol >= 10 && userLogged.rol <= 19) || (userLogged.rol >= 40 && userLogged.rol <= 50))) { %>
+        <div class="d-flex justify-content-around mt-3">
+            <a type="button" href="/products/edit/<%= prod.id %>" class="btn btn-warning btn-sm btn-floating">
+                <i class="fas fa-edit"></i>
+            </a>
+            <!-- Botón de eliminar con Toastr para la confirmación -->
+            <button class="btn btn-danger btn-floating btn-sm" onclick="showDeleteConfirmation('<%= prod.id %>')">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
     <% } %>
+    
 </div>
 
 <!-- Cuadro de diálogo de confirmación -->
@@ -97,7 +112,8 @@
                 <p>¿Estás seguro de que deseas eliminar este producto?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" onclick="deleteProduct('<%= prod.id %>')">Aceptar</button>
+                <button type="button" class="btn btn-danger btn-sm"
+                    onclick="deleteProduct('<%= prod.id %>')">Aceptar</button>
                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
             </div>
         </div>

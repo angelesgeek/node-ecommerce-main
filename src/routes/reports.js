@@ -6,7 +6,6 @@ const multer = require("multer");
 const controller = require("../controllers/reportsController");
 const maintenanceMiddleware = require("../middlewares/maintenanceMiddleware");
 
-
-router.get("/", maintenanceMiddleware, controller.renderReports);
+router.get("/", adminMiddleware, maintenanceMiddleware, controller.renderReports);
 
 module.exports = router;

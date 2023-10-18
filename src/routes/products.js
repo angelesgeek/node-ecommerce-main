@@ -5,6 +5,8 @@ const multer = require("multer");
 
 const controller = require("../controllers/productController");
 const maintenanceMiddleware = require("../middlewares/maintenanceMiddleware");
+const vendorAuthorizationMiddleware = require("../middlewares/vendorAuthorizationMiddleware");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -28,11 +30,11 @@ router.get("/", maintenanceMiddleware, controller.index);
 router.get("/detail/:id", maintenanceMiddleware, controller.detail);
 
 // Rutas para crear
-router.get("/create", maintenanceMiddleware, controller.create);
+router.get("/create", authMiddleware, vendorAuthorizationMiddleware, maintenanceMiddleware, controller.create);
 router.post("/", upload.single("img"), maintenanceMiddleware, controller.store);
 
 // Rutas para editar
-router.get("/edit/:id", maintenanceMiddleware, controller.edit);
+router.get("/edit/:id", maintenanceMiddleware, vendorAuthorizationMiddleware, controller.edit);
 router.put("/:id", upload.single("img"), maintenanceMiddleware, controller.update);
 
 // Ruta para eliminar

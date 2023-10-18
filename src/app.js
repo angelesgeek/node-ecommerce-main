@@ -12,13 +12,17 @@ const userRouter = require("./routes/users");
 const productsRouter = require("./routes/products");
 const authRouter = require("./routes/auth");
 const apiRouter = require("./routes/api");
+const ordersRouter = require("./routes/orders");
+const reportsRouter = require("./routes/reports");
+const messageRouter = require("./routes/message");
+
 const sessionMiddleware = require("./middlewares/sessionMiddleware");
 const adminMiddleware = require("./middlewares/adminMiddleware");
 const sessionTimeMiddleware = require("./middlewares/sessionTimeMiddleware");
 const menuMiddleware = require("./middlewares/menuMiddleware");
-const ordersRouter = require("./routes/orders");
-const reportsRouter = require("./routes/reports");
-const messageRouter = require("./routes/message");
+
+
+
 
 const app = express();
 
@@ -46,8 +50,8 @@ app.use(
 // esto es un middleware de tiempo de session
 app.use(sessionMiddleware);
 app.use(sessionTimeMiddleware);
-
 app.use(menuMiddleware);
+
 app.use("/", indexRouter);
 app.use("/", authRouter);
 app.use("/users/", adminMiddleware, userRouter);

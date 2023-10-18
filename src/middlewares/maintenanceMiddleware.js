@@ -2,6 +2,7 @@ const app = require('../app');
 
 const maintenanceMiddleware = (req, res, next) => {
   if (global.modoDeMantenimientoActivado) {
+    
     // Si el modo de mantenimiento está activado, muestra la vista de mantenimiento.
     return res.render("maintenanceMode.ejs", { userLogged: req.session.userLogged });
   }
