@@ -14,9 +14,14 @@
                 Listado de Clientes
             </h2>
             <div class="card mb-5 bg-dark white-text">
+
+                <% if (typeof userLogged !== 'undefined' && userLogged && (userLogged.rol === 1 || (userLogged.rol >= 10 && userLogged.rol <= 19))) { %>
                     <div class="card-header">
-                        <a href="/Register" class="btn btn-info ml-0">Agregar Nuevo Cliente</a>
+                      <a href="/Register" class="btn btn-info ml-0">Agregar Nuevo Cliente</a>
                     </div>
+                  <% } %>
+                  
+
                     <div class="card-body">
                         <table class="table table-responsive-md mb-0 white-text">
                             <thead>

@@ -29,9 +29,10 @@
           </div>
 
           <div class="form-group">
-            <input type="hidden" name="id_app" value="null" id="id_app" value="<%= locals.olds && olds.id_app ? olds.id_app : '' %>"
+              
+            <input type="hidden" name="id_app" id="id_app"
               class="form-control bg-dark white-text">
-
+            
             <% if (locals.errors && errors.id_app) { %>
               <span>
                 <%= errors.id_app.msg %>

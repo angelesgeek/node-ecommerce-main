@@ -204,7 +204,7 @@
                             <div class="card-body">
                                 <table class="table table-responsive-md mb-0">
                                     <div>
-                                        <% if (loggedInUser.rol===1) { %>
+                                        <% if (loggedInUser.rol === 1 || (loggedInUser.rol >= 40 && loggedInUser.rol <= 50)) { %>
                                             <div>
                                                 <% if (numberOfOrders !==undefined && totalSpent !==undefined) { %>
                                                     <p>Cantidad de Pedidos: <%= numberOfOrders %>

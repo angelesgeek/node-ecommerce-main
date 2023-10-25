@@ -1,17 +1,22 @@
 <tr>
-    <td>
-      <%= user.id_app || 0 %>
-    </td>
-    <td>
-      <%= user.name %>
-    </td>
-    <td>
-      <%= user.email %>
-    </td>
-    <td>
-      <a class="btn btn-warning btn-sm" href="/profile/<%= user.id %>">Ver</a>
-      <a class="btn btn-warning btn-sm" href="/edit/<%= user.id %>">Editar</a>
-      <a class="btn btn-warning btn-sm" href="/delete/<%= user.id %>">Eliminar</a>
-    </td>
-  </tr>
-  
+  <td>
+    <%= user.id_app || 0 %>
+  </td>
+  <td>
+    <%= user.name %>
+  </td>
+  <td>
+    <%= user.email %>
+  </td>
+  <td>
+    <a class="btn btn-warning btn-sm" href="/profile/<%= user.id %>">Ver</a>
+
+    <% if (typeof userLogged !=='undefined' && userLogged && (userLogged.rol===1 || (userLogged.rol>= 10 &&
+      userLogged.rol <= 19))) { %>
+        <a class="btn btn-warning btn-sm" href="/edit/<%= user.id %>">Editar</a>
+        <a class="btn btn-warning btn-sm" href="/delete/<%= user.id %>">Eliminar</a>
+        <% } %>
+
+
+  </td>
+</tr>

@@ -3,20 +3,35 @@ const { Op } = require('sequelize');
 
 const controller = {
   index: async function (req, res) {
-    let users = await db.User.findAll({ where: { rol: 0 } });
+    let users = await db.User.findAll({
+      where: {
+        [db.Sequelize.Op.or]: [
+          { rol: 0 },
+          { rol: { [db.Sequelize.Op.between]: [2, 9] } }
+        ]
+      }
+    });
     return res.render("list", { users, userLogged: req.session.userLogged });
   },
 
+
   indexAdmin: async function (req, res) {
-    let users = await db.User.findAll({ where: { rol: 1 } });
+    const { Op } = require('sequelize');
+    let users = await db.User.findAll({
+      where: {
+        rol: {
+          [Op.or]: [1, { [Op.between]: [40, 50] }]
+        }
+      }
+    });
     return res.render("listAdmin", { users, userLogged: req.session.userLogged });
   },
 
   indexVendor: async function (req, res) {
-    let users = await db.User.findAll({ 
+    let users = await db.User.findAll({
       where: {
         rol: {
-          [Op.between]: [10, 40]
+          [Op.between]: [10, 39]
         }
       }
     });
