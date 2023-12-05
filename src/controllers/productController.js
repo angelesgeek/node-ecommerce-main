@@ -134,21 +134,22 @@ const controller = {
   edit: async function (req, res) {
     try {
       let product = await db.Product.findByPk(req.params.id);
+      
       if (!product) {
         return res.status(404).send("Producto no encontrado");
       }
   
-      // Buscar los productos sustitutos en la tabla subs_products
+      
       const subsProducts = await db.Subs_products.findAll({
         where: { prod_id: req.params.id },
       });
   
-      // Obtener los números de OE de los productos sustitutos
+      
       const substituteOEList = subsProducts.map(subsProduct => subsProduct.oe_number);
   
       return res.render("products/edit", {
         product,
-        substituteOEList, // Pasar la lista de números de OE de productos sustitutos
+        substituteOEList,
         userLogged: req.session.userLogged,
       });
     } catch (err) {
@@ -161,11 +162,21 @@ const controller = {
     try {
       const productId = req.params.id;
       const substituteOEList = req.body.substituteProducts.split(',').map(oe => oe.trim());
-  
-      // Eliminar todos los productos sustitutos asociados a este producto
+      let imgPath = '';
+
+      if (req.file) {
+        imgPath = req.file.path; // Ruta de la nueva imagen
+      }
+
+      // Actualiza la imagen solo si se ha subido una nueva
+    if (imgPath !== '') {
+      // Realiza la lógica para guardar la nueva ruta de la imagen en la base de datos
+      await db.Product.update({ img: imgPath }, { where: { id: productId } });
+    }
+      
       await db.Subs_products.destroy({ where: { prod_id: productId } });
   
-      // Crear nuevos registros para los productos sustitutos
+      
       for (const oeNumber of substituteOEList) {
         const substituteProduct = await db.Product.findOne({ where: { oe_number: oeNumber } });
         if (substituteProduct) {
@@ -181,8 +192,8 @@ const controller = {
           });
         }
       }
+
   
-      // Resto de la lógica de actualización del producto (si hay más campos)
   
       return res.redirect("/products/edit/" + productId + "?success=Producto editado exitosamente");
     } catch (err) {

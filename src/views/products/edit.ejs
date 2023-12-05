@@ -25,7 +25,7 @@
               </div>
               
               <div class="form-floating mb-3">
-                <input type="number" name="code" id="code" class="form-control bg-dark text-white border-bottom" value="<%= product.code %>">
+                <input type="text" name="code" id="code" class="form-control bg-dark text-white border-bottom" value="<%= product.code %>">
                 <label for="code" class="text-white">Código</label>
               </div>
             
@@ -55,8 +55,8 @@
               </div>
             
               <div class="form-floating mb-3">
-                <input type="number" name="oe_number" id="oe_number" class="form-control bg-dark text-white border-bottom" value="<%= product.oe_number %>">
-                <label for="oe_number" class="text-white">Num. OE</label>
+                <input type="text" name="oe_number" id="oe_number" class="form-control bg-dark text-white border-bottom" value="<%= product.oe_number %>">
+                <label for="otexter" class="text-white">Num. OE</label>
               </div>
             
               <div class="form-floating mb-3">
@@ -85,7 +85,8 @@
               </div>
 
               <div class="custom-file mb-3">
-                <input type="file" class="custom-file-input bg-dark text-white border-bottom" name="img" id="img" aria-describedby="inputImage" lang="es">
+                <input type="file" class="custom-file-input bg-dark text-white border-bottom" 
+                name="img" id="img" aria-describedby="inputImage" value="<%= product.img %>" lang="es">
                 <label class="custom-file-label" for="img">Elegir Foto</label>
               </div>
             
